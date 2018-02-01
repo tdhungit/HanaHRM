@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import {Switch, Route} from 'react-router-dom';
+import {Container} from 'reactstrap';
 
-import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
+import {Meteor} from 'meteor/meteor';
+import {Roles} from 'meteor/alanning:roles';
 
 import container from '../../../common/Container';
 
@@ -17,7 +17,7 @@ import Signup from '../pages/auth/Signup';
 import RecoverPassword from '../pages/auth/RecoverPassword';
 import ResetPassword from '../pages/auth/ResetPassword';
 
-import Index from '../pages/index/Index';
+import Dashboard from '../pages/dashboard/Dashboard';
 import NotFound from '../pages/index/NotFound';
 
 import Users from '../pages/users/Users';
@@ -26,25 +26,27 @@ class App extends Component {
     render() {
         const appProps = this.props;
         return (
-            <Router>
-                <div className="PenguinHRM">
-                    {appProps.loading ? <div>loading</div> : null}
-                    <AppNavigation {...appProps} />
-                    <main className="main">
-                        <Container fluid>
-                            <Switch>
-                                <Route exact name="index" path="/" component={Index} />
-                                <Authenticate exact path="/users" component={Users} {...appProps} />
-                                <Public path="/signup" component={Signup} {...appProps} />
-                                <Public path="/login" component={Login} {...appProps} />
-                                <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-                                <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-                                <Route component={NotFound} />
-                            </Switch>
-                        </Container>
-                    </main>
-                </div>
-            </Router>
+            <div className="PenguinHRMManager">
+                {appProps.loading ? <div className="AppLoading">loading</div> : null}
+                <AppNavigation {...appProps} />
+                <main className="main">
+                    <Container fluid>
+                        <Switch>
+                            <Route exact path="/manager" component={Dashboard}/>
+
+                            <Authenticate path="/manager/users" component={Users} {...appProps} />
+
+                            <Public path="/manager/signup" component={Signup} {...appProps} />
+                            <Public path="/manager/login" component={Login} {...appProps} />
+
+                            <Route path="/manager/recover-password" component={RecoverPassword}/>
+                            <Route path="/manager/reset-password/:token" component={ResetPassword}/>
+
+                            <Route component={NotFound}/>
+                        </Switch>
+                    </Container>
+                </main>
+            </div>
         );
     }
 }
