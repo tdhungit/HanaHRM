@@ -22,30 +22,43 @@ import NotFound from '../pages/index/NotFound';
 
 import Users from '../pages/users/Users';
 
+import Index from "../pages/index/Index";
+import About from "../pages/index/About";
+
 class App extends Component {
     render() {
         const appProps = this.props;
         return (
-            <div className="PenguinHRMManager">
+            <div className="PenguinHRM">
                 {appProps.loading ? <div className="AppLoading">loading</div> : null}
-                <AppNavigation {...appProps} />
-                <main className="main">
-                    <Container fluid>
-                        <Switch>
-                            <Route exact path="/manager" component={Dashboard}/>
+                <Switch>
+                    <Route path="/" component={Index}>
+                        <main className="PenguinHRMPublic main">
+                            <Switch>
+                                <Route path="/about-us" component={About}/>
+                            </Switch>
+                        </main>
+                    </Route>
 
-                            <Authenticate path="/manager/users" component={Users} {...appProps} />
+                    <Route path="/manager" component={Dashboard}>
+                        <AppNavigation {...appProps} />
+                        <main className="PenguinHRMManager main">
+                            <Container fluid>
+                                <Switch>
+                                    <Authenticate path="/manager/users" component={Users} {...appProps} />
 
-                            <Public path="/manager/signup" component={Signup} {...appProps} />
-                            <Public path="/manager/login" component={Login} {...appProps} />
+                                    <Public path="/manager/signup" component={Signup} {...appProps} />
+                                    <Public path="/manager/login" component={Login} {...appProps} />
 
-                            <Route path="/manager/recover-password" component={RecoverPassword}/>
-                            <Route path="/manager/reset-password/:token" component={ResetPassword}/>
+                                    <Route path="/manager/recover-password" component={RecoverPassword}/>
+                                    <Route path="/manager/reset-password/:token" component={ResetPassword}/>
+                                </Switch>
+                            </Container>
+                        </main>
+                    </Route>
 
-                            <Route component={NotFound}/>
-                        </Switch>
-                    </Container>
-                </main>
+                    <Route component={NotFound}/>
+                </Switch>
             </div>
         );
     }

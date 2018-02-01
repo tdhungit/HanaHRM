@@ -13,11 +13,8 @@ import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import '/app/scss/style.scss';
 
-// Backend
+// Routes
 import App from '../app/ui/default/layouts/App';
-
-// Frontend
-import Frontend from '../app/ui/default/layouts/Frontend';
 
 import NotFound from '../app/ui/default/pages/index/NotFound';
 
@@ -25,10 +22,8 @@ Meteor.startup(() => {
     render((
         <Router>
             <Switch>
-                <Route path="/" component={Frontend}/>
-                <Route path="/manager" component={App}/>
+                <Route path="/" component={App}/>
                 <Route exact path="/404" component={NotFound}/>
-                <Route component={NotFound} />
             </Switch>
         </Router>
     ), document.getElementById('PenguinHRMApp'));
