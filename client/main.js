@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from 'react-dom';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import { Meteor } from 'meteor/meteor';
+import {render} from 'react-dom';
+
+import {Meteor} from 'meteor/meteor';
 
 // Styles
 // Import Flag Icons Set
@@ -16,15 +16,8 @@ import '/app/scss/style.scss';
 // Routes
 import App from '../app/ui/default/layouts/App';
 
-import NotFound from '../app/ui/default/pages/index/NotFound';
-
 Meteor.startup(() => {
     render((
-        <Router>
-            <Switch>
-                <Route path="/" component={App}/>
-                <Route exact path="/404" component={NotFound}/>
-            </Switch>
-        </Router>
+        <App/>
     ), document.getElementById('PenguinHRMApp'));
 });

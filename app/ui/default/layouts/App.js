@@ -1,65 +1,28 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route} from 'react-router-dom';
-import {Container} from 'reactstrap';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
 
 import container from '../../../common/Container';
 
-import AppNavigation from '../components/AppNavigation';
-
-import Authenticate from '../pages/auth/Authenticate';
-import Public from '../pages/auth/Public';
-import Login from '../pages/auth/Login';
-import Signup from '../pages/auth/Signup';
-import RecoverPassword from '../pages/auth/RecoverPassword';
-import ResetPassword from '../pages/auth/ResetPassword';
-
-import Dashboard from '../pages/dashboard/Dashboard';
-import NotFound from '../pages/index/NotFound';
-
-import Users from '../pages/users/Users';
-
-import Index from "../pages/index/Index";
-import About from "../pages/index/About";
+import ManagerLayout from "./ManagerLayout";
+import HomeLayout from "./HomeLayout";
 
 class App extends Component {
     render() {
         const appProps = this.props;
         return (
-            <div className="PenguinHRM">
-                {appProps.loading ? <div className="AppLoading">loading</div> : null}
-                <Switch>
-                    <Route path="/" component={Index}>
-                        <main className="PenguinHRMPublic main">
-                            <Switch>
-                                <Route path="/about-us" component={About}/>
-                            </Switch>
-                        </main>
-                    </Route>
-
-                    <Route path="/manager" component={Dashboard}>
-                        <AppNavigation {...appProps} />
-                        <main className="PenguinHRMManager main">
-                            <Container fluid>
-                                <Switch>
-                                    <Authenticate path="/manager/users" component={Users} {...appProps} />
-
-                                    <Public path="/manager/signup" component={Signup} {...appProps} />
-                                    <Public path="/manager/login" component={Login} {...appProps} />
-
-                                    <Route path="/manager/recover-password" component={RecoverPassword}/>
-                                    <Route path="/manager/reset-password/:token" component={ResetPassword}/>
-                                </Switch>
-                            </Container>
-                        </main>
-                    </Route>
-
-                    <Route component={NotFound}/>
-                </Switch>
-            </div>
+            <Router>
+                <div className="PenguinHRM">
+                    {appProps.loading ? <div className="AppLoading">loading</div> : null}
+                    <Switch>
+                        <Route path="/manager" component={ManagerLayout} {...appProps}/>
+                        <Route path="/" component={HomeLayout} {...appProps}/>
+                    </Switch>
+                </div>
+            </Router>
         );
     }
 }
