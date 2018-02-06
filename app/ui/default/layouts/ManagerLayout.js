@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
 import {Container} from 'reactstrap';
 
-import AppNavigation from '../components/AppNavigation';
-import Sidebars from '../components/Sidebars';
+// Import component
+import Authenticate from '../components/Router/Authenticate';
+import Header from '../components/Header/Header';
+import AppNavigation from '../components/Navigation/AppNavigation';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 import Dashboard from '../pages/dashboard/Dashboard';
 
 import Users from '../pages/users/Users';
-
-import Authenticate from '../pages/auth/Authenticate';
-import Public from '../pages/auth/Public';
 
 export default class ManagerLayout extends Component {
     constructor(props) {
@@ -20,16 +19,18 @@ export default class ManagerLayout extends Component {
     render() {
         const appProps = this.props;
         return (
-            <div className="PenguinHRMManager">
-                <AppNavigation {...appProps} />
-                <main className="main">
-                    <Container fluid>
-                        <Route path="/manager" component={Sidebars} {...appProps}/>
-                        <Route exact path="/manager" component={Dashboard} {...appProps}/>
-
-                        <Authenticate exact path="/manager/users" component={Users} {...appProps} />
-                    </Container>
-                </main>
+            <div className="PenguinHRMManager app">
+                <Header/>
+                <div className="app-body">
+                    <AppNavigation {...appProps} />
+                    <Sidebar {...appProps}/>
+                    <main className="main">
+                        <Container fluid>
+                            <Authenticate exact path="/manager" component={Dashboard} {...appProps}/>
+                            <Authenticate exact path="/manager/users" component={Users} {...appProps} />
+                        </Container>
+                    </main>
+                </div>
             </div>
         );
     }

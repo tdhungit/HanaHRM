@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 export default class Dashboard extends Component {
     render() {
         return (
-            <div className="index-Dashboard">
-                <h2>Dashboard</h2>
-                <i className="fa fa-facebook"/>
+            <div className="index-Dashboard animated fadeIn">
+
             </div>
         );
     }

@@ -7,7 +7,7 @@ const Authenticate = ({ loggingIn, authenticated, component, ...rest }) => (
         if (loggingIn) return <div></div>;
         return authenticated ?
         (React.createElement(component, { ...props, loggingIn, authenticated })) :
-        (<Redirect to="/manager/login" />);
+        (<Redirect to="/login" />);
     }} />
 );
 

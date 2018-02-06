@@ -1,7 +1,7 @@
 # Penguin HRM
 
 ## Refer
-* Core UI scss
+* Core UI template
 
 
 ## Install
@@ -13,5 +13,8 @@
 
 ### Build from source
 * git clone 
-* cd myubibackend
+* cd PenguinHRM
 * meteor npm install
+
+### Run
+* meteor
