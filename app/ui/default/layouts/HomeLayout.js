@@ -13,7 +13,7 @@ export default class HomeLayout extends Component {
     render() {
         return (
             <div className="PenguinHRMHome">
-                <main className="main">
+                <main className="mainpage">
                     <Route exact path="/" component={Index}/>
                     <Route exact path="/about-us" component={About}/>
                     <Route exact path="/404" component={NotFound}/>

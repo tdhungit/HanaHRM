@@ -7,11 +7,14 @@ import {Roles} from 'meteor/alanning:roles';
 
 import container from '../../../common/Container';
 
+// Import layout
 import ManagerLayout from "./ManagerLayout";
 import HomeLayout from "./HomeLayout";
 
+// Import custom router
 import Public from '../pages/auth/Public';
 
+// Import view
 import Login from '../pages/auth/Login';
 import Signup from '../pages/auth/Signup';
 import RecoverPassword from '../pages/auth/RecoverPassword';

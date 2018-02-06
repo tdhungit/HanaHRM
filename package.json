@@ -30,8 +30,6 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.36",
     "bootstrap": "^4.0.0",
-    "flag-icon-css": "^2.9.0",
-    "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "meteor-node-stubs": "^0.3.2",
     "react": "^16.2.0",
@@ -39,8 +37,7 @@
     "react-dom": "^16.2.0",
     "react-komposer": "^2.0.0",
     "react-router-dom": "^4.2.2",
-    "reactstrap": "^5.0.0-alpha.4",
-    "simple-line-icons": "^2.4.1"
+    "reactstrap": "^5.0.0-alpha.4"
   },
   "cssModules": {
     "specificArchitecture": false

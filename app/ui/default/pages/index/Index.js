@@ -18,7 +18,7 @@ export default class Index extends Component {
                             <h2>HRM</h2>
                             <span>Open Source</span>
 
-                            <div class="content2">
+                            <div className="content2">
                                 <ul>
                                     <li>
                                         <Link to="/login" className="book popup-with-zoom-anim">Login to Backend</Link>
