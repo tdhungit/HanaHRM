@@ -40,5 +40,8 @@
     "react-router-dom": "^4.2.2",
     "reactstrap": "^5.0.0-alpha.4",
     "simple-line-icons": "^2.4.1"
+  },
+  "cssModules": {
+    "specificArchitecture": false
   }
 }

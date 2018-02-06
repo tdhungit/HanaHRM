@@ -1,0 +1,496 @@
+.index-Index {
+  font-family: 'Arvo', serif;
+  font-size: 100%;
+  background: #fff;
+  background: url(./images/bg.jpg) no-repeat center top;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  text-align: center;
+  padding: 5em 0;
+
+  article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+
+  ol, ul {
+    list-style: none;
+    margin: 30px 0 0;
+    padding: 0px;
+  }
+
+  blockquote, q {
+    quotes: none;
+  }
+
+  blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  /*--start editing from here--*/
+  a {
+    text-decoration: none;
+  }
+
+  .txt-rt {
+    text-align: right;
+  }
+
+  /* text align right */
+  .txt-lt {
+    text-align: left;
+  }
+
+  /* text align left */
+  .txt-center {
+    text-align: center;
+  }
+
+  /* text align center */
+  .float-rt {
+    float: right;
+  }
+
+  /* float right */
+  .float-lt {
+    float: left;
+  }
+
+  /* float left */
+  .clear {
+    clear: both;
+  }
+
+  /* clear float */
+  .pos-relative {
+    position: relative;
+  }
+
+  /* Position Relative */
+  .pos-absolute {
+    position: absolute;
+  }
+
+  /* Position Absolute */
+  .vertical-base {
+    vertical-align: baseline;
+  }
+
+  /* vertical align baseline */
+  .vertical-top {
+    vertical-align: top;
+  }
+
+  /* vertical align top */
+  nav.vertical ul li {
+    display: block;
+  }
+
+  /* vertical menu */
+  nav.horizontal ul li {
+    display: inline-block;
+  }
+
+  /* horizontal menu */
+  img {
+    max-width: 100%;
+  }
+
+  a {
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+
+  /*--background--*/
+  h1 {
+    font-size: 65px;
+    text-transform: uppercase;
+    color: #fff;
+    word-spacing: 26px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+
+  p {
+    color: #fff;
+    margin: 10px 0;
+    letter-spacing: 2px;
+    font-size: 17px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /*--//background--*/
+  /*--timer--*/
+  #counter {
+    height: 190px;
+    font-size: 60px;
+    color: #FFF;
+    margin: 80px 0 30px;
+    overflow: hidden;
+  }
+
+  .timer {
+    border-top: 2px ridge #5F5F5F;
+    border-bottom: 2px ridge #5F5F5F;
+  }
+
+  .timer h4 {
+    font-size: 14px;
+    color: #E5E5E5;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    margin-top: 20px;
+  }
+
+  .countDays, .countHours, .countMinutes, .countSeconds {
+    display: inline-block;
+    padding: 35px 0;
+    float: left;
+    width: 24.7%;
+    background: rgba(4, 31, 167, 0.1);
+    border: 1px solid rgba(193, 175, 78, 0.28);
+    background: transparent;
+    border: none;
+    border-left: none;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+  }
+
+  .countDays, .countHours, .countMinutes, .countSeconds {
+    border-left: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.84);
+    border-top: 1px solid rgba(255, 255, 255, 0.84);
+    border-left: 1px dotted rgba(255, 255, 255, 0.84);
+    border-right: 1px dotted rgba(255, 255, 255, 0.84);
+  }
+
+  .countSeconds:last-child {
+    border-right: 1px dotted rgba(255, 255, 255, 0.84);
+  }
+
+  .timer_wrap {
+    width: 53%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .points {
+    float: left;
+    width: 40px;
+    margin: 0;
+    font-size: 44px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 138px;
+    text-shadow: none;
+    color: #FFF;
+    display: none;
+  }
+
+  .boxName {
+    float: left;
+    width: 100%;
+    font-size: 20px;
+    color: #fff;
+    font-style: italic;
+    font-weight: 500;
+    text-transform: uppercase;
+    clear: both;
+    padding: 2px;
+  }
+
+  /* --//timer-- */
+  /*--newsletter--*/
+  .newsletter {
+    margin: 0em auto 0;
+    width: 60%;
+  }
+
+  .newsletter h2 {
+    color: #fff;
+    font-size: 25px;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+  }
+
+  .newsletter input[type="email"] {
+    padding: 16px 2%;
+    width: 50%;
+    margin-right: 0px;
+    letter-spacing: 2px;
+    font-size: 15px;
+    color: #fff;
+    max-width: 96%;
+    outline: none;
+    display: inline-block;
+    vertical-align: middle;
+    background: rgba(14, 14, 13, 0.62);
+    border-bottom: 2px solid #fff;
+    border-right: 0px;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  ::-webkit-input-placeholder {
+    color: #fff !important;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: #fff !important;
+  }
+
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: #fff !important;
+  }
+
+  :-ms-input-placeholder {
+    color: #fff !important;
+  }
+
+  .newsletter input[type="submit"] {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 500;
+    border: none;
+    background: #00a98f;
+    padding: 15px 30px;
+    outline: none;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .newsletter input[type="submit"]:hover {
+    background: rgb(202, 173, 30);
+  }
+
+  span.Minutes {
+    color: #fff;
+  }
+
+  /*--//newsletter--*/
+  /*--copyright--*/
+  .copy p {
+    color: #fff;
+    font-size: 15px;
+    margin-top: 40px;
+    letter-spacing: 1px;
+  }
+
+  .copy p a {
+    color: #00ffff;
+    text-decoration: none;
+  }
+
+  .copy p a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .agileinfo_social_icons li {
+    display: inline-block;
+    margin: 0 .2em;
+  }
+
+  .agileinfo_social_icons li a {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+
+  .agileinfo_social_icons li a i {
+    line-height: 2.2em;
+    color: #fff;
+  }
+
+  .agileinfo_social_icons li a:hover {
+    color: #fff;
+  }
+
+  .w3_agileits_facebook:hover {
+    background: #3b5998;
+    border: 2px solid #3b5998;
+  }
+
+  .wthree_twitter:hover {
+    background: #1da1f2;
+    border: 2px solid #1da1f2;
+  }
+
+  .agileinfo_google:hover {
+    background: #dd4b39;
+    border: 2px solid #dd4b39;
+  }
+
+  .agileits_pinterest:hover {
+    background: #bd081c;
+    border: 2px solid #bd081c;
+  }
+
+  .w3ls_rss:hover {
+    background: #f26522;
+    border: 2px solid #f26522;
+  }
+
+  /*--//copyright--*/
+
+  /** Responsive**/
+  @media screen and (max-width: 1024px) {
+    .timer_wrap {
+      width: 60%;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .timer_wrap {
+      width: 65%;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    h1 {
+      font-size: 55px;
+    }
+
+    .timer_wrap {
+      width: 80%;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    h1 {
+      font-size: 53px;
+    }
+  }
+
+  @media screen and (max-width: 736px) {
+    h1 {
+      font-size: 50px;
+    }
+  }
+
+  @media screen and (max-width: 667px) {
+    h1 {
+      font-size: 45px;
+    }
+
+    .newsletter input[type="email"] {
+      width: 57%;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .newsletter input[type="submit"] {
+      padding: 15px 25px;
+    }
+
+    #counter {
+      margin: 60px 0 30px;
+    }
+
+    .copy p {
+      font-size: 14px;
+    }
+
+    .newsletter {
+      width: 70%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .copy p {
+      line-height: 1.8em;
+    }
+  }
+
+  @media screen and (max-width: 568px) {
+    .timer_wrap {
+      width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .timer_wrap {
+      width: 95%;
+    }
+
+    .newsletter {
+      width: 85%;
+    }
+  }
+
+  @media screen and (max-width: 414px) {
+    h1 {
+      font-size: 37px;
+    }
+
+    p {
+      letter-spacing: 1px;
+      font-size: 17px;
+    }
+
+    .countDays, .countHours, .countMinutes, .countSeconds {
+      width: 49%;
+    }
+
+    #counter {
+      height: 300px;
+      font-size: 50px;
+    }
+
+    .newsletter input[type="email"] {
+      width: 70%;
+      margin-bottom: 10px;
+    }
+  }
+
+  @media screen and (max-width: 384px) {
+    h1 {
+      font-size: 33px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    h1 {
+      font-size: 27px;
+    }
+
+    p {
+      font-size: 15px;
+      letter-spacing: 0px;
+    }
+
+    .newsletter input[type="email"] {
+      width: 90%;
+    }
+
+    .copy p {
+      font-size: 15px;
+      letter-spacing: 0px;
+    }
+  }
+}

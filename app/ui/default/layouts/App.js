@@ -10,6 +10,13 @@ import container from '../../../common/Container';
 import ManagerLayout from "./ManagerLayout";
 import HomeLayout from "./HomeLayout";
 
+import Public from '../pages/auth/Public';
+
+import Login from '../pages/auth/Login';
+import Signup from '../pages/auth/Signup';
+import RecoverPassword from '../pages/auth/RecoverPassword';
+import ResetPassword from '../pages/auth/ResetPassword';
+
 class App extends Component {
     render() {
         const appProps = this.props;
@@ -18,6 +25,11 @@ class App extends Component {
                 <div className="PenguinHRM">
                     {appProps.loading ? <div className="AppLoading">loading</div> : null}
                     <Switch>
+                        <Public exact path="/signup" component={Signup} {...appProps} />
+                        <Public exact path="/login" component={Login} {...appProps} />
+                        <Route exact path="/recover-password" component={RecoverPassword}/>
+                        <Route exact path="/reset-password/:token" component={ResetPassword}/>
+
                         <Route path="/manager" component={ManagerLayout} {...appProps}/>
                         <Route path="/" component={HomeLayout} {...appProps}/>
                     </Switch>
