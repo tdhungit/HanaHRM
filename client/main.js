@@ -5,10 +5,10 @@ import {Meteor} from 'meteor/meteor';
 
 // Import css
 import '/public/css/style.min.css';
-import '/app/scss/style.scss';
+import '/imports/scss/style.scss';
 
 // Routes
-import App from '../app/ui/default/layouts/App';
+import App from '../imports/ui/default/layouts/App';
 
 Meteor.startup(() => {
     render((
