@@ -6,6 +6,7 @@ import Authenticate from '../components/Router/Authenticate';
 import Header from '../components/Header/Header';
 import AppNavigation from '../components/Navigation/AppNavigation';
 import Sidebar from '../components/Sidebar/Sidebar';
+import Footer from '../components/Footer/Footer';
 
 import Dashboard from '../pages/dashboard/Dashboard';
 
@@ -31,6 +32,7 @@ export default class ManagerLayout extends Component {
                         </Container>
                     </main>
                 </div>
+                <Footer />
             </div>
         );
     }
