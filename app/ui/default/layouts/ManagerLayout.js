@@ -12,6 +12,7 @@ import Footer from '../components/Footer/Footer';
 import Dashboard from '../pages/dashboard/Dashboard';
 
 import ViewUsers from '../pages/users/ViewUsers';
+import CreateUser from '../pages/users/CreateUser';
 
 export default class ManagerLayout extends Component {
     constructor(props) {
@@ -30,7 +31,10 @@ export default class ManagerLayout extends Component {
                         <Breadcrumb/>
                         <Container fluid>
                             <Authenticate exact path="/manager" component={Dashboard} {...appProps}/>
+
                             <Authenticate exact path="/manager/users" component={ViewUsers} {...appProps} />
+                            <Authenticate exact path="/manager/users/create" component={CreateUser} {...appProps} />
+
                         </Container>
                     </main>
                 </div>

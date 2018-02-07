@@ -12,7 +12,19 @@ export default {
         {
             name: 'Users',
             url: '/manager/users',
-            icon: 'icon-user'
+            icon: 'icon-user',
+            children: [
+                {
+                    name: 'View Users',
+                    url: '/manager/users',
+                    icon: 'icon-user'
+                },
+                {
+                    name: 'Create User',
+                    url: '/manager/users/create',
+                    icon: 'icon-user'
+                }
+            ]
         }
     ]
 };
