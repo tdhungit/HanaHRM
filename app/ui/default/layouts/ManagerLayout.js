@@ -6,6 +6,7 @@ import Authenticate from '../components/Router/Authenticate';
 import Header from '../components/Header/Header';
 import AppNavigation from '../components/Navigation/AppNavigation';
 import Sidebar from '../components/Sidebar/Sidebar';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import Footer from '../components/Footer/Footer';
 
 import Dashboard from '../pages/dashboard/Dashboard';
@@ -26,6 +27,7 @@ export default class ManagerLayout extends Component {
                     <AppNavigation {...appProps} />
                     <Sidebar {...appProps}/>
                     <main className="main">
+                        <Breadcrumb/>
                         <Container fluid>
                             <Authenticate exact path="/manager" component={Dashboard} {...appProps}/>
                             <Authenticate exact path="/manager/users" component={Users} {...appProps} />

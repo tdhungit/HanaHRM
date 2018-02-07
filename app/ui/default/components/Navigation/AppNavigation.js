@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const AppNavigation = ({ authenticated }) => (
     authenticated ?
-        <div>AppNavigation Login OK</div> :
+        null :
         null
 );
 

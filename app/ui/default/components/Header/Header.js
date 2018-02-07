@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Meteor} from 'meteor/meteor';
 import {
     Badge,
     Dropdown,
@@ -78,7 +79,7 @@ export default class Header extends Component {
                     <NavItem>
                         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle className="nav-link dropdown-toggle">
-                                <img src={'img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com"/>
+                                <img src={Meteor.absoluteUrl('img/avatars/6.jpg')} className="img-avatar" alt="admin@bootstrapmaster.com"/>
                                 <span className="d-md-down-none">admin</span>
                             </DropdownToggle>
                             <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>

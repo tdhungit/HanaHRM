@@ -3,7 +3,8 @@ import {render} from 'react-dom';
 
 import {Meteor} from 'meteor/meteor';
 
-// Import scss
+// Import css
+import '/public/css/style.min.css';
 import '/app/scss/style.scss';
 
 // Routes
