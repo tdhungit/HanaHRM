@@ -5,8 +5,7 @@ import {
     Col,
     Card,
     CardHeader,
-    CardBody,
-    Table
+    CardBody
 } from 'reactstrap';
 
 import Users from '/imports/collections/Users/Users';
@@ -22,7 +21,7 @@ export default class ViewUsers extends Component {
             sort: {},
             perPage: 2,
             reactive: true,
-            debug: true,
+            debug: false
         });
     }
 

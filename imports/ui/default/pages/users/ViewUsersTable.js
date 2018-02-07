@@ -11,6 +11,10 @@ import container from '../../layouts/Container';
 import Loading from '../../components/Loading/Loading';
 
 class ViewUsersTable extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     renderUsers() {
         const {
             users,
