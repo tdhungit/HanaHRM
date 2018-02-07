@@ -17,16 +17,20 @@ import {createContainer} from 'meteor/react-meteor-data';
 import Users from '/app/collections/Users';
 
 class ViewUsers extends Component {
-    getUsers() {
-        const users = Users.find({}).fetch();
-        console.log(users);
-        return {
-            users: users
-        }
+    renderUsers() {
+        return this.props.users.map((user) => {
+            return (
+                <tr key={user._id}>
+                    <td>{user.username}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            );
+        });
     }
 
     render() {
-        const users = this.getUsers();
         return (
             <div className="users-Users animated fadeIn">
                 <Row>
@@ -46,7 +50,7 @@ class ViewUsers extends Component {
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    {this.renderUsers()}
                                     </tbody>
                                 </Table>
                             </CardBody>
