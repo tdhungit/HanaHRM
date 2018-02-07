@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
 
-import container from '../../../common/Container';
+import container from './Container';
 
 // Import layout
 import ManagerLayout from "./ManagerLayout";

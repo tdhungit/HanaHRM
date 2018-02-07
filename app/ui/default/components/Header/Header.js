@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Meteor} from 'meteor/meteor';
 import {
     Badge,
     Dropdown,
@@ -12,6 +11,7 @@ import {
     NavbarBrand,
     DropdownToggle
 } from 'reactstrap';
+import {Meteor} from 'meteor/meteor';
 
 export default class Header extends Component {
     constructor(props) {
@@ -50,6 +50,7 @@ export default class Header extends Component {
     }
 
     render() {
+        const currentUser = Meteor.user();
         return (
             <header className="app-header navbar">
                 <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
@@ -80,7 +81,7 @@ export default class Header extends Component {
                         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle className="nav-link dropdown-toggle">
                                 <img src={Meteor.absoluteUrl('img/avatars/6.jpg')} className="img-avatar" alt="admin@bootstrapmaster.com"/>
-                                <span className="d-md-down-none">admin</span>
+                                <span className="d-md-down-none">{currentUser.username}</span>
                             </DropdownToggle>
                             <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>
                                 <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>

@@ -1,5 +1,5 @@
-import { compose } from 'react-komposer';
-import { Tracker } from 'meteor/tracker';
+import {compose} from 'react-komposer';
+import {Tracker} from 'meteor/tracker';
 
 const getTrackerLoader = reactiveMapper => (
     (props, onData, env) => {
