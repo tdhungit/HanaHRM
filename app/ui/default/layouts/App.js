@@ -27,7 +27,6 @@ class App extends Component {
         return (
             <Router>
                 <div className="PenguinHRM">
-                    {appProps.loading ? <div className="AppLoading">loading</div> : null}
                     <Switch>
                         <Public exact path="/signup" component={Signup} {...appProps} />
                         <Public exact path="/login" component={Login} {...appProps} />
@@ -37,6 +36,7 @@ class App extends Component {
                         <Authenticate path="/manager" component={ManagerLayout} {...appProps}/>
                         <Route path="/" component={HomeLayout} {...appProps}/>
                     </Switch>
+                    {appProps.loading ? <div className="AppLoading"><i className="fa fa-spinner fa-spin fa-2x"></i></div> : null}
                 </div>
             </Router>
         );
