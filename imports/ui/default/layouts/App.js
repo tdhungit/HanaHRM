@@ -6,15 +6,12 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import container from './Container';
 
-// Import layout
 import ManagerLayout from "./ManagerLayout";
 import HomeLayout from "./HomeLayout";
 
-// Import custom router
 import Public from '../components/Router/Public';
 import Authenticate from '../components/Router/Authenticate';
 
-// Import view
 import Login from '../pages/auth/Login';
 import Signup from '../pages/auth/Signup';
 import RecoverPassword from '../pages/auth/RecoverPassword';
@@ -35,7 +32,6 @@ class App extends Component {
                         <Authenticate path="/manager" component={ManagerLayout} {...appProps}/>
                         <Route path="/" component={HomeLayout} {...appProps}/>
                     </Switch>
-                    {appProps.loading ? <div className="AppLoading"><i className="fa fa-spinner fa-spin fa-2x"></i></div> : null}
                 </div>
             </Router>
         );
@@ -43,7 +39,6 @@ class App extends Component {
 }
 
 App.propTypes = {
-    loading: PropTypes.bool.isRequired,
     loggingIn: PropTypes.bool,
     authenticated: PropTypes.bool,
 };
@@ -52,10 +47,8 @@ export default container((props, onData) => {
     const loggingIn = Meteor.loggingIn();
     const user = Meteor.user();
     const userId = Meteor.userId();
-    const loading = !Roles.subscription.ready();
 
     onData(null, {
-        loading,
         loggingIn,
         authenticated: !loggingIn && !!userId
     });
