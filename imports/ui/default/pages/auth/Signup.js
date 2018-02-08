@@ -17,11 +17,13 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            error: '',
             username: '',
             email: '',
             password: '',
             password_confirm: '',
-            error: ''
+            first_name: '',
+            last_name: ''
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -44,7 +46,11 @@ class Signup extends Component {
             Accounts.createUser({
                 username: this.state.username.trim(),
                 email: this.state.email.trim(),
-                password: this.state.password.trim()
+                password: this.state.password.trim(),
+                profile: {
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name
+                }
             }, (error) => {
                 if (error) {
                     this.setState({error: error});
@@ -72,13 +78,13 @@ class Signup extends Component {
                                                 <i className="icon-user"></i>
                                             </span>
                                         </div>
-                                        <Input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleInputChange}/>
+                                        <Input type="text" name="username" placeholder="Username" onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">@</span>
                                         </div>
-                                        <Input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleInputChange}/>
+                                        <Input type="text" name="email" placeholder="Email" onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
@@ -86,15 +92,31 @@ class Signup extends Component {
                                                 <i className="icon-lock"></i>
                                             </span>
                                         </div>
-                                        <Input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleInputChange}/>
+                                        <Input type="password" name="password" placeholder="Password" onChange={this.handleInputChange}/>
                                     </InputGroup>
-                                    <InputGroup className="mb-4">
+                                    <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">
                                                 <i className="icon-lock"></i>
                                             </span>
                                         </div>
-                                        <Input type="password" name="password_confirm" placeholder="Repeat password" value={this.state.password_confirm} onChange={this.handleInputChange}/>
+                                        <Input type="password" name="password_confirm" placeholder="Repeat password" onChange={this.handleInputChange}/>
+                                    </InputGroup>
+                                    <InputGroup className="mb-3">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">
+                                                <i className="icon-user"></i>
+                                            </span>
+                                        </div>
+                                        <Input type="text" name="first_name" placeholder="First name" onChange={this.handleInputChange}/>
+                                    </InputGroup>
+                                    <InputGroup className="mb-3">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">
+                                                <i className="icon-user"></i>
+                                            </span>
+                                        </div>
+                                        <Input type="text" name="last_name" placeholder="Last name" onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <Button color="success" block onClick={this.handleSignup}>Create Account</Button>
                                 </CardBody>

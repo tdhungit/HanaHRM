@@ -25,9 +25,9 @@ class ViewUsersTable extends Component {
             return (
                 <tr key={user._id}>
                     <td>{user.username}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{user.emails[0].address}</td>
+                    <td>{user.hasOwnProperty('profile') ? user.profile.first_name : ''}</td>
+                    <td>{user.hasOwnProperty('profile') ? user.profile.last_name : ''}</td>
                 </tr>
             );
         });
@@ -46,9 +46,9 @@ class ViewUsersTable extends Component {
                     <thead>
                     <tr>
                         <th>Username</th>
-                        <th>Date registered</th>
-                        <th>Role</th>
-                        <th>Status</th>
+                        <th>Email</th>
+                        <th>First name</th>
+                        <th>Last name</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@ class ViewUsersTable extends Component {
                 </Table>
                 <BootstrapPaginator pagination={pagination} limit={limit} containerClass="text-right"/>
             </div>
-        ) : <Alert bsStyle="warning">No users yet.</Alert>
+        ) : <Alert color="warning">No users yet.</Alert>
     }
 }
 
