@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withHistory} from 'react-router-dom';
+import {Accounts} from 'meteor/accounts-base';
 import {
     Container,
     Row,
@@ -10,10 +10,8 @@ import {
     Button,
     Input,
     InputGroup,
-    InputGroupAddon,
     Alert
 } from 'reactstrap';
-import {Accounts} from 'meteor/accounts-base';
 
 class Signup extends Component {
     constructor(props) {

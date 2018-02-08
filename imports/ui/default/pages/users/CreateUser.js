@@ -19,7 +19,13 @@ class CreateUser extends Component {
         super(props);
         this.state = {
             error: '',
-            user: {}
+            user: {
+                username: '',
+                email: '',
+                password: '',
+                first_name: '',
+                last_name: ''
+            }
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -39,7 +45,7 @@ class CreateUser extends Component {
 
     handleCreateUser(event) {
         event.preventDefault();
-        if (this.state.user.username && this.state.user.password) {
+        if (this.state.user.username && this.state.user.email && this.state.user.password) {
             Meteor.call('users.insert', this.state.user, (error, userId) => {
                 if (error) {
                     this.setState({error: error.reason});
@@ -86,9 +92,20 @@ class CreateUser extends Component {
                                         </FormGroup>
                                     </Col>
                                     <Col xs="12" lg="6">
+
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs="12" lg="6">
                                         <FormGroup>
-                                            <Label>Facebook</Label>
-                                            <Input type="text" name="facebook" placeholder="Enter facebook" onChange={this.handleInputChange}/>
+                                            <Label>First name</Label>
+                                            <Input type="text" name="first_name" placeholder="Enter first name" onChange={this.handleInputChange}/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col xs="12" lg="6">
+                                        <FormGroup>
+                                            <Label>Last name</Label>
+                                            <Input type="text" name="last_name" placeholder="Enter last name" onChange={this.handleInputChange}/>
                                         </FormGroup>
                                     </Col>
                                 </Row>
