@@ -1,7 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
-
 import {Meteor} from 'meteor/meteor';
+import {Tracker} from 'meteor/tracker';
+import {Roles} from 'meteor/alanning:roles';
 
 import '/public/css/style.min.css';
 import '/imports/scss/style.scss';
@@ -15,6 +16,6 @@ Meteor.startup(() => {
         }
 
         c.stop();
-        Meteor.defer(() => render(<App />, document.getElementById('PenguinHRMApp')));
+        Meteor.defer(() => render(<App/>, document.getElementById('PenguinHRMApp')));
     });
 });
