@@ -11,7 +11,7 @@ import {
     InputGroupAddon
 } from 'reactstrap';
 
-export default class ResetPassword extends Component {
+class ResetPassword extends Component {
     render() {
         return (
             <div className="auth-ResetPassword app flex-row align-items-center">
@@ -48,3 +48,5 @@ export default class ResetPassword extends Component {
         );
     }
 }
+
+export default ResetPassword;

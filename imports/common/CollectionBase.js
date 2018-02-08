@@ -1,3 +1,5 @@
-export default class CollectionBase {
+class CollectionBase {
 
 }
+
+export default CollectionBase;

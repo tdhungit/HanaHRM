@@ -4,7 +4,7 @@ import {Badge, Nav, NavItem} from 'reactstrap';
 import classNames from 'classnames';
 import nav from './_nav'
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
 
     handleClick(e) {
         e.preventDefault();
@@ -96,3 +96,5 @@ export default class Sidebar extends Component {
         )
     }
 }
+
+export default Sidebar;

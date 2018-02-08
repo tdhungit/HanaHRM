@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container} from 'reactstrap';
 
-// Import component
 import Authenticate from '../components/Router/Authenticate';
 import Header from '../components/Header/Header';
 import AppNavigation from '../components/Navigation/AppNavigation';
@@ -14,7 +13,7 @@ import Dashboard from '../pages/dashboard/Dashboard';
 import ViewUsers from '../pages/users/ViewUsers';
 import CreateUser from '../pages/users/CreateUser';
 
-export default class ManagerLayout extends Component {
+class ManagerLayout extends Component {
     constructor(props) {
         super(props);
     }
@@ -43,3 +42,5 @@ export default class ManagerLayout extends Component {
         );
     }
 }
+
+export default  ManagerLayout;

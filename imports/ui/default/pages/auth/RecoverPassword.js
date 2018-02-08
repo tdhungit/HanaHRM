@@ -11,7 +11,7 @@ import {
     InputGroupAddon
 } from 'reactstrap';
 
-export default class RecoverPassword extends Component {
+class RecoverPassword extends Component {
     render() {
         return (
             <div className="auth-RecoverPassword app flex-row align-items-center">
@@ -38,3 +38,5 @@ export default class RecoverPassword extends Component {
         );
     }
 }
+
+export default RecoverPassword;

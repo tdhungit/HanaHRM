@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -91,3 +91,5 @@ export default class Login extends Component {
         );
     }
 }
+
+export default Login;

@@ -15,7 +15,7 @@ import {
 } from 'reactstrap';
 import {Accounts} from 'meteor/accounts-base';
 
-export default class Signup extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -118,3 +118,5 @@ export default class Signup extends Component {
         );
     }
 }
+
+export default Signup;

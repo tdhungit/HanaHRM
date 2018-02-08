@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
+import PropTypes from 'prop-types';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import container from './Container';
 

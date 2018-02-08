@@ -3,23 +3,13 @@ import {
     Row,
     Col,
     Button,
-    ButtonDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     Card,
     CardHeader,
     CardFooter,
     CardBody,
-    Collapse,
-    Form,
     FormGroup,
-    FormText,
     Label,
-    Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupButton
+    Input
 } from 'reactstrap';
 
 class CreateUser extends Component {

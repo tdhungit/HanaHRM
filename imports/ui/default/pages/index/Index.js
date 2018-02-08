@@ -6,7 +6,7 @@ import {
 import {Link} from 'react-router-dom';
 import Countdown from 'react-countdown-now';
 
-export default class Index extends Component {
+class Index extends Component {
     render() {
         return (
             <div className="index-Index">
@@ -106,3 +106,5 @@ const renderer = ({days, hours, minutes, seconds, completed}) => {
         );
     }
 };
+
+export default  Index;

@@ -5,7 +5,7 @@ import NotFound from '../pages/index/NotFound';
 import Index from '../pages/index/Index';
 import About from '../pages/index/About';
 
-export default class HomeLayout extends Component {
+class HomeLayout extends Component {
     constructor(props) {
         super(props);
     }
@@ -22,3 +22,5 @@ export default class HomeLayout extends Component {
         );
     }
 }
+
+export default HomeLayout;

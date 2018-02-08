@@ -11,10 +11,12 @@ import {
 import Users from '/imports/collections/Users/Users';
 import ViewUsersTable from './ViewUsersTable';
 
-export default class ViewUsers extends Component {
+class ViewUsers extends Component {
     constructor(props) {
         super(props);
+    }
 
+    componentWillMount() {
         this.pagination = new Meteor.Pagination(Users, {
             name: 'users.paginatedList',
             filters: {},
@@ -27,7 +29,7 @@ export default class ViewUsers extends Component {
 
     render() {
         const {
-            pagination,
+            pagination
         } = this;
 
         return (
@@ -48,3 +50,5 @@ export default class ViewUsers extends Component {
         )
     }
 }
+
+export default ViewUsers;

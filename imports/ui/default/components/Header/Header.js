@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import {Meteor} from 'meteor/meteor';
 
-export default class Header extends Component {
+class Header extends Component {
     constructor(props) {
         super(props);
 
@@ -104,3 +104,5 @@ export default class Header extends Component {
         )
     }
 }
+
+export default Header;

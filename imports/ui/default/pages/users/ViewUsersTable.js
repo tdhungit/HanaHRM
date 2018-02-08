@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Meteor} from 'meteor/meteor';
+import {Roles} from 'meteor/alanning:roles';
 import PropTypes from 'prop-types';
 import {
     Table
@@ -71,7 +71,9 @@ ViewUsersTable.propTypes = {
 };
 
 export default container((props, onData) => {
+    console.log('start');
     if (props.pagination.ready()) {
+        console.log('ok');
         const users = props.pagination.getPage();
         const totalPages = props.pagination.totalPages();
         onData(null, {users, totalPages});
