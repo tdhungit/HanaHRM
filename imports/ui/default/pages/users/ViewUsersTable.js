@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Roles} from 'meteor/alanning:roles';
 import PropTypes from 'prop-types';
 import {
-    Table
+    Table,
+    Alert
 } from 'reactstrap';
 import BootstrapPaginator from 'react-bootstrap-pagination';
 
@@ -39,7 +40,7 @@ class ViewUsersTable extends Component {
             pagination
         } = this.props;
 
-        return (
+        return users.length > 0 ? (
             <div className="animated fadeIn">
                 <Table responsive>
                     <thead>
@@ -56,7 +57,7 @@ class ViewUsersTable extends Component {
                 </Table>
                 <BootstrapPaginator pagination={pagination} limit={2} containerClass="text-right"/>
             </div>
-        );
+        ) : <Alert bsStyle="warning">No users yet.</Alert>
     }
 }
 
@@ -71,9 +72,7 @@ ViewUsersTable.propTypes = {
 };
 
 export default container((props, onData) => {
-    console.log('start');
     if (props.pagination.ready()) {
-        console.log('ok');
         const users = props.pagination.getPage();
         const totalPages = props.pagination.totalPages();
         onData(null, {users, totalPages});
