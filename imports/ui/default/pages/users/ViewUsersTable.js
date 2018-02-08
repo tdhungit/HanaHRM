@@ -18,8 +18,7 @@ class ViewUsersTable extends Component {
 
     renderUsers() {
         const {
-            users,
-            pagination
+            users
         } = this.props;
 
         return users.map((user) => {
@@ -37,7 +36,8 @@ class ViewUsersTable extends Component {
     render() {
         const {
             users,
-            pagination
+            pagination,
+            limit
         } = this.props;
 
         return users.length > 0 ? (
@@ -55,7 +55,7 @@ class ViewUsersTable extends Component {
                     {this.renderUsers()}
                     </tbody>
                 </Table>
-                <BootstrapPaginator pagination={pagination} limit={2} containerClass="text-right"/>
+                <BootstrapPaginator pagination={pagination} limit={limit} containerClass="text-right"/>
             </div>
         ) : <Alert bsStyle="warning">No users yet.</Alert>
     }

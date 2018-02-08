@@ -17,11 +17,13 @@ class ViewUsers extends Component {
     }
 
     componentWillMount() {
+        this.limit = 20;
+        const limit = this.limit;
         this.pagination = new Meteor.Pagination(Users, {
             name: 'users.paginatedList',
             filters: {},
             sort: {},
-            perPage: 2,
+            perPage: limit,
             reactive: true,
             debug: false
         });
@@ -29,7 +31,8 @@ class ViewUsers extends Component {
 
     render() {
         const {
-            pagination
+            pagination,
+            limit
         } = this;
 
         return (
@@ -41,7 +44,7 @@ class ViewUsers extends Component {
                                 <i className="fa fa-align-justify"></i> Simple Table
                             </CardHeader>
                             <CardBody className="card-body">
-                                <ViewUsersTable pagination={pagination}/>
+                                <ViewUsersTable pagination={pagination} limit={limit}/>
                             </CardBody>
                         </Card>
                     </Col>

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Meteor} from 'meteor/meteor';
 import {
     Row,
     Col,
@@ -9,7 +10,8 @@ import {
     CardBody,
     FormGroup,
     Label,
-    Input
+    Input,
+    Alert
 } from 'reactstrap';
 
 class CreateUser extends Component {
@@ -38,20 +40,22 @@ class CreateUser extends Component {
     handleCreateUser(event) {
         event.preventDefault();
         if (this.state.user.username && this.state.user.password) {
-            Accounts.createUser(this.state.user, (error) => {
+            Meteor.call('users.insert', this.state.user, (error, userId) => {
                 if (error) {
-                    this.setState({error: error});
+                    this.setState({error: error.reason});
                 } else {
                     this.props.history.push('/manager/users');
                 }
             });
+        } else {
+            this.setState({error: 'Error Data Input!'});
         }
     }
 
     render() {
         return (
             <div className="users-CreateUser animated fadeIn">
-                {this.state.error}
+                {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : null}
                 <Row>
                     <Col xs="12" lg="12">
                         <Card>
