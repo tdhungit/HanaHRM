@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Meteor} from 'meteor/meteor';
+import {Bert} from 'meteor/themeteorchef:bert';
 import {
     Container,
     Row,
@@ -7,8 +9,7 @@ import {
     Card, CardBody,
     Button,
     Input,
-    InputGroup,
-    InputGroupAddon
+    InputGroup
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
@@ -30,6 +31,17 @@ class Login extends Component {
 
         this.setState({
             [name]: value
+        });
+    }
+
+    handleLogin() {
+        Meteor.loginWithPassword(this.state.username, this.state.password, (error) => {
+            if (error) {
+                const error_message = 'There was an error: ' + error.reason;
+                Bert.alert(error_message, 'danger');
+            } else {
+                this.props.history.push('/manager');
+            }
         });
     }
 
@@ -62,7 +74,7 @@ class Login extends Component {
                                         </InputGroup>
                                         <Row>
                                             <Col xs="6">
-                                                <Button color="primary" className="px-4">Login</Button>
+                                                <Button color="primary" className="px-4" type="button" onClick={this.handleLogin.bind(this)}>Login</Button>
                                             </Col>
                                             <Col xs="6" className="text-right">
                                                 <Button color="link" className="px-0">
@@ -77,7 +89,7 @@ class Login extends Component {
                                         <div>
                                             <h2>Sign up</h2>
                                             <p>New Employee please contact with administrator</p>
-                                            <Button color="primary" className="mt-3" active>
+                                            <Button type="button" color="primary" className="mt-3" active>
                                                 <Link to="/signup">Register Now!</Link>
                                             </Button>
                                         </div>

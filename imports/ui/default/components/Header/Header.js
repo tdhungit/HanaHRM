@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Meteor} from 'meteor/meteor';
 import {
     Badge,
     Dropdown,
@@ -11,7 +12,6 @@ import {
     NavbarBrand,
     DropdownToggle
 } from 'reactstrap';
-import {Meteor} from 'meteor/meteor';
 
 class Header extends Component {
     constructor(props) {
@@ -47,6 +47,12 @@ class Header extends Component {
     asideToggle(e) {
         e.preventDefault();
         document.body.classList.toggle('aside-menu-hidden');
+    }
+
+    handleLogout() {
+        Meteor.logout(function () {
+            this.props.history.push('/login');
+        });
     }
 
     render() {
@@ -93,13 +99,12 @@ class Header extends Component {
                                 <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
                                 <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
                                 {/*<DropdownItem divider/>*/}
-                                <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
+                                <DropdownItem onClick={this.handleLogout.bind(this)}><i className="fa fa-lock"></i> Logout</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </NavItem>
                 </Nav>
-                <NavbarToggler className="d-md-down-none" type="button"
-                               onClick={this.asideToggle}>&#9776;</NavbarToggler>
+                <NavbarToggler className="d-md-down-none" type="button" onClick={this.asideToggle}>&#9776;</NavbarToggler>
             </header>
         )
     }

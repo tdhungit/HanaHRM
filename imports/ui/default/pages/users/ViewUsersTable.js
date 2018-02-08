@@ -42,7 +42,7 @@ class ViewUsersTable extends Component {
 
         return users.length > 0 ? (
             <div className="animated fadeIn">
-                <Table responsive>
+                <Table responsive hover>
                     <thead>
                     <tr>
                         <th>Username</th>
