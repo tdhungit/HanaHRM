@@ -13,6 +13,9 @@ import Dashboard from '../pages/dashboard/Dashboard';
 import ViewUsers from '../pages/users/ViewUsers';
 import CreateUser from '../pages/users/CreateUser';
 
+import CreateMainMenu from '../pages/main_menus/CreateMainMenu';
+import ViewMainMenu from '../pages/main_menus/ViewMainMenus';
+
 class ManagerLayout extends Component {
     constructor(props) {
         super(props);
@@ -33,7 +36,8 @@ class ManagerLayout extends Component {
 
                             <Authenticate exact path="/manager/users" component={ViewUsers} {...appProps} />
                             <Authenticate exact path="/manager/users/create" component={CreateUser} {...appProps} />
-
+                            <Authenticate exact path="/manager/main-menus" component={ViewMainMenu} {...appProps}/>
+                            <Authenticate exact path="/manager/main-menus/create" component={CreateMainMenu} {...appProps}/>
                         </Container>
                     </main>
                 </div>

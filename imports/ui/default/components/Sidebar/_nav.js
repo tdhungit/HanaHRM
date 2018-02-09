@@ -25,6 +25,23 @@ export default {
                     icon: 'icon-user'
                 }
             ]
+        },
+        {
+            name: 'Sidebar Menu',
+            url: '/manager/main-menus',
+            icon: 'icon-user',
+            children: [
+                {
+                    name: 'Sidebar Menu',
+                    url: '/manager/main-menus',
+                    icon: 'icon-user'
+                },
+                {
+                    name: 'Create Menu',
+                    url: '/manager/main-menus/create',
+                    icon: 'icon-user'
+                }
+            ]
         }
     ]
 };

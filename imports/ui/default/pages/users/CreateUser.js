@@ -39,7 +39,7 @@ class CreateUser extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        var user = this.state.user;
+        let user = this.state.user;
         user[name] = value;
 
         this.setState({user: user});
@@ -113,8 +113,12 @@ class CreateUser extends Component {
                                 </Row>
                             </CardBody>
                             <CardFooter>
-                                <Button type="button" size="sm" color="primary" onClick={this.handleCreateUser}><i className="fa fa-dot-circle-o"></i> <T>Create</T></Button>
-                                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> <T>Reset</T></Button>
+                                <Button type="button" size="sm" color="primary" onClick={this.handleCreateUser}>
+                                    <i className="fa fa-dot-circle-o"></i> <T>Create</T>
+                                </Button>
+                                <Button type="reset" size="sm" color="danger">
+                                    <i className="fa fa-ban"></i> <T>Reset</T>
+                                </Button>
                             </CardFooter>
                         </Card>
                     </Col>
