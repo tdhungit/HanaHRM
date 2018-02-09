@@ -13,6 +13,8 @@ import {
     Alert
 } from 'reactstrap';
 
+import {T, t} from '/imports/common/Translation';
+
 class Signup extends Component {
     constructor(props) {
         super(props);
@@ -69,8 +71,8 @@ class Signup extends Component {
                         <Col md="6">
                             <Card className="mx-4">
                                 <CardBody className="p-4">
-                                    <h1>Register</h1>
-                                    <p className="text-muted">Create your account</p>
+                                    <h1><T>Register</T></h1>
+                                    <p className="text-muted"><T>Create your account</T></p>
                                     {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : null}
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
@@ -78,13 +80,13 @@ class Signup extends Component {
                                                 <i className="icon-user"></i>
                                             </span>
                                         </div>
-                                        <Input type="text" name="username" placeholder="Username" onChange={this.handleInputChange}/>
+                                        <Input type="text" name="username" placeholder={t.__("Username")} onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">@</span>
                                         </div>
-                                        <Input type="text" name="email" placeholder="Email" onChange={this.handleInputChange}/>
+                                        <Input type="text" name="email" placeholder={t.__("Email")} onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
@@ -92,7 +94,7 @@ class Signup extends Component {
                                                 <i className="icon-lock"></i>
                                             </span>
                                         </div>
-                                        <Input type="password" name="password" placeholder="Password" onChange={this.handleInputChange}/>
+                                        <Input type="password" name="password" placeholder={t.__("Password")} onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
@@ -100,7 +102,7 @@ class Signup extends Component {
                                                 <i className="icon-lock"></i>
                                             </span>
                                         </div>
-                                        <Input type="password" name="password_confirm" placeholder="Repeat password" onChange={this.handleInputChange}/>
+                                        <Input type="password" name="password_confirm" placeholder={t.__("Repeat password")} onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
@@ -108,7 +110,7 @@ class Signup extends Component {
                                                 <i className="icon-user"></i>
                                             </span>
                                         </div>
-                                        <Input type="text" name="first_name" placeholder="First name" onChange={this.handleInputChange}/>
+                                        <Input type="text" name="first_name" placeholder={t.__("First name")} onChange={this.handleInputChange}/>
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
@@ -118,7 +120,7 @@ class Signup extends Component {
                                         </div>
                                         <Input type="text" name="last_name" placeholder="Last name" onChange={this.handleInputChange}/>
                                     </InputGroup>
-                                    <Button color="success" block onClick={this.handleSignup}>Create Account</Button>
+                                    <Button color="success" block onClick={this.handleSignup}><T>Create Account</T></Button>
                                 </CardBody>
                                 <CardFooter className="p-4">
                                     <Row>

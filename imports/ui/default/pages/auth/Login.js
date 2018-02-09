@@ -13,6 +13,8 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
+import {T, t} from '/imports/common/Translation';
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +39,7 @@ class Login extends Component {
     handleLogin() {
         Meteor.loginWithPassword(this.state.username, this.state.password, (error) => {
             if (error) {
-                const error_message = 'There was an error: ' + error.reason;
+                const error_message = t.__("There was an error:") + error.reason;
                 Bert.alert(error_message, 'danger');
             } else {
                 this.props.history.push('/manager');
@@ -54,15 +56,15 @@ class Login extends Component {
                             <CardGroup>
                                 <Card className="p-4">
                                     <CardBody>
-                                        <h1>Login</h1>
-                                        <p className="text-muted">Sign In to your account</p>
+                                        <h1><T>Login</T></h1>
+                                        <p className="text-muted"><T>Sign In to your account</T></p>
                                         <InputGroup className="mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text">
                                                     <i className="icon-user"></i>
                                                 </span>
                                             </div>
-                                            <Input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleInputChange}/>
+                                            <Input type="text" name="username" placeholder={t.__("Username")} value={this.state.username} onChange={this.handleInputChange}/>
                                         </InputGroup>
                                         <InputGroup className="mb-4">
                                             <div className="input-group-prepend">
@@ -70,15 +72,15 @@ class Login extends Component {
                                                     <i className="icon-lock"></i>
                                                 </span>
                                             </div>
-                                            <Input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleInputChange}/>
+                                            <Input type="password" name="password" placeholder={t.__("Password")} value={this.state.password} onChange={this.handleInputChange}/>
                                         </InputGroup>
                                         <Row>
                                             <Col xs="6">
-                                                <Button color="primary" className="px-4" type="button" onClick={this.handleLogin.bind(this)}>Login</Button>
+                                                <Button color="primary" className="px-4" type="button" onClick={this.handleLogin.bind(this)}><T>Login</T></Button>
                                             </Col>
                                             <Col xs="6" className="text-right">
                                                 <Button color="link" className="px-0">
-                                                    <Link to="/recover-password">Forgot password?</Link>
+                                                    <Link to="/recover-password"><T>Forgot password?</T></Link>
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -87,10 +89,10 @@ class Login extends Component {
                                 <Card className="text-white bg-primary py-5 d-md-down-none" style={{width: 44 + '%'}}>
                                     <CardBody className="text-center">
                                         <div>
-                                            <h2>Sign up</h2>
-                                            <p>New Employee please contact with administrator</p>
+                                            <h2><T>Sign up</T></h2>
+                                            <p><T>New Employee please contact with administrator</T></p>
                                             <Button type="button" color="primary" className="mt-3" active>
-                                                <Link to="/signup">Register Now!</Link>
+                                                <Link to="/signup"><T>Register Now!</T></Link>
                                             </Button>
                                         </div>
                                     </CardBody>

@@ -8,6 +8,7 @@ import {
     CardBody
 } from 'reactstrap';
 
+import {T} from '/imports/common/Translation';
 import Users from '/imports/collections/Users/Users';
 import ViewUsersTable from './ViewUsersTable';
 
@@ -41,7 +42,7 @@ class ViewUsers extends Component {
                     <Col xs="12" lg="12">
                         <Card>
                             <CardHeader>
-                                <i className="fa fa-align-justify"></i> Simple Table
+                                <i className="fa fa-align-justify"></i> <T>View Users</T>
                             </CardHeader>
                             <CardBody className="card-body">
                                 <ViewUsersTable pagination={pagination} limit={limit}/>

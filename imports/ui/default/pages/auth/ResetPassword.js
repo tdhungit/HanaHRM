@@ -3,13 +3,13 @@ import {
     Container,
     Row,
     Col,
-    CardGroup,
     Card, CardBody,
     Button,
     Input,
-    InputGroup,
-    InputGroupAddon
+    InputGroup
 } from 'reactstrap';
+
+import {T, t} from '/imports/common/Translation';
 
 class ResetPassword extends Component {
     render() {
@@ -20,15 +20,15 @@ class ResetPassword extends Component {
                         <Col md="6">
                             <Card className="mx-4">
                                 <CardBody className="p-4">
-                                    <h1>Reset Password</h1>
-                                    <p className="text-muted">Reset password your account</p>
+                                    <h1><T>Reset Password</T></h1>
+                                    <p className="text-muted"><T>Reset password your account</T></p>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">
                                                 <i className="icon-lock"></i>
                                             </span>
                                         </div>
-                                        <Input type="password" placeholder="Password"/>
+                                        <Input type="password" placeholder={t.__("Password")}/>
                                     </InputGroup>
                                     <InputGroup className="mb-4">
                                         <div className="input-group-prepend">
@@ -36,9 +36,9 @@ class ResetPassword extends Component {
                                                 <i className="icon-lock"></i>
                                             </span>
                                         </div>
-                                        <Input type="password" placeholder="Repeat password"/>
+                                        <Input type="password" placeholder={t.__("Repeat password")}/>
                                     </InputGroup>
-                                    <Button color="success" block>Change Password</Button>
+                                    <Button color="success" block><T>Change Password</T></Button>
                                 </CardBody>
                             </Card>
                         </Col>

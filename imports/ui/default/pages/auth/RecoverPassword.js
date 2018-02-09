@@ -3,13 +3,13 @@ import {
     Container,
     Row,
     Col,
-    CardGroup,
     Card, CardBody,
     Button,
     Input,
-    InputGroup,
-    InputGroupAddon
+    InputGroup
 } from 'reactstrap';
+
+import {T, t} from '/imports/common/Translation';
 
 class RecoverPassword extends Component {
     render() {
@@ -20,15 +20,15 @@ class RecoverPassword extends Component {
                         <Col md="6">
                             <Card className="mx-4">
                                 <CardBody className="p-4">
-                                    <h1>Recover Password</h1>
-                                    <p className="text-muted">Forgot Password</p>
+                                    <h1><T>Recover Password</T></h1>
+                                    <p className="text-muted"><T>Forgot Password</T></p>
                                     <InputGroup className="mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">@</span>
                                         </div>
-                                        <Input type="text" placeholder="Email"/>
+                                        <Input type="text" placeholder={t.__("Email")}/>
                                     </InputGroup>
-                                    <Button color="success" block>Send</Button>
+                                    <Button color="success" block><T>Send</T></Button>
                                 </CardBody>
                             </Card>
                         </Col>

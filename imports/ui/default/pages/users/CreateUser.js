@@ -14,6 +14,8 @@ import {
     Alert
 } from 'reactstrap';
 
+import {T, t} from '/imports/common/Translation';
+
 class CreateUser extends Component {
     constructor(props) {
         super(props);
@@ -54,7 +56,7 @@ class CreateUser extends Component {
                 }
             });
         } else {
-            this.setState({error: 'Error Data Input!'});
+            this.setState({error: t.__("Error Data Input!")});
         }
     }
 
@@ -66,29 +68,29 @@ class CreateUser extends Component {
                     <Col xs="12" lg="12">
                         <Card>
                             <CardHeader>
-                                <strong>Profile</strong>
-                                <small> Form</small>
+                                <strong><T>Profile</T></strong>
+                                <small> <T>Form</T></small>
                             </CardHeader>
                             <CardBody>
                                 <Row>
                                     <Col xs="12" lg="6">
                                         <FormGroup>
-                                            <Label>Username</Label>
-                                            <Input type="text" name="username" placeholder="Enter username" onChange={this.handleInputChange} required/>
+                                            <Label><T>Username</T></Label>
+                                            <Input type="text" name="username" placeholder={t.__("Enter username")} onChange={this.handleInputChange} required/>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="12" lg="6">
                                         <FormGroup>
-                                            <Label>Email</Label>
-                                            <Input type="text" name="email" placeholder="Enter email" onChange={this.handleInputChange} required/>
+                                            <Label><T>Email</T></Label>
+                                            <Input type="text" name="email" placeholder={t.__("Enter email")} onChange={this.handleInputChange} required/>
                                         </FormGroup>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col xs="12" lg="6">
                                         <FormGroup>
-                                            <Label>Password</Label>
-                                            <Input type="password" name="password" placeholder="Enter password" onChange={this.handleInputChange} required/>
+                                            <Label><T>Password</T></Label>
+                                            <Input type="password" name="password" placeholder={t.__("Enter password")} onChange={this.handleInputChange} required/>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="12" lg="6">
@@ -98,21 +100,21 @@ class CreateUser extends Component {
                                 <Row>
                                     <Col xs="12" lg="6">
                                         <FormGroup>
-                                            <Label>First name</Label>
-                                            <Input type="text" name="first_name" placeholder="Enter first name" onChange={this.handleInputChange}/>
+                                            <Label><T>First name</T></Label>
+                                            <Input type="text" name="first_name" placeholder={t.__("Enter first name")} onChange={this.handleInputChange}/>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="12" lg="6">
                                         <FormGroup>
-                                            <Label>Last name</Label>
-                                            <Input type="text" name="last_name" placeholder="Enter last name" onChange={this.handleInputChange}/>
+                                            <Label><T>Last name</T></Label>
+                                            <Input type="text" name="last_name" placeholder={t.__("Enter last name")} onChange={this.handleInputChange}/>
                                         </FormGroup>
                                     </Col>
                                 </Row>
                             </CardBody>
                             <CardFooter>
-                                <Button type="button" size="sm" color="primary" onClick={this.handleCreateUser}><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
+                                <Button type="button" size="sm" color="primary" onClick={this.handleCreateUser}><i className="fa fa-dot-circle-o"></i> <T>Create</T></Button>
+                                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> <T>Reset</T></Button>
                             </CardFooter>
                         </Card>
                     </Col>

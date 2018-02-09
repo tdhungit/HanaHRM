@@ -3,9 +3,8 @@ import {check} from 'meteor/check';
 import {Accounts} from 'meteor/accounts-base';
 
 Meteor.methods({
-    'users.insert': function usersInsert(user) {
+    'users.insert': function (user) {
         check(user, Object);
-        //return Users.insert(user);
         return Accounts.createUser({
             username: user.username,
             email: user.email,
