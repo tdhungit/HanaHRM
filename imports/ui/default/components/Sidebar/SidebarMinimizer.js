@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
 class SidebarMinimizer extends Component {
-    static sidebarMinimize() {
+    sidebarMinimize() {
         document.body.classList.toggle('sidebar-minimized');
     }
 
-    static brandMinimize() {
+    brandMinimize() {
         document.body.classList.toggle('brand-minimized');
     }
 
