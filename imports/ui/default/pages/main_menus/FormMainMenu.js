@@ -11,21 +11,73 @@ import {
     CardFooter,
     Button,
     FormGroup,
+    InputGroup,
+    InputGroupAddon,
     Label,
-    Input
+    Input,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter
 } from 'reactstrap';
 
 import {T, t} from '/imports/common/Translation';
+import routes from '../../components/Router/routes';
+import SelectHelper from '../../helpers/inputs/SelectHelper';
+import SelectSimpleLineIcon from '../../helpers/inputs/SelectSimpleLineIcon';
 
 class FormMainMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
             error: '',
-            menu: {}
+            menu: {
+                icon:'',
+                badge_variant: null,
+                badge_text: null
+            },
+            root_menus: [],
+            modalIcon: false
         };
 
+        this.toggleModalIcon = this.toggleModalIcon.bind(this);
+        this.getIcon = this.getIcon.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    componentDidMount() {
+        Meteor.call('mainMenus.ROOT', (error, response) => {
+            if (!error) {
+                let root_menus = [];
+                for (let idx in response) {
+                    let menu = response[idx];
+                    root_menus.push({
+                        name: menu.name,
+                        value: menu._id
+                    });
+                }
+
+                this.setState({root_menus: root_menus});
+            }
+        });
+    }
+
+    toggleModalIcon() {
+        this.setState({
+            modalIcon: !this.state.modalIcon
+        });
+    }
+
+    getIcon(event) {
+        const target = event.target;
+        const all_class = target.className;
+        const icon_name = all_class.replace(' icons font-2xl d-block mt-4', '');
+        let menu = this.state.menu;
+        menu.icon = icon_name;
+        this.setState({
+            menu: menu,
+            modalIcon: !this.state.modalIcon
+        });
     }
 
     handleInputChange(event) {
@@ -40,8 +92,14 @@ class FormMainMenu extends Component {
     }
 
     handleSubmit() {
-        console.log(this.state);
         if (this.state.menu.name && this.state.menu.url && this.state.menu.icon) {
+            if (this.state.menu.badge_variant && this.state.menu.badge_text) {
+                this.state.menu.badge = {
+                    variant: this.state.menu.badge_variant,
+                    text: this.state.menu.badge_text
+                };
+            }
+
             Meteor.call('mainMenus.insert', this.state.menu, (error) => {
                 if (error) {
                     this.setState({error: error.reason});
@@ -84,15 +142,29 @@ class FormMainMenu extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Url</T></Label>
-                                <Input type="text" name="url" placeholder={t.__("Enter url")} onChange={this.handleInputChange} required/>
+                                <SelectHelper name="url" options={routes} onChange={this.handleInputChange} value={this.state.menu.url} required/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Icon</T></Label>
-                                <Input type="text" name="icon" placeholder={t.__("Enter icon")} onChange={this.handleInputChange} required/>
+                                <InputGroup>
+                                    <Input type="text" name="icon" placeholder={t.__("Enter icon")} onChange={this.handleInputChange} value={this.state.menu.icon} required/>
+                                    <InputGroupAddon addonType="append">
+                                        <Button color="primary" onClick={this.toggleModalIcon}><i className="fa fa-search"></i> <T>Search</T></Button>
+                                    </InputGroupAddon>
+                                </InputGroup>
                             </FormGroup>
                         </Col>
+                        <Modal isOpen={this.state.modalIcon} toggle={this.toggleModalIcon} className="modal-lg">
+                            <ModalHeader toggle={this.toggleModalIcon}><T>Choose Icon</T></ModalHeader>
+                            <ModalBody>
+                                <SelectSimpleLineIcon onClick={this.getIcon}/>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="secondary" onClick={this.toggleModalIcon}><T>Cancel</T></Button>
+                            </ModalFooter>
+                        </Modal>
                     </Row>
                     <Row>
                         <Col xs="12" lg="6">
@@ -120,13 +192,26 @@ class FormMainMenu extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Badge Variant</T></Label>
-                                <Input type="text" name="badge_variant" placeholder={t.__("Enter badge type")} onChange={this.handleInputChange}/>
+                                <Input type="select" name="badge_variant" onChange={this.handleInputChange}>
+                                    <option value=""></option>
+                                    <option value="info">Info</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="danger">Danger</option>
+                                </Input>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Badge Text</T></Label>
                                 <Input type="text" name="badge_text" placeholder={t.__("Enter badge text")} onChange={this.handleInputChange}/>
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="12" lg="12">
+                            <FormGroup>
+                                <Label><T>Parent</T></Label>
+                                <SelectHelper name="parent" options={this.state.root_menus} onChange={this.handleInputChange} value={this.state.menu.parent}/>
                             </FormGroup>
                         </Col>
                     </Row>
