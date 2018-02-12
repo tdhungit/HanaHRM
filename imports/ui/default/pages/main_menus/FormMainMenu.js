@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor';
 import {
@@ -239,4 +240,4 @@ FormMainMenu.propTypes = {
     slogan: PropTypes.string
 };
 
-export default FormMainMenu;
+export default withRouter(FormMainMenu);
