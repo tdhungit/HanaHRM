@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import {Roles} from 'meteor/alanning:roles';
 import {
     Table,
@@ -24,7 +25,11 @@ class ViewUsersTable extends Component {
         return users.map((user) => {
             return (
                 <tr key={user._id}>
-                    <td>{user.username}</td>
+                    <td>
+                        <Link to={'/manager/users/' + user._id + '/edit'}>
+                            {user.username}
+                        </Link>
+                    </td>
                     <td>{user.emails[0].address}</td>
                     <td>{user.hasOwnProperty('profile') ? user.profile.first_name : ''}</td>
                     <td>{user.hasOwnProperty('profile') ? user.profile.last_name : ''}</td>

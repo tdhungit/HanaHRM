@@ -37,6 +37,19 @@ class FormUser extends Component {
         this.handleCreateUser = this.handleCreateUser.bind(this);
     }
 
+    componentDidMount() {
+        const {
+            user
+        } = this.props;
+
+        if (user) {
+            user.email = user && user.emails && user.emails[0].address;
+            user.first_name = user && user.profile && user.profile.first_name;
+            user.last_name = user && user.profile && user.profile.last_name;
+            this.setState({user: user});
+        }
+    }
+
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -48,10 +61,11 @@ class FormUser extends Component {
         this.setState({user: user});
     }
 
-    handleCreateUser(event) {
-        event.preventDefault();
-        if (this.state.user.username && this.state.user.email && this.state.user.password) {
-            Meteor.call('users.insert', this.state.user, (error, userId) => {
+    handleCreateUser() {
+        const existingUser = this.props.user && this.props.user._id;
+        const methodToCall = existingUser ? 'users.update' : 'users.insert';
+        if (this.state.user.username && this.state.user.email) {
+            Meteor.call(methodToCall, this.state.user, (error, userId) => {
                 if (error) {
                     this.setState({error: error.reason});
                 } else {
@@ -69,6 +83,8 @@ class FormUser extends Component {
             slogan
         } = this.props;
 
+        const existingUser = this.props.user && this.props.user._id;
+
         return (
             <Card>
                 <CardHeader>
@@ -81,13 +97,13 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Username</T></Label>
-                                <Input type="text" name="username" placeholder={t.__("Enter username")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="username" value={this.state.user.username} placeholder={t.__("Enter username")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Email</T></Label>
-                                <Input type="text" name="email" placeholder={t.__("Enter email")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="email" value={this.state.user.email} placeholder={t.__("Enter email")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -106,20 +122,20 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>First name</T></Label>
-                                <Input type="text" name="first_name" placeholder={t.__("Enter first name")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="first_name" value={this.state.user.first_name} placeholder={t.__("Enter first name")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Last name</T></Label>
-                                <Input type="text" name="last_name" placeholder={t.__("Enter last name")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="last_name" value={this.state.user.last_name} placeholder={t.__("Enter last name")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                     </Row>
                 </CardBody>
                 <CardFooter>
                     <Button type="button" size="sm" color="primary" onClick={this.handleCreateUser}>
-                        <i className="fa fa-dot-circle-o"></i> <T>Create</T>
+                        <i className="fa fa-dot-circle-o"></i> <T>{existingUser ? 'Update' : 'Create'}</T>
                     </Button>
                     <Button type="reset" size="sm" color="danger">
                         <i className="fa fa-ban"></i> <T>Reset</T>
