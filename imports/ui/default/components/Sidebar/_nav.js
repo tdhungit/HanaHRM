@@ -1,5 +1,5 @@
 export default {
-    items: [
+    first_items: [
         {
             name: 'Dashboard',
             url: '/manager/dashboard',
@@ -9,6 +9,8 @@ export default {
                 text: 'NEW'
             }
         },
+    ],
+    last_items: [
         {
             name: 'Users',
             url: '/manager/users',

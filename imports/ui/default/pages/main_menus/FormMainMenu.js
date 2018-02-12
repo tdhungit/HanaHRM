@@ -45,7 +45,7 @@ class FormMainMenu extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         Meteor.call('mainMenus.ROOT', (error, response) => {
             if (!error) {
                 let root_menus = [];

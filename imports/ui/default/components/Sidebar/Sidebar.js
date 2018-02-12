@@ -1,10 +1,49 @@
 import React, {Component} from 'react';
+import {Meteor} from 'meteor/meteor';
 import {NavLink} from 'react-router-dom';
 import {Badge, Nav, NavItem} from 'reactstrap';
 import classNames from 'classnames';
 import nav from './_nav'
 
 class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            navItems: []
+        }
+    }
+
+    componentWillMount() {
+        Meteor.call('mainMenus.Nav', (error, response) => {
+            if (!error) {
+                let navItems = nav.first_items;
+                for (let idx in response) {
+                    let menu = response[idx];
+                    navItems.push(menu);
+                }
+
+                for (let idx in nav.items) {
+                    let menu = nav.items[idx];
+                    navItems.push(menu);
+                }
+
+                for (let idx in nav.last_items) {
+                    let menu = nav.last_items[idx];
+                    navItems.push(menu);
+                }
+
+                this.setState({navItems: navItems});
+            } else {
+                let navItems = nav.first_items;
+                for (let idx in nav.last_items) {
+                    let menu = nav.last_items[idx];
+                    navItems.push(menu);
+                }
+
+                this.setState({navItems: navItems});
+            }
+        });
+    }
 
     handleClick(e) {
         e.preventDefault();
@@ -65,7 +104,8 @@ class Sidebar extends Component {
             return (
                 <li key={key} className={activeRoute(item.url, props)}>
                     <a className="nav-link nav-dropdown-toggle" href="#" onClick={handleClick.bind(this)}>
-                        <i className={item.icon}></i> {item.name}</a>
+                        <i className={item.icon}></i> {item.name}
+                    </a>
                     <ul className="nav-dropdown-items">
                         {navList(item.children)}
                     </ul>
@@ -89,7 +129,7 @@ class Sidebar extends Component {
             <div className="sidebar">
                 <nav className="sidebar-nav">
                     <Nav>
-                        {navList(nav.items)}
+                        {navList(this.state.navItems)}
                     </Nav>
                 </nav>
             </div>
