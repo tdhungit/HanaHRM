@@ -50,7 +50,7 @@ class Header extends Component {
     }
 
     handleLogout() {
-        Meteor.logout(function () {
+        Meteor.logout(() => {
             this.props.history.push('/login');
         });
     }
@@ -86,8 +86,8 @@ class Header extends Component {
                     <NavItem>
                         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle className="nav-link dropdown-toggle">
-                                <img src={Meteor.absoluteUrl('img/avatars/6.jpg')} className="img-avatar" alt="admin@bootstrapmaster.com"/>
-                                <span className="d-md-down-none">{currentUser.username}</span>
+                                <img src={Meteor.absoluteUrl('img/avatars/6.jpg')} className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
+                                <span className="d-md-down-none">{currentUser && currentUser.username}</span>
                             </DropdownToggle>
                             <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>
                                 <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
@@ -96,7 +96,7 @@ class Header extends Component {
                                 <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem>
                                 <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem>
                                 <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
-                                <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
+                                <DropdownItem onClick={() => this.props.history.push('/manager/me')}><i className="fa fa-user"></i> Profile</DropdownItem>
                                 <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
                                 {/*<DropdownItem divider/>*/}
                                 <DropdownItem onClick={this.handleLogout.bind(this)}><i className="fa fa-lock"></i> Logout</DropdownItem>

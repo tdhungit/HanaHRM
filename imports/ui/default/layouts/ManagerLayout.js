@@ -9,6 +9,7 @@ import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import Footer from '../components/Footer/Footer';
 
 import Dashboard from '../pages/dashboard/Dashboard';
+import ViewProfile from '../pages/users/ViewProfile';
 
 import ViewUsers from '../pages/users/ViewUsers';
 import ViewUser from '../pages/users/ViewUser';
@@ -27,14 +28,15 @@ class ManagerLayout extends Component {
         const appProps = this.props;
         return (
             <div className="PenguinHRMManager app">
-                <Header/>
+                <Header {...appProps}/>
                 <div className="app-body">
-                    <AppNavigation {...appProps} />
+                    <AppNavigation {...appProps}/>
                     <Sidebar {...appProps}/>
                     <main className="main">
                         <Breadcrumb/>
                         <Container fluid>
                             <Authenticate exact path="/manager" component={Dashboard} {...appProps}/>
+                            <Authenticate exact path="/manager/me" component={ViewProfile} {...appProps}/>
 
                             <Authenticate exact path="/manager/users" component={ViewUsers} {...appProps} />
                             <Authenticate exact path="/manager/users/create" component={CreateUser} {...appProps} />
