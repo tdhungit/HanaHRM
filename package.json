@@ -17,6 +17,7 @@
     "react-dom": "^16.2.0",
     "react-komposer": "^2.0.0",
     "react-router-dom": "^4.2.2",
+    "react-sortable-tree": "^2.0.1",
     "reactstrap": "^5.0.0-alpha.4",
     "simpl-schema": "^1.4.2"
   }

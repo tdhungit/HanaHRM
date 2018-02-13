@@ -30,7 +30,7 @@ Meteor.methods({
         };
         try {
             const userId = user._id;
-            Users.update(userId, { $set: userClean });
+            Users.update(userId, {$set: userClean});
             return userId;
         } catch (exception) {
             throw new Meteor.Error('500', exception);

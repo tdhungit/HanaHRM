@@ -3,6 +3,9 @@ import {check} from 'meteor/check';
 import MainMenus from './MainMenus';
 
 Meteor.methods({
+    'mainMenus.ROOT': function () {
+        return MainMenus.find({parent: 'ROOT'}).fetch();
+    },
     'mainMenus.Nav': function () {
         const menu_root = MainMenus.find({parent: 'ROOT'}).fetch();
         let menus = [];
@@ -26,7 +29,20 @@ Meteor.methods({
 
         return MainMenus.insert(mainMenu);
     },
-    'mainMenus.ROOT': function () {
-        return MainMenus.find({parent: 'ROOT'}).fetch();
+    'mainMenus.update': function (mainMenu) {
+        check(mainMenu, Object);
+        if (typeof mainMenu.parent != 'undefined') {
+            if (!mainMenu.parent) {
+                mainMenu.parent = 'ROOT';
+            }
+        }
+
+        try {
+            const menuId = mainMenu._id;
+            MainMenus.update(menuId, {$set: mainMenu});
+            return menuId;
+        } catch (exception) {
+            throw new Meteor.Error('500', exception);
+        }
     }
 });

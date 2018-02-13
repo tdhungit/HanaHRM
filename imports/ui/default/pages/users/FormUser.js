@@ -38,7 +38,7 @@ class FormUser extends Component {
         this.handleCreateUser = this.handleCreateUser.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const {
             user
         } = this.props;
@@ -157,12 +157,14 @@ class FormUser extends Component {
 
 FormUser.defaultProps = {
     title: null,
-    slogan: null
+    slogan: null,
+    user: {}
 };
 
 FormUser.propTypes = {
     title: PropTypes.string,
-    slogan: PropTypes.string
+    slogan: PropTypes.string,
+    user: PropTypes.object
 };
 
 export default withRouter(FormUser);

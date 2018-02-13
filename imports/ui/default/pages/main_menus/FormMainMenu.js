@@ -21,6 +21,7 @@ import {
     ModalBody,
     ModalFooter
 } from 'reactstrap';
+import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t} from '/imports/common/Translation';
 import routes from '../../components/Router/routes';
@@ -31,9 +32,8 @@ class FormMainMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: '',
             menu: {
-                icon:'',
+                icon: '',
                 badge_variant: null,
                 badge_text: null
             },
@@ -47,6 +47,10 @@ class FormMainMenu extends Component {
     }
 
     componentWillMount() {
+        const {
+            menu
+        } = this.props;
+
         Meteor.call('mainMenus.ROOT', (error, response) => {
             if (!error) {
                 let root_menus = [];
@@ -61,6 +65,11 @@ class FormMainMenu extends Component {
                 this.setState({root_menus: root_menus});
             }
         });
+
+        let menuClean = menu;
+        menuClean.badge_variant = menu.badge && menu.badge.variant;
+        menuClean.badge_text = menu.badge && menu.badge.text;
+        this.setState({menu: menuClean});
     }
 
     toggleModalIcon() {
@@ -93,6 +102,9 @@ class FormMainMenu extends Component {
     }
 
     handleSubmit() {
+        const existing = this.props.menu && this.props.menu._id;
+        const method = existing ? 'mainMenus.update' : 'mainMenus.insert';
+
         if (this.state.menu.name && this.state.menu.url && this.state.menu.icon) {
             if (this.state.menu.badge_variant && this.state.menu.badge_text) {
                 this.state.menu.badge = {
@@ -101,11 +113,12 @@ class FormMainMenu extends Component {
                 };
             }
 
-            Meteor.call('mainMenus.insert', this.state.menu, (error) => {
+            Meteor.call(method, this.state.menu, (error, menuId) => {
                 if (error) {
-                    this.setState({error: error.reason});
+                    Bert.alert(error.reason, 'danger');
                 } else {
-                    this.setState({error: 'success'});
+                    Bert.alert(t.__('Successful!'), 'success');
+                    this.props.history.push('/manager/main-menus/' + menuId + '/edit');
                 }
             });
         }
@@ -117,25 +130,25 @@ class FormMainMenu extends Component {
             slogan
         } = this.props;
 
+        const existing = this.props.menu && this.props.menu._id;
+
         return (
             <Card>
                 <CardHeader>
-                    <strong>{title}</strong>
-                    <small> {slogan}</small>
+                    <strong>{title}</strong> {slogan}
                 </CardHeader>
                 <CardBody>
-                    {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : null}
                     <Row>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Menu name</T></Label>
-                                <Input type="text" name="name" placeholder={t.__("Enter name")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="name" value={this.state.menu.name} placeholder={t.__("Enter name")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Weight</T></Label>
-                                <Input type="text" name="weight" placeholder={t.__("Enter weight")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="weight" value={this.state.menu.weight} placeholder={t.__("Enter weight")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -172,7 +185,7 @@ class FormMainMenu extends Component {
                             <FormGroup check>
                                 <div className="checkbox">
                                     <Label>
-                                        <Input type="checkbox" name="title" onChange={this.handleInputChange}/>
+                                        <Input type="checkbox" name="title" value={this.state.menu.title} onChange={this.handleInputChange}/>
                                         <T>Title</T>
                                     </Label>
                                 </div>
@@ -182,7 +195,7 @@ class FormMainMenu extends Component {
                             <FormGroup check>
                                 <div className="checkbox">
                                     <Label>
-                                        <Input type="checkbox" name="divider" onChange={this.handleInputChange}/>
+                                        <Input type="checkbox" name="divider" value={this.state.menu.divider} onChange={this.handleInputChange}/>
                                         <T>Divider</T>
                                     </Label>
                                 </div>
@@ -193,7 +206,7 @@ class FormMainMenu extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Badge Variant</T></Label>
-                                <Input type="select" name="badge_variant" onChange={this.handleInputChange}>
+                                <Input type="select" name="badge_variant" value={this.state.menu.badge_variant} onChange={this.handleInputChange}>
                                     <option value=""></option>
                                     <option value="info">Info</option>
                                     <option value="warning">Warning</option>
@@ -204,7 +217,7 @@ class FormMainMenu extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Badge Text</T></Label>
-                                <Input type="text" name="badge_text" placeholder={t.__("Enter badge text")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="badge_text" value={this.state.menu.badge_text} placeholder={t.__("Enter badge text")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -219,10 +232,11 @@ class FormMainMenu extends Component {
                 </CardBody>
                 <CardFooter>
                     <Button type="button" size="sm" color="primary" onClick={this.handleSubmit.bind(this)}>
-                        <i className="fa fa-dot-circle-o"></i> <T>Create</T>
+                        <i className="fa fa-dot-circle-o"></i>&nbsp;
+                        {existing ? <T>Update</T> :<T>Create</T>}
                     </Button>
-                    <Button type="reset" size="sm" color="danger">
-                        <i className="fa fa-ban"></i> <T>Reset</T>
+                    <Button type="reset" size="sm" color="danger" onClick={() => this.props.history.push('/manager/main-menus')}>
+                        <i className="fa fa-ban"></i> <T>Cancel</T>
                     </Button>
                 </CardFooter>
             </Card>
@@ -232,12 +246,14 @@ class FormMainMenu extends Component {
 
 FormMainMenu.defaultProps = {
     title: null,
-    slogan: null
+    slogan: null,
+    menu: {}
 };
 
 FormMainMenu.propTypes = {
     title: PropTypes.string,
-    slogan: PropTypes.string
+    slogan: PropTypes.string,
+    menu: PropTypes.object
 };
 
 export default withRouter(FormMainMenu);

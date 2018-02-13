@@ -34,7 +34,7 @@ export default {
             icon: 'icon-user',
             children: [
                 {
-                    name: 'Sidebar Menu',
+                    name: 'View Menus',
                     url: '/manager/main-menus',
                     icon: 'icon-user'
                 },

@@ -17,7 +17,8 @@ import CreateUser from '../pages/users/CreateUser';
 import EditUser from '../pages/users/EditUser';
 
 import CreateMainMenu from '../pages/main_menus/CreateMainMenu';
-import ViewMainMenu from '../pages/main_menus/ViewMainMenus';
+import ViewMainMenus from '../pages/main_menus/ViewMainMenus';
+import EditMainMenu from '../pages/main_menus/EditMainMenu';
 
 class ManagerLayout extends Component {
     constructor(props) {
@@ -43,8 +44,9 @@ class ManagerLayout extends Component {
                             <Authenticate exact path="/manager/users/:_id/edit" component={EditUser} {...appProps} />
                             <Authenticate exact path="/manager/users/:_id/detail" component={ViewUser} {...appProps} />
 
-                            <Authenticate exact path="/manager/main-menus" component={ViewMainMenu} {...appProps}/>
+                            <Authenticate exact path="/manager/main-menus" component={ViewMainMenus} {...appProps}/>
                             <Authenticate exact path="/manager/main-menus/create" component={CreateMainMenu} {...appProps}/>
+                            <Authenticate exact path="/manager/main-menus/:_id/edit" component={EditMainMenu} {...appProps}/>
                         </Container>
                     </main>
                 </div>
