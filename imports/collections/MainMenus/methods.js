@@ -4,14 +4,26 @@ import MainMenus from './MainMenus';
 
 Meteor.methods({
     'mainMenus.ROOT': function () {
-        return MainMenus.find({parent: 'ROOT'}).fetch();
+        return MainMenus.find({parent: 'ROOT'}, {
+            sort: {
+                weight: 1
+            }
+        }).fetch();
     },
     'mainMenus.Nav': function () {
-        const menu_root = MainMenus.find({parent: 'ROOT'}).fetch();
+        const menu_root = MainMenus.find({parent: 'ROOT'}, {
+            sort: {
+                weight: 1
+            }
+        }).fetch();
         let menus = [];
         for (let idx in menu_root) {
             let menu = menu_root[idx];
-            let menu_children = MainMenus.find({parent: menu._id}).fetch();
+            let menu_children = MainMenus.find({parent: menu._id}, {
+                sort: {
+                    weight: 1
+                }
+            }).fetch();
             if (menu_children.length > 0) {
                 menu.children = menu_children;
             }

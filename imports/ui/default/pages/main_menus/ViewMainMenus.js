@@ -29,6 +29,9 @@ class ViewMainMenus extends Component {
                 for (let idx in response) {
                     let menu = response[idx];
                     let menuTree = {
+                        _id: menu._id,
+                        weight: menu.weight,
+                        parent: menu.parent,
                         title: (<Link to={'/manager/main-menus/' + menu._id + '/edit'}>{menu.name}</Link>),
                         subtitle: (
                             <span>
@@ -46,6 +49,9 @@ class ViewMainMenus extends Component {
                         for (let idx2 in menu.children) {
                             let child_menu = menu.children[idx2];
                             menuTree.children.push({
+                                _id: child_menu._id,
+                                weight: child_menu.weight,
+                                parent: child_menu.parent,
                                 title: (<Link to={'/manager/main-menus/' + child_menu._id + '/edit'}>{child_menu.name}</Link>),
                                 subtitle: (
                                     <span>
@@ -67,6 +73,28 @@ class ViewMainMenus extends Component {
         });
     }
 
+    handleChangeMenu(menusTree) {
+        let menusTreeNew = [];
+        for (let idx in menusTree) {
+            let menu = menusTree[idx];
+            menu.weight = parseInt(idx) + 1;
+            menu.parent = 'ROOT';
+            Meteor.call('mainMenus.update', menu);
+            if (menu.children) {
+                for (let idx2 in menu.children) {
+                    let menu_child = menu.children[idx2];
+                    menu_child.weight = parseInt(idx2) + 1;
+                    menu_child.parent = menu._id;
+                    Meteor.call('mainMenus.update', menu_child);
+                }
+            }
+
+            menusTreeNew.push(menu);
+        }
+
+        this.setState({menusTree: menusTreeNew});
+    }
+
     render() {
         return (
             <div className="mainmenu-ViewMainMenus animated fadeIn">
@@ -81,7 +109,8 @@ class ViewMainMenus extends Component {
                                 <div style={{height: 600}}>
                                     <SortableTree
                                         treeData={this.state.menusTree}
-                                        onChange={menusTree => this.setState({menusTree})}
+                                        onChange={menusTree => this.handleChangeMenu(menusTree)}
+                                        maxDepth={2}
                                     />
                                 </div>
                             </CardBody>
