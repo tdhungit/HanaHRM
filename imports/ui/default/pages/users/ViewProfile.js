@@ -16,10 +16,11 @@ import {
     Label,
     Button
 } from 'reactstrap';
-import {Link} from 'react-router-dom';
 import classnames from 'classnames';
 
 import {T, t} from '/imports/common/Translation';
+import ProfileUserInfo from './ProfileUserInfo';
+import CreateUser from "./CreateUser";
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -176,47 +177,30 @@ class ViewProfile extends Component {
                                 </ul>
                             </TabPane>
                             <TabPane tabId="userinfo">
-                                <div className="detail">
-                                    <dl className="row">
-                                        <dt className="col-sm-2"><T>Username</T></dt>
-                                        <dd className="col-sm-4">{currentUser.username}</dd>
-                                    </dl>
-                                    <dl className="row">
-                                        <dt className="col-sm-2"><T>Email</T></dt>
-                                        <dd className="col-sm-4">{currentUser.emails[0].address}</dd>
-                                    </dl>
-                                    <dl className="row">
-                                        <dt className="col-sm-2"><T>First name</T></dt>
-                                        <dd className="col-sm-4">{currentUser.profile && currentUser.profile.first_name}</dd>
-                                    </dl>
-                                    <dl className="row">
-                                        <dt className="col-sm-2"><T>Last name</T></dt>
-                                        <dd className="col-sm-4">{currentUser.profile && currentUser.profile.last_name}</dd>
-                                    </dl>
-                                </div>
+                                <ProfileUserInfo/>
                             </TabPane>
                             <TabPane tabId="settings">
                                 <Card>
                                     <CardBody>
                                         <Row>
-                                            <Col xs="12" lg="12">
+                                            <Col>
                                                 <FormGroup row>
                                                     <Col md="3">
                                                         <Label><T>Username</T></Label>
                                                     </Col>
-                                                    <Col xs="12" md="9">
+                                                    <Col md="9">
                                                         <Input type="text" name="username" value={currentUser.username} onChange={this.handleInputChange}/>
                                                     </Col>
                                                 </FormGroup>
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <Col xs="12" lg="12">
+                                            <Col>
                                                 <FormGroup row>
                                                     <Col md="3">
                                                         <Label><T>Email</T></Label>
                                                     </Col>
-                                                    <Col xs="12" md="9">
+                                                    <Col md="9">
                                                         <Input type="text" name="username" value={currentUser.emails[0].address} onChange={this.handleInputChange}/>
                                                     </Col>
                                                 </FormGroup>
