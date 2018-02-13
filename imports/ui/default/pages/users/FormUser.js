@@ -15,6 +15,7 @@ import {
     Label,
     Input
 } from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 import {T, t} from '/imports/common/Translation';
 
@@ -88,8 +89,7 @@ class FormUser extends Component {
         return (
             <Card>
                 <CardHeader>
-                    <strong>{title}</strong>
-                    <small> {slogan}</small>
+                    <strong>{title}</strong> {slogan}
                 </CardHeader>
                 <CardBody>
                     {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : null}
@@ -137,8 +137,17 @@ class FormUser extends Component {
                     <Button type="button" size="sm" color="primary" onClick={this.handleCreateUser}>
                         <i className="fa fa-dot-circle-o"></i> <T>{existingUser ? 'Update' : 'Create'}</T>
                     </Button>
-                    <Button type="reset" size="sm" color="danger">
-                        <i className="fa fa-ban"></i> <T>Reset</T>
+                    <Button type="button" size="sm" color="danger">
+                        {existingUser
+                        ?
+                            <Link to={'/manager/users/' + this.state.user._id + '/detail'}>
+                                <i className="fa fa-ban"></i> <T>Cancel</T>
+                            </Link>
+                        :
+                            <Link to={'/manager/users'}>
+                                <i className="fa fa-ban"></i> <T>Cancel</T>
+                            </Link>
+                        }
                     </Button>
                 </CardFooter>
             </Card>

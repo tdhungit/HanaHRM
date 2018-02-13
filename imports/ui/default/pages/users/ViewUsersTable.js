@@ -26,7 +26,7 @@ class ViewUsersTable extends Component {
             return (
                 <tr key={user._id}>
                     <td>
-                        <Link to={'/manager/users/' + user._id + '/edit'}>
+                        <Link to={'/manager/users/' + user._id + '/detail'}>
                             {user.username}
                         </Link>
                     </td>

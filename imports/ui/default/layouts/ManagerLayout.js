@@ -11,6 +11,7 @@ import Footer from '../components/Footer/Footer';
 import Dashboard from '../pages/dashboard/Dashboard';
 
 import ViewUsers from '../pages/users/ViewUsers';
+import ViewUser from '../pages/users/ViewUser';
 import CreateUser from '../pages/users/CreateUser';
 import EditUser from '../pages/users/EditUser';
 
@@ -38,6 +39,8 @@ class ManagerLayout extends Component {
                             <Authenticate exact path="/manager/users" component={ViewUsers} {...appProps} />
                             <Authenticate exact path="/manager/users/create" component={CreateUser} {...appProps} />
                             <Authenticate exact path="/manager/users/:_id/edit" component={EditUser} {...appProps} />
+                            <Authenticate exact path="/manager/users/:_id/detail" component={ViewUser} {...appProps} />
+
                             <Authenticate exact path="/manager/main-menus" component={ViewMainMenu} {...appProps}/>
                             <Authenticate exact path="/manager/main-menus/create" component={CreateMainMenu} {...appProps}/>
                         </Container>
