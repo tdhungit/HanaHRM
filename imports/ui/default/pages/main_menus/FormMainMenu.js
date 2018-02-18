@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router';
 import {Meteor} from 'meteor/meteor';
 import {
-    Alert,
     Row,
     Col,
     Card,

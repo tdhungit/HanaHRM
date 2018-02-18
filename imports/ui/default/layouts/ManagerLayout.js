@@ -16,6 +16,9 @@ import ViewUser from '../pages/users/ViewUser';
 import CreateUser from '../pages/users/CreateUser';
 import EditUser from '../pages/users/EditUser';
 
+import CreateRole from '../pages/acl/CreateRole';
+import ViewRoles from '../pages/acl/ViewRoles';
+
 import CreateMainMenu from '../pages/main_menus/CreateMainMenu';
 import ViewMainMenus from '../pages/main_menus/ViewMainMenus';
 import EditMainMenu from '../pages/main_menus/EditMainMenu';
@@ -39,10 +42,13 @@ class ManagerLayout extends Component {
                             <Authenticate exact path="/manager" component={Dashboard} {...appProps}/>
                             <Authenticate exact path="/manager/me" component={ViewProfile} {...appProps}/>
 
-                            <Authenticate exact path="/manager/users" component={ViewUsers} {...appProps} />
-                            <Authenticate exact path="/manager/users/create" component={CreateUser} {...appProps} />
-                            <Authenticate exact path="/manager/users/:_id/edit" component={EditUser} {...appProps} />
-                            <Authenticate exact path="/manager/users/:_id/detail" component={ViewUser} {...appProps} />
+                            <Authenticate exact path="/manager/users" component={ViewUsers} {...appProps}/>
+                            <Authenticate exact path="/manager/users/create" component={CreateUser} {...appProps}/>
+                            <Authenticate exact path="/manager/users/:_id/edit" component={EditUser} {...appProps}/>
+                            <Authenticate exact path="/manager/users/:_id/detail" component={ViewUser} {...appProps}/>
+
+                            <Authenticate exact path="/manager/acl/create-role" component={CreateRole} {...appProps}/>
+                            <Authenticate exact path="/manager/acl/roles" component={ViewRoles} {...appProps}/>
 
                             <Authenticate exact path="/manager/main-menus" component={ViewMainMenus} {...appProps}/>
                             <Authenticate exact path="/manager/main-menus/create" component={CreateMainMenu} {...appProps}/>
