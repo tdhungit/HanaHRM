@@ -141,13 +141,13 @@ class FormMainMenu extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Menu name</T></Label>
-                                <Input type="text" name="name" value={this.state.menu.name} placeholder={t.__("Enter name")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="name" value={this.state.menu.name} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Weight</T></Label>
-                                <Input type="text" name="weight" value={this.state.menu.weight} placeholder={t.__("Enter weight")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="weight" value={this.state.menu.weight} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -162,7 +162,7 @@ class FormMainMenu extends Component {
                             <FormGroup>
                                 <Label><T>Icon</T></Label>
                                 <InputGroup>
-                                    <Input type="text" name="icon" placeholder={t.__("Enter icon")} onChange={this.handleInputChange} value={this.state.menu.icon} required/>
+                                    <Input type="text" name="icon" placeholder={t.__("Enter here")} onChange={this.handleInputChange} value={this.state.menu.icon} required/>
                                     <InputGroupAddon addonType="append">
                                         <Button color="primary" onClick={this.toggleModalIcon}><i className="fa fa-search"></i> <T>Search</T></Button>
                                     </InputGroupAddon>
@@ -216,7 +216,7 @@ class FormMainMenu extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Badge Text</T></Label>
-                                <Input type="text" name="badge_text" value={this.state.menu.badge_text} placeholder={t.__("Enter badge text")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="badge_text" value={this.state.menu.badge_text} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                     </Row>

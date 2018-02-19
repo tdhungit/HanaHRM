@@ -97,13 +97,13 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Username</T></Label>
-                                <Input type="text" name="username" value={this.state.user.username} placeholder={t.__("Enter username")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="username" value={this.state.user.username} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Email</T></Label>
-                                <Input type="text" name="email" value={this.state.user.email} placeholder={t.__("Enter email")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="email" value={this.state.user.email} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -111,7 +111,7 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Password</T></Label>
-                                <Input type="password" name="password" placeholder={t.__("Enter password")} onChange={this.handleInputChange} required/>
+                                <Input type="password" name="password" placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
@@ -122,13 +122,13 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>First name</T></Label>
-                                <Input type="text" name="first_name" value={this.state.user.first_name} placeholder={t.__("Enter first name")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="first_name" value={this.state.user.first_name} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Last name</T></Label>
-                                <Input type="text" name="last_name" value={this.state.user.last_name} placeholder={t.__("Enter last name")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="last_name" value={this.state.user.last_name} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                     </Row>

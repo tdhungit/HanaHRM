@@ -72,7 +72,7 @@ class FormRole extends Component {
                         <Col>
                             <FormGroup>
                                 <Label><T>Role name</T></Label>
-                                <Input type="text" name="name" value={this.state.role.name} placeholder={t.__('Enter name')} onChange={this.handleInputChange}/>
+                                <Input type="text" name="name" value={this.state.role.name} placeholder={t.__('Enter here')} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                     </Row>

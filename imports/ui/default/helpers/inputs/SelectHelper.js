@@ -15,9 +15,15 @@ class SelectHelper extends Component {
 
         if (options.constructor === Array) {
             return options.map((option) => {
-                return (
-                    <option key={option.value} value={option.value}>{option.name}</option>
-                );
+                if (option.value && option.name) {
+                    return (
+                        <option key={option.value} value={option.value}>{option.name}</option>
+                    );
+                } else {
+                    return (
+                        <option key={option._id} value={option._id}>{option.name}</option>
+                    );
+                }
             });
         } else {
             let optionsFixed = [];
