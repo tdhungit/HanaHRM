@@ -13,7 +13,6 @@ export default {
     last_items: [
         {
             name: 'Users',
-            url: '/manager/users',
             icon: 'icon-user',
             children: [
                 {
@@ -22,26 +21,25 @@ export default {
                     icon: 'icon-user'
                 },
                 {
-                    name: 'Create User',
-                    url: '/manager/users/create',
-                    icon: 'icon-user'
+                    name: 'View User Groups',
+                    url: '/manager/acl/user-groups',
+                    icon: 'icon-people'
+                },
+                {
+                    name: 'View Roles',
+                    url: '/manager/acl/roles',
+                    icon: 'icon-lock'
                 }
             ]
         },
         {
-            name: 'Sidebar Menu',
-            url: '/manager/main-menus',
-            icon: 'icon-user',
+            name: 'Settings',
+            icon: 'icon-wrench',
             children: [
                 {
-                    name: 'View Menus',
+                    name: 'Sidebar Menu',
                     url: '/manager/main-menus',
-                    icon: 'icon-user'
-                },
-                {
-                    name: 'Create Menu',
-                    url: '/manager/main-menus/create',
-                    icon: 'icon-user'
+                    icon: 'icon-menu'
                 }
             ]
         }

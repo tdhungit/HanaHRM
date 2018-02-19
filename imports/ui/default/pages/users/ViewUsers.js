@@ -7,8 +7,9 @@ import {
     CardHeader,
     CardBody
 } from 'reactstrap';
+import {Link} from 'react-router-dom';
 
-import {T} from '/imports/common/Translation';
+import {T, t} from '/imports/common/Translation';
 import Users from '/imports/collections/Users/Users';
 import ViewUsersTable from './ViewUsersTable';
 
@@ -43,6 +44,11 @@ class ViewUsers extends Component {
                         <Card>
                             <CardHeader>
                                 <i className="fa fa-align-justify"></i> <T>View Users</T>
+                                <div className="card-actions">
+                                    <Link to={'/manager/users/create'} title={t.__('Create')}>
+                                        <i className="fa fa-plus-circle"/>
+                                    </Link>
+                                </div>
                             </CardHeader>
                             <CardBody className="card-body">
                                 <ViewUsersTable pagination={pagination} limit={limit}/>

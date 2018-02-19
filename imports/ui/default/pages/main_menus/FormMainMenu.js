@@ -112,7 +112,7 @@ class FormMainMenu extends Component {
         const existing = this.props.menu && this.props.menu._id;
         const method = existing ? 'mainMenus.update' : 'mainMenus.insert';
 
-        if (this.state.menu.name && this.state.menu.url && this.state.menu.icon) {
+        if (this.state.menu.name && this.state.menu.icon) {
             if (this.state.menu.badge_variant && this.state.menu.badge_text) {
                 this.state.menu.badge = {
                     variant: this.state.menu.badge_variant,

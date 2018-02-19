@@ -31,6 +31,7 @@ const MainMenusSchema = new SimpleSchema({
     url: {
         type: String,
         label: 'Route that need link to there',
+        optional: true
     },
     icon: {
         type: String,

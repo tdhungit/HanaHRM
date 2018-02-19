@@ -53,7 +53,7 @@ class SelectHelper extends Component {
 
         return (
             <Input type="select" name={name} id={id} onChange={onChange} required={required} value={value}>
-                <option></option>
+                <option value=""></option>
                 {this.renderOptions(options)}
             </Input>
         );
