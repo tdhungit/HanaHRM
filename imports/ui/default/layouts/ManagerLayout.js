@@ -18,8 +18,10 @@ import EditUser from '../pages/users/EditUser';
 
 import CreateRole from '../pages/acl/CreateRole';
 import ViewRoles from '../pages/acl/ViewRoles';
+import ViewUserGroups from '../pages/acl/ViewUserGroups';
 import CreateUserGroup from '../pages/acl/CreateUserGroup';
 import ViewUserGroup from '../pages/acl/ViewUserGroup';
+import EditUserGroup from '../pages/acl/EditUserGroup';
 
 import CreateMainMenu from '../pages/main_menus/CreateMainMenu';
 import ViewMainMenus from '../pages/main_menus/ViewMainMenus';
@@ -51,7 +53,9 @@ class ManagerLayout extends Component {
 
                             <Authenticate exact path="/manager/acl/roles/create" component={CreateRole} {...appProps}/>
                             <Authenticate exact path="/manager/acl/roles" component={ViewRoles} {...appProps}/>
+                            <Authenticate exact path="/manager/acl/user-groups" component={ViewUserGroups} {...appProps}/>
                             <Authenticate exact path="/manager/acl/user-groups/create" component={CreateUserGroup} {...appProps}/>
+                            <Authenticate exact path="/manager/acl/user-groups/:_id/edit" component={EditUserGroup} {...appProps}/>
                             <Authenticate exact path="/manager/acl/user-groups/:_id/detail" component={ViewUserGroup} {...appProps}/>
 
                             <Authenticate exact path="/manager/main-menus" component={ViewMainMenus} {...appProps}/>

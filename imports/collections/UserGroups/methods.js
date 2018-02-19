@@ -30,6 +30,24 @@ Meteor.methods({
         }
     },
     'userGroups.ROOT': function () {
-        return UserGroups.find({parent: 'ROOT'}).fetch();
+        return UserGroups.find({}).fetch();
+    },
+    'userGroups.TREE': function () {
+        return getTreeUserGroups('ROOT');
     }
 });
+
+function getTreeUserGroups(groupId) {
+    let groups = [];
+    const group = UserGroups.find({parent: groupId}).fetch();
+    if (group.length > 0) {
+        for (let idx in group) {
+            let item = group[idx];
+            // search children item
+            item.children = getTreeUserGroups(item._id);
+            groups.push(item);
+        }
+    }
+
+    return groups;
+}

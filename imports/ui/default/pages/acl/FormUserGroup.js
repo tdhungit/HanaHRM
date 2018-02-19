@@ -40,7 +40,7 @@ class FormUserGroup extends Component {
             userGroup
         } = this.props;
 
-        if (typeof userGroup != 'undefined' && userGroup._id) {
+        if (userGroup && userGroup._id) {
             this.setState({userGroup: userGroup});
         }
 
@@ -63,7 +63,7 @@ class FormUserGroup extends Component {
     }
 
     handleSubmit() {
-        const existing = this.props.menu && this.props.menu._id;
+        const existing = this.props.userGroup && this.props.userGroup._id;
         const method = existing ? 'userGroups.update' : 'userGroups.insert';
 
         if (this.state.userGroup.name) {
@@ -84,7 +84,7 @@ class FormUserGroup extends Component {
             slogan
         } = this.props;
 
-        const existing = this.props.menu && this.props.menu._id;
+        const existing = this.props.userGroup && this.props.userGroup._id;
 
         return (
             <Card>

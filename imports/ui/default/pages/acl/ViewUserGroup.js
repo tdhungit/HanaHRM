@@ -26,8 +26,14 @@ class ViewUserGroup extends Component {
                     <Col>
                         <Card>
                             <CardHeader>
+                                <i className="fa fa-eye"></i>
                                 <strong><T>View User Group</T></strong>&nbsp;
                                 {userGroup.name}
+                                <div className="card-actions">
+                                    <Link to={'/manager/acl/user-groups/' + userGroup._id + '/edit'} title={t.__('Edit')}>
+                                        <i className="fa fa-edit"/>
+                                    </Link>
+                                </div>
                             </CardHeader>
                             <CardBody className="detail">
                                 <dl className="row">

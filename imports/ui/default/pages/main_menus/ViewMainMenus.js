@@ -43,6 +43,7 @@ class ViewMainMenus extends Component {
                             </span>
                         )
                     };
+
                     if (menu.children) {
                         menuTree.expanded = true;
                         menuTree.children = [];
@@ -65,6 +66,7 @@ class ViewMainMenus extends Component {
                             });
                         }
                     }
+
                     menusTree.push(menuTree);
                 }
 
@@ -80,6 +82,7 @@ class ViewMainMenus extends Component {
             menu.weight = parseInt(idx) + 1;
             menu.parent = 'ROOT';
             Meteor.call('mainMenus.update', menu);
+
             if (menu.children) {
                 for (let idx2 in menu.children) {
                     let menu_child = menu.children[idx2];
@@ -104,6 +107,11 @@ class ViewMainMenus extends Component {
                             <CardHeader>
                                 <i className="fa fa-list"></i>
                                 <strong><T>View Main Menus</T></strong>
+                                <div className="card-actions">
+                                    <Link to={'/manager/main-menus/create'} title={t.__('Create')}>
+                                        <i className="fa fa-plus-circle"/>
+                                    </Link>
+                                </div>
                             </CardHeader>
                             <CardBody>
                                 <div style={{height: 600}}>
