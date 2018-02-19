@@ -43,7 +43,7 @@ class FormUser extends Component {
             user
         } = this.props;
 
-        if (user) {
+        if (user && user._id) {
             user.email = user && user.emails && user.emails[0].address;
             user.first_name = user && user.profile && user.profile.first_name;
             user.last_name = user && user.profile && user.profile.last_name;

@@ -32,9 +32,15 @@ class FormMainMenu extends Component {
         super(props);
         this.state = {
             menu: {
+                name: '',
+                url: '',
                 icon: '',
-                badge_variant: null,
-                badge_text: null
+                weight: 0,
+                parent: '',
+                title: false,
+                divider: false,
+                badge_variant: '',
+                badge_text: ''
             },
             root_menus: [],
             modalIcon: false
@@ -65,10 +71,12 @@ class FormMainMenu extends Component {
             }
         });
 
-        let menuClean = menu;
-        menuClean.badge_variant = menu.badge && menu.badge.variant;
-        menuClean.badge_text = menu.badge && menu.badge.text;
-        this.setState({menu: menuClean});
+        if (typeof menu != 'undefined' && menu._id) {
+            let menuClean = menu;
+            menuClean.badge_variant = menu.badge && menu.badge.variant;
+            menuClean.badge_text = menu.badge && menu.badge.text;
+            this.setState({menu: menuClean});
+        }
     }
 
     toggleModalIcon() {
@@ -97,7 +105,7 @@ class FormMainMenu extends Component {
         let menu = this.state.menu;
         menu[name] = value;
 
-        this.setState({user: menu});
+        this.setState({menu: menu});
     }
 
     handleSubmit() {

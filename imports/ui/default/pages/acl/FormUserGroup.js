@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor';
 import {withRouter} from 'react-router';
 import {
@@ -41,7 +40,7 @@ class FormUserGroup extends Component {
             userGroup
         } = this.props;
 
-        if (typeof userGroup != 'undefined') {
+        if (typeof userGroup != 'undefined' && userGroup._id) {
             this.setState({userGroup: userGroup});
         }
 
