@@ -16,8 +16,9 @@ import ViewUser from '../pages/users/ViewUser';
 import CreateUser from '../pages/users/CreateUser';
 import EditUser from '../pages/users/EditUser';
 
-import CreateRole from '../pages/acl/CreateRole';
 import ViewRoles from '../pages/acl/ViewRoles';
+import CreateRole from '../pages/acl/CreateRole';
+import ViewPermissions from '../pages/acl/ViewPermissions';
 import ViewUserGroups from '../pages/acl/ViewUserGroups';
 import CreateUserGroup from '../pages/acl/CreateUserGroup';
 import ViewUserGroup from '../pages/acl/ViewUserGroup';
@@ -51,8 +52,9 @@ class ManagerLayout extends Component {
                             <Authenticate exact path="/manager/users/:_id/edit" component={EditUser} {...appProps}/>
                             <Authenticate exact path="/manager/users/:_id/detail" component={ViewUser} {...appProps}/>
 
-                            <Authenticate exact path="/manager/acl/roles/create" component={CreateRole} {...appProps}/>
                             <Authenticate exact path="/manager/acl/roles" component={ViewRoles} {...appProps}/>
+                            <Authenticate exact path="/manager/acl/roles/create" component={CreateRole} {...appProps}/>
+                            <Authenticate exact path="/manager/acl/roles/:name/permissions" component={ViewPermissions} {...appProps}/>
                             <Authenticate exact path="/manager/acl/user-groups" component={ViewUserGroups} {...appProps}/>
                             <Authenticate exact path="/manager/acl/user-groups/create" component={CreateUserGroup} {...appProps}/>
                             <Authenticate exact path="/manager/acl/user-groups/:_id/edit" component={EditUserGroup} {...appProps}/>

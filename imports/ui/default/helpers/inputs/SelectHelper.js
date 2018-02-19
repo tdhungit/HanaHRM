@@ -19,9 +19,13 @@ class SelectHelper extends Component {
                     return (
                         <option key={option.value} value={option.value}>{option.name}</option>
                     );
-                } else {
+                } else if (option._id && option.name) {
                     return (
                         <option key={option._id} value={option._id}>{option.name}</option>
+                    );
+                } else {
+                    return (
+                        <option key={option} value={option}>{option}</option>
                     );
                 }
             });

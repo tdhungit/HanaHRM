@@ -38,11 +38,11 @@ const PermissionsSchema = new SimpleSchema({
     },
     type: {
         type: String,
-        label: 'Permission type: Disable, Owner, Group, All'
+        label: 'Permission type: Disable, Owner, Children, Group, All'
     },
     action: {
         type: String,
-        label: 'View action: create, edit, approve, deleted'
+        label: 'View action: View, Create, Edit, Approve, Delete'
     }
 });
 
