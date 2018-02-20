@@ -36,7 +36,7 @@ class ViewUserGroups extends Component {
         for (let idx in groups) {
             let group = groups[idx];
             let tree = {
-                title: (<Link to={'/manager/acl/user-groups/' + group._id + '/detail'}>{group.name}</Link>),
+                title: (<Link to={'/manager/user-groups/' + group._id + '/detail'}>{group.name}</Link>),
                 subtitle: group.description,
                 expanded: true,
                 _id: group._id,
@@ -80,7 +80,7 @@ class ViewUserGroups extends Component {
                                 <i className="fa fa-list"></i>
                                 <strong><T>View User Groups</T></strong>
                                 <div className="card-actions">
-                                    <Link to={'/manager/acl/user-groups/create'} title={t.__('Create')}>
+                                    <Link to={'/manager/user-groups/create'} title={t.__('Create')}>
                                         <i className="fa fa-plus-circle"/>
                                     </Link>
                                 </div>

@@ -161,7 +161,7 @@ class ViewPermissions extends Component {
                                     <i className="fa fa-dot-circle-o"></i>&nbsp;
                                     <T>Save</T>
                                 </Button>
-                                <Button type="reset" size="sm" color="danger" onClick={() => this.props.history.push('/manager/acl/roles')}>
+                                <Button type="reset" size="sm" color="danger" onClick={() => this.props.history.push('/manager/roles')}>
                                     <i className="fa fa-ban"></i> <T>Cancel</T>
                                 </Button>
                             </CardFooter>

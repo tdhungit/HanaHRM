@@ -28,6 +28,8 @@ import CreateMainMenu from '../pages/main_menus/CreateMainMenu';
 import ViewMainMenus from '../pages/main_menus/ViewMainMenus';
 import EditMainMenu from '../pages/main_menus/EditMainMenu';
 
+import SystemSettings from '../pages/settings/SystemSettings';
+
 class ManagerLayout extends Component {
     constructor(props) {
         super(props);
@@ -52,17 +54,19 @@ class ManagerLayout extends Component {
                             <Authenticate exact path="/manager/users/:_id/edit" component={EditUser} {...appProps}/>
                             <Authenticate exact path="/manager/users/:_id/detail" component={ViewUser} {...appProps}/>
 
-                            <Authenticate exact path="/manager/acl/roles" component={ViewRoles} {...appProps}/>
-                            <Authenticate exact path="/manager/acl/roles/create" component={CreateRole} {...appProps}/>
-                            <Authenticate exact path="/manager/acl/roles/:name/permissions" component={ViewPermissions} {...appProps}/>
-                            <Authenticate exact path="/manager/acl/user-groups" component={ViewUserGroups} {...appProps}/>
-                            <Authenticate exact path="/manager/acl/user-groups/create" component={CreateUserGroup} {...appProps}/>
-                            <Authenticate exact path="/manager/acl/user-groups/:_id/edit" component={EditUserGroup} {...appProps}/>
-                            <Authenticate exact path="/manager/acl/user-groups/:_id/detail" component={ViewUserGroup} {...appProps}/>
+                            <Authenticate exact path="/manager/roles" component={ViewRoles} {...appProps}/>
+                            <Authenticate exact path="/manager/roles/create" component={CreateRole} {...appProps}/>
+                            <Authenticate exact path="/manager/roles/:name/permissions" component={ViewPermissions} {...appProps}/>
+                            <Authenticate exact path="/manager/user-groups" component={ViewUserGroups} {...appProps}/>
+                            <Authenticate exact path="/manager/user-groups/create" component={CreateUserGroup} {...appProps}/>
+                            <Authenticate exact path="/manager/user-groups/:_id/edit" component={EditUserGroup} {...appProps}/>
+                            <Authenticate exact path="/manager/user-groups/:_id/detail" component={ViewUserGroup} {...appProps}/>
 
                             <Authenticate exact path="/manager/main-menus" component={ViewMainMenus} {...appProps}/>
                             <Authenticate exact path="/manager/main-menus/create" component={CreateMainMenu} {...appProps}/>
                             <Authenticate exact path="/manager/main-menus/:_id/edit" component={EditMainMenu} {...appProps}/>
+
+                            <Authenticate exact path="/manager/settings" component={SystemSettings} {...appProps}/>
                         </Container>
                     </main>
                 </div>

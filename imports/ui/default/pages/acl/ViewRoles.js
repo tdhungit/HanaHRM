@@ -59,7 +59,7 @@ class ViewRoles extends Component {
                                                 <td>{role.name}</td>
                                                 <td>
                                                     <Button type="button" size="sm" color="primary">
-                                                        <Link to={'/manager/acl/roles/' + role.name + '/permissions'}>
+                                                        <Link to={'/manager/roles/' + role.name + '/permissions'}>
                                                             <T>Permissions</T>
                                                         </Link>
                                                     </Button>

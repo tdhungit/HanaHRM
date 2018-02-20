@@ -29,7 +29,7 @@ Permissions.deny({
 const PermissionsSchema = new SimpleSchema({
     createdAt: {
         type: String,
-        label: 'The date this menu was created.',
+        label: 'The date permission was created.',
         autoValue() {
             if (this.isInsert) return (new Date()).toISOString();
             return this.value;

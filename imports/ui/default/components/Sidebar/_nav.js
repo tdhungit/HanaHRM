@@ -22,12 +22,12 @@ export default {
                 },
                 {
                     name: 'View User Groups',
-                    url: '/manager/acl/user-groups',
+                    url: '/manager/user-groups',
                     icon: 'icon-people'
                 },
                 {
                     name: 'View Roles',
-                    url: '/manager/acl/roles',
+                    url: '/manager/roles',
                     icon: 'icon-lock'
                 }
             ]
@@ -40,6 +40,11 @@ export default {
                     name: 'Sidebar Menu',
                     url: '/manager/main-menus',
                     icon: 'icon-menu'
+                },
+                {
+                    name: 'System Settings',
+                    url: '/manager/settings',
+                    icon: 'fa fa-cogs'
                 }
             ]
         }

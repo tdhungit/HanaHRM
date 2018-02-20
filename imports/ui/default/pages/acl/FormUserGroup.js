@@ -72,7 +72,7 @@ class FormUserGroup extends Component {
                     Bert.alert(error.reason, 'danger');
                 } else {
                     Bert.alert(t.__('Successful!'), 'success');
-                    this.props.history.push('/manager/acl/user-groups/' + groupId + '/detail');
+                    this.props.history.push('/manager/user-groups/' + groupId + '/detail');
                 }
             });
         }
@@ -121,7 +121,7 @@ class FormUserGroup extends Component {
                         <i className="fa fa-dot-circle-o"></i>&nbsp;
                         {existing ? <T>Update</T> :<T>Create</T>}
                     </Button>
-                    <Button type="reset" size="sm" color="danger" onClick={() => this.props.history.push('/manager/acl/user-groups')}>
+                    <Button type="reset" size="sm" color="danger" onClick={() => this.props.history.push('/manager/user-groups')}>
                         <i className="fa fa-ban"></i> <T>Cancel</T>
                     </Button>
                 </CardFooter>
