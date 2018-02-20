@@ -1,7 +1,18 @@
-import {Mongo} from 'meteor/mongo';
+import CollectionBase from '/imports/common/CollectionBase';
 import SimpleSchema from 'simpl-schema';
 
-const Permissions = new Mongo.Collection('acl_permissions');
+class PermissionsCollection extends CollectionBase {
+    beforeInsert(doc) {
+        const find = this.find({role: doc.role, model: doc.model}).fetch();
+        if (find && find.length > 0) {
+            return false;
+        }
+
+        return true;
+    }
+}
+
+const Permissions = new PermissionsCollection('acl_permissions');
 
 Permissions.allow({
     insert: () => false,
@@ -30,20 +41,38 @@ const PermissionsSchema = new SimpleSchema({
     },
     model: {
         type: String,
-        label: 'Collection'
+        label: 'Model name'
     },
-    access: {
+    Access: {
         type: Boolean,
-        label: 'On or Off'
+        label: 'Access On or Off',
+        defaultValue: false
     },
-    type: {
+    View: {
         type: String,
-        label: 'Permission type: Disable, Owner, Children, Group, All'
+        label: 'Action View',
+        defaultValue: 'Disable'
     },
-    action: {
+    Create: {
         type: String,
-        label: 'View action: View, Create, Edit, Approve, Delete'
-    }
+        label: 'Action Create',
+        defaultValue: 'Disable'
+    },
+    Edit: {
+        type: String,
+        label: 'Action Edit',
+        defaultValue: 'Disable'
+    },
+    Approve: {
+        type: String,
+        label: 'Action Approve',
+        defaultValue: 'Disable'
+    },
+    Delete: {
+        type: String,
+        label: 'Action Delete',
+        defaultValue: 'Disable'
+    },
 });
 
 Permissions.attachSchema(PermissionsSchema);

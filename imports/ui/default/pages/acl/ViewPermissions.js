@@ -16,22 +16,18 @@ import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
 
 import collections from '/imports/collections/collections';
+import {permissionsAclTypes} from '/imports/collections/Permissions/config';
 import {T, t} from '/imports/common/Translation';
 import SelectHelper from '../../helpers/inputs/SelectHelper';
 import container from '../../layouts/Container';
+import {Bert} from 'meteor/themeteorchef:bert';
 
 class ViewPermissions extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            acl_types: [
-                'Disable',
-                'Owner',
-                'Children',
-                'Group',
-                'All'
-            ],
+            acl_types: permissionsAclTypes,
             permissions: {}
         };
 
@@ -43,10 +39,15 @@ class ViewPermissions extends Component {
             role
         } = this.props;
 
-        this.state.permissions = {abc: '1234'};
+        for (let idx in collections) {
+            let collection = collections[idx];
+            if (!this.state.permissions[collection]) {
+                this.state.permissions[collection] = {Access: false};
+            }
+        }
 
         Meteor.call('permissions.detail', role, (error, response) => {
-
+            console.log(response);
         });
     }
 
@@ -69,7 +70,17 @@ class ViewPermissions extends Component {
     }
 
     handleSubmit() {
+        const {
+            role
+        } = this.props;
 
+        Meteor.call('permissions.update', this.state.permissions, role, (error) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            } else {
+                Bert.alert(t.__('Successful!'), 'success');
+            }
+        });
     }
 
     render() {
@@ -106,8 +117,8 @@ class ViewPermissions extends Component {
                                                 <td>{collection}</td>
                                                 <td>
                                                     <Label className="switch switch-text switch-pill switch-primary">
-                                                        <Input type="checkbox" name={'Access_' + collection} className="switch-input" defaultChecked
-                                                               value={this.state.permissions[collection] && this.state.permissions[collection].Access}
+                                                        <Input type="checkbox" name={'Access_' + collection} className="switch-input"
+                                                               checked={(this.state.permissions[collection] && this.state.permissions[collection].Access) ? true : false}
                                                                onChange={this.handleInputChange}/>
                                                         <span className="switch-label" data-on="On" data-off="Off"></span>
                                                         <span className="switch-handle"></span>

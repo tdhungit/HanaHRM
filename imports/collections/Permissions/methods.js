@@ -12,9 +12,12 @@ Meteor.methods({
 
         return detail;
     },
-    'permissions.update': function (permissions) {
-        for (let idx in permissions) {
-            let permission = permissions[idx];
+    'permissions.update': function (permissions, role) {
+        for (let collection in permissions) {
+            let permission = permissions[collection];
+            permission.role = role;
+            permission.model = collection;
+
             if (permission && permission._id) {
                 Permissions.update(permission._id, permission);
             } else {
