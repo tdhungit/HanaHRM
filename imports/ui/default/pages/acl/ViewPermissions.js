@@ -17,6 +17,7 @@ import {Roles} from 'meteor/alanning:roles';
 
 import collections from '/imports/collections/collections';
 import {permissionsAclTypes} from '/imports/collections/Permissions/config';
+import Permissions from '/imports/collections/Permissions/Permissions';
 import {T, t} from '/imports/common/Translation';
 import SelectHelper from '../../helpers/inputs/SelectHelper';
 import container from '../../layouts/Container';
@@ -36,8 +37,12 @@ class ViewPermissions extends Component {
 
     componentWillMount() {
         const {
-            role
+            permissions
         } = this.props;
+
+        if (permissions) {
+            this.state.permissions = permissions;
+        }
 
         for (let idx in collections) {
             let collection = collections[idx];
@@ -45,10 +50,6 @@ class ViewPermissions extends Component {
                 this.state.permissions[collection] = {Access: false};
             }
         }
-
-        Meteor.call('permissions.detail', role, (error, response) => {
-            console.log(response);
-        });
     }
 
     handleInputChange(event) {
@@ -173,16 +174,29 @@ class ViewPermissions extends Component {
 }
 
 ViewPermissions.defaultProps = {
-    role: ''
+    role: '',
+    permissions: {}
 };
 
 ViewPermissions.propTypes = {
-    role: PropTypes.string
+    role: PropTypes.string,
+    permissions: PropTypes.object
 };
 
 export default container((props, onData) => {
     const role = props.match.params.name;
-    onData(null, {
-        role: role
-    });
+    const subscription = Meteor.subscribe('permissions.detail', role);
+    if (subscription && subscription.ready()) {
+        let permissions = {};
+        const permissionDetail = Permissions.find({role: role}).fetch();
+        for (let idx in permissionDetail) {
+            let permission = permissionDetail[idx];
+            permissions[permission.model] = permission;
+        }
+
+        onData(null, {
+            role: role,
+            permissions: permissions
+        });
+    }
 }, ViewPermissions);
