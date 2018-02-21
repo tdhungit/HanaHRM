@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {
+    Row,
+    Col,
     Card,
     CardHeader,
-    CardBody
+    CardBody,
+    Button
 } from 'reactstrap';
 
 import {T, t, PT} from '/imports/common/Translation';
@@ -13,6 +16,11 @@ class ViewCalendar extends Component {
         super(props);
 
         this.state = {
+            view: 'month', // month,agendaWeek,agendaDay,
+            monthColor: 'primary',
+            agendaWeekColor: 'secondary',
+            agendaDayColor: 'secondary',
+            date: new Date(),
             events: [
                 {
                     title: 'Default event',
@@ -24,6 +32,16 @@ class ViewCalendar extends Component {
         };
 
         this.onEventSelect = this.onEventSelect.bind(this);
+    }
+
+    changeView(view) {
+        this.setState({
+            view: view,
+            monthColor: 'secondary',
+            agendaWeekColor: 'secondary',
+            agendaDayColor: 'secondary',
+            [view + 'Color']: 'primary'
+        });
     }
 
     onEventSelect(start, end) {
@@ -46,8 +64,8 @@ class ViewCalendar extends Component {
             header: false,
 
             id: 'calendar-example',
-            defaultView: 'month',
-            defaultDate: new Date(),
+            defaultView: this.state.view,
+            defaultDate: this.state.date,
             timezone: 'local',
 
             editable: true,
@@ -77,7 +95,31 @@ class ViewCalendar extends Component {
                         <strong><T>Calendar</T></strong>
                     </CardHeader>
                     <CardBody>
-                        <div className="calendar">
+                        <div className="calendar-header">
+                            <Row>
+                                <Col md="3">
+                                    <div className="pull-left">
+                                        <Button outline type="button" size="sm"><T>Back</T></Button>
+                                        <Button outline type="button" size="sm"><T>Today</T></Button>
+                                        <Button outline type="button" size="sm"><T>Next</T></Button>
+                                    </div>
+                                </Col>
+                                <Col md="6">
+                                    <div className="text-center fc-title">20/10/1987</div>
+                                </Col>
+                                <Col md="3">
+                                    <div className="pull-right">
+                                        <Button outline type="button" size="sm" color={this.state.monthColor}
+                                                onClick={this.changeView.bind(this, 'month')}><T>Month</T></Button>
+                                        <Button outline type="button" size="sm" color={this.state.agendaWeekColor}
+                                                onClick={this.changeView.bind(this, 'agendaWeek')}><T>Week</T></Button>
+                                        <Button outline type="button" size="sm" color={this.state.agendaDayColor}
+                                                onClick={this.changeView.bind(this, 'agendaDay')}><T>Day</T></Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
+                        <div className="activities-calendar">
                             <FullCalendar options={calendarOptions} />
                         </div>
                     </CardBody>

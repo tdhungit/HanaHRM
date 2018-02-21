@@ -3,3 +3,14 @@ header {
     min-width: 11.5rem;
   }
 }
+
+.activities-calendar {
+  .fc-content {
+    cursor: pointer;
+    padding: 3px 5px;
+    background-color: #3174ad;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+  }
+}
