@@ -4,8 +4,8 @@ class Footer extends Component {
     render() {
         return (
             <footer className="app-footer">
-                <a href="http://penguinhrm.io">PenguinHRM</a> &copy; 2017 Jacky.
-                <span className="float-right">Powered by <a href="http://coreui.io">PenguinHRM</a></span>
+                <a href="http://penguinhrm.io">PenguinHRM</a>&nbsp; &copy; 2017 Jacky Developer.
+                <span className="float-right">&nbsp;Powered by <a href="https://github.com/tdhungit">Jacky Tran</a></span>
             </footer>
         )
     }
