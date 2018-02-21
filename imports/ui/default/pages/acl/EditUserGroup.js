@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 
 import container from '../../layouts/Container';
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import FormUserGroup from './FormUserGroup';
 import UserGroups from '/imports/collections/UserGroups/UserGroups';
 
@@ -19,6 +19,7 @@ class EditUserGroup extends Component {
 
         return (
             <div className="acl-EditUserGroup animated fadeIn">
+                <PT title={userGroup.name}/>
                 <Row>
                     <Col>
                         <FormUserGroup userGroup={userGroup} title={t.__('Edit')} slogan={userGroup.name}/>

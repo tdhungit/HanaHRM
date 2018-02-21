@@ -13,7 +13,7 @@ import {
     Alert
 } from 'reactstrap';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 
 class Signup extends Component {
     constructor(props) {
@@ -66,6 +66,7 @@ class Signup extends Component {
     render() {
         return (
             <div className="auth-Signup app flex-row align-items-center">
+                <PT title={t.__('Signup')}/>
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="6">

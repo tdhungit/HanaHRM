@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 
 class Login extends Component {
     constructor(props) {
@@ -50,6 +50,7 @@ class Login extends Component {
     render() {
         return (
             <div className="auth-Login app flex-row align-items-center">
+                <PT title={t.__('Login')}/>
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="8">

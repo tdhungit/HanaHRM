@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 
 import container from '../../layouts/Container';
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import Users from '/imports/collections/Users/Users';
 import FormUser from './FormUser';
 
@@ -19,6 +19,7 @@ class EditUser extends Component {
 
         return (
             <div className="users-EditUser animated fadeIn">
+                <PT title={user.username}/>
                 <Row>
                     <Col xs="12" lg="12">
                         {user ?

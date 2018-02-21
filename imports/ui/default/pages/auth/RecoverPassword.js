@@ -9,12 +9,13 @@ import {
     InputGroup
 } from 'reactstrap';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 
 class RecoverPassword extends Component {
     render() {
         return (
             <div className="auth-RecoverPassword app flex-row align-items-center">
+                <PT title={t.__('Forgot Password')}/>
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="6">

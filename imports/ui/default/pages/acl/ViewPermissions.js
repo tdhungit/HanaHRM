@@ -18,7 +18,7 @@ import {Roles} from 'meteor/alanning:roles';
 import collections from '/imports/collections/collections';
 import {permissionsAclTypes} from '/imports/collections/Permissions/config';
 import Permissions from '/imports/collections/Permissions/Permissions';
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import SelectHelper from '../../helpers/inputs/SelectHelper';
 import container from '../../layouts/Container';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -91,6 +91,7 @@ class ViewPermissions extends Component {
 
         return (
             <div className="acl-ViewPermissions animated fadeIn">
+                <PT title={role}/>
                 <Row>
                     <Col>
                         <Card>

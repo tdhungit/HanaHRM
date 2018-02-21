@@ -18,9 +18,8 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import ProfileUserInfo from './ProfileUserInfo';
-import CreateUser from "./CreateUser";
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -59,6 +58,7 @@ class ViewProfile extends Component {
 
         return (
             <div className="users-ViewProfile animated fadeIn">
+                <PT title={t.__('My Profile')}/>
                 <Row>
                     <Col xs="12" md="3" className="mb-3">
                         <Card>

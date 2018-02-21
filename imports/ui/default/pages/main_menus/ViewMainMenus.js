@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 
 class ViewMainMenus extends Component {
     constructor(props) {
@@ -101,6 +101,7 @@ class ViewMainMenus extends Component {
     render() {
         return (
             <div className="mainmenu-ViewMainMenus animated fadeIn">
+                <PT title={t.__('View Main Menus')}/>
                 <Row>
                     <Col>
                         <Card>

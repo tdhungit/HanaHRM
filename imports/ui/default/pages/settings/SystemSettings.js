@@ -15,7 +15,7 @@ import {
 } from 'reactstrap';
 import {Bert} from 'meteor/themeteorchef:bert';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import container from '../../layouts/Container';
 import Settings from '/imports/collections/Settings/Settings';
 
@@ -82,6 +82,7 @@ class SystemSettings extends Component {
     render() {
         return (
             <div className="settings-SystemSettings animated fadeIn">
+                <PT title={t.__('System Settings')}/>
                 <Row>
                     <Col>
                         <Card>
@@ -131,9 +132,9 @@ SystemSettings.propTypes = {
 };
 
 export default container((props, onData) => {
-    const subscription = Meteor.subscribe('settings.getCategory', 'Systems');
+    const subscription = Meteor.subscribe('settings.getCategory');
     if (subscription && subscription.ready()) {
-        const systemSettings = Settings.find({}).fetch();
+        const systemSettings = Settings.find({category: 'Systems'}).fetch();
         let settings = {};
         for (let idx in systemSettings) {
             let setting = systemSettings[idx];

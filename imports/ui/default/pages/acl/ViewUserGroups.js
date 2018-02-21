@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 
 class ViewUserGroups extends Component {
     constructor(props) {
@@ -73,6 +73,7 @@ class ViewUserGroups extends Component {
     render() {
         return (
             <div className="acl-ViewUserGroups">
+                <PT title={t.__('View User Groups')}/>
                 <Row>
                     <Col>
                         <Card>

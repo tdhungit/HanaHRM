@@ -11,7 +11,7 @@ import {
 import {Link} from 'react-router-dom';
 
 import container from '../../layouts/Container';
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import UserGroups from '/imports/collections/UserGroups/UserGroups';
 
 class ViewUserGroup extends Component {
@@ -22,6 +22,7 @@ class ViewUserGroup extends Component {
 
         return (
             <div className="acl-ViewUserGroup animated fadeIn">
+                <PT title={userGroup.name}/>
                 <Row>
                     <Col>
                         <Card>

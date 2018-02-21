@@ -12,7 +12,7 @@ import {Roles} from 'meteor/alanning:roles';
 import {Link} from 'react-router-dom';
 import {Bert} from 'meteor/themeteorchef:bert';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 
 class ViewRoles extends Component {
     constructor(props) {
@@ -38,6 +38,7 @@ class ViewRoles extends Component {
     render() {
         return (
             <div className="acl-ViewRoles animated fadeIn">
+                <PT title={t.__('View Roles')}/>
                 <Row>
                     <Col>
                         <Card>

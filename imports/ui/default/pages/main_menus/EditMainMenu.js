@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 
 import container from '../../layouts/Container';
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import FormMainMenu from './FormMainMenu';
 import MainMenus from '/imports/collections/MainMenus/MainMenus';
 
@@ -23,6 +23,7 @@ class EditMainMenu extends Component {
 
         return (
             <div className="mainmenu-EditMainMenu animated fadeIn">
+                <PT title={menu.name}/>
                 <Row>
                     <Col xs="12" lg="12">
                         <FormMainMenu menu={menu} title={t.__("Edit menu")} slogan={t.__("Sidebar menu")}/>

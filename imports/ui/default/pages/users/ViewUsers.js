@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
-import {T, t} from '/imports/common/Translation';
+import {T, t, PT} from '/imports/common/Translation';
 import Users from '/imports/collections/Users/Users';
 import ViewUsersTable from './ViewUsersTable';
 
@@ -39,6 +39,7 @@ class ViewUsers extends Component {
 
         return (
             <div className="users-Users animated fadeIn">
+                <PT title={t.__('View users')}/>
                 <Row>
                     <Col xs="12" lg="12">
                         <Card>
