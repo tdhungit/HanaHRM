@@ -12,6 +12,7 @@ import {
     NavbarBrand,
     DropdownToggle
 } from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
@@ -78,7 +79,9 @@ class Header extends Component {
                         <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
                     </NavItem>
                     <NavItem className="d-md-down-none">
-                        <NavLink href="#"><i className="icon-list"></i></NavLink>
+                        <Link to="/manager/calendar" className="nav-link">
+                            <i className="icon-list"></i>
+                        </Link>
                     </NavItem>
                     <NavItem className="d-md-down-none">
                         <NavLink href="#"><i className="icon-location-pin"></i></NavLink>

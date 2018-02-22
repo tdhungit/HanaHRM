@@ -5,12 +5,27 @@ header {
 }
 
 .activities-calendar {
+  .fc-center {
+    padding-top: 5px;
+
+    h2 {
+      font-size: 16px;
+    }
+  }
+
   .fc-content {
     cursor: pointer;
     padding: 3px 5px;
-    background-color: #3174ad;
     border-radius: 5px;
     color: #fff;
     font-size: 12px;
+  }
+
+  .btn-default {
+    border: 1px solid #a4b7c1;
+  }
+
+  .btn-default.active {
+    border-color: #20a8d8;
   }
 }

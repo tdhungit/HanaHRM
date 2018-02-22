@@ -7,6 +7,7 @@ import 'fullcalendar/dist/fullcalendar.css';
 // import 'fullcalendar-scheduler';
 
 import {isOption} from './utils';
+import {t} from '/imports/common/Translation';
 
 
 class FullCalendar extends Component {
@@ -32,6 +33,31 @@ class FullCalendar extends Component {
         this.calendar = $(this.refs['fullcalendar-container']);
 
         const calendarOptions = this.extendCalendarOptions(options);
+
+        // default options
+        if (!calendarOptions.header) {
+            calendarOptions.header = {
+                left: 'prev,today,next',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            };
+        }
+
+        if (!calendarOptions.buttonText) {
+            calendarOptions.buttonText = {
+                today: t.__('Today'),
+                month: t.__('Month'),
+                week: t.__('Week'),
+                day: t.__('Day'),
+                list: t.__('List'),
+                prev: t.__('Back'),
+                next: t.__('Next')
+            };
+        }
+
+        if (!calendarOptions.themeSystem) {
+            calendarOptions.themeSystem = 'bootstrap3';
+        }
 
         this.calendar.fullCalendar(calendarOptions);
     }
@@ -65,4 +91,6 @@ FullCalendar.propTypes = {
     onDateChanged: PropTypes.func,
 };
 
-export default FullCalendar;
+export {
+    FullCalendar
+};
