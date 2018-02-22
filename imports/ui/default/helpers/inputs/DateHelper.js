@@ -20,6 +20,7 @@ class DateInput extends Component {
             onChange
         } = this.props;
         const event = {
+            dateValue: dateValue,
             target: {
                 name: name,
                 type: 'date',

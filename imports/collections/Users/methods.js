@@ -4,6 +4,14 @@ import {Accounts} from 'meteor/accounts-base';
 import Users from '/imports/collections/Users/Users';
 
 Meteor.methods({
+    'users.searchKeyword': function (keyword, limit = 10) {
+        check(keyword, String);
+        return Users.find({
+                username: {$regex: ".*" + keyword + ".*"}
+            }, {
+                limit: limit
+            }).fetch();
+    },
     'users.insert': function (user) {
         check(user, Object);
         return Accounts.createUser({

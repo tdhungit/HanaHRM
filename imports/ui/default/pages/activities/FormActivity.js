@@ -19,7 +19,7 @@ import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t} from '/imports/common/Translation';
 import {AppListStrings} from '/imports/common/AppListStrings';
-import {SelectHelper} from '../../helpers/inputs/SelectHelper';
+import {SelectHelper, Select2Helper} from '../../helpers/inputs/SelectHelper';
 import {DateInput} from '../../helpers/inputs/DateHelper';
 
 class FormActivity extends Component {
@@ -30,7 +30,26 @@ class FormActivity extends Component {
             activity: {}
         };
 
+        this.loadInviteUsers = this.loadInviteUsers.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    loadInviteUsers(input, callback) {
+        Meteor.call('users.searchKeyword', input, 5, (error, response) => {
+            let options = [];
+            if (!error) {
+                for (let idx in response) {
+                    let user = response[idx];
+                    options.push({
+                        value: user._id,
+                        label: user.username
+                    });
+                }
+            }
+            callback(null, {
+                options: options
+            });
+        });
     }
 
     handleInputChange(event) {
@@ -80,7 +99,7 @@ class FormActivity extends Component {
                         <Col xs="12" md="6">
                             <FormGroup>
                                 <Label><T>Type</T></Label>
-                                <SelectHelper name="type" options={AppListStrings.ActivityTypes}
+                                <SelectHelper name="type" placeholder={t.__('Choose...')} options={AppListStrings.ActivityTypes}
                                        value={this.getInputValue('type')}
                                        onChange={this.handleInputChange}/>
                             </FormGroup>
@@ -105,8 +124,38 @@ class FormActivity extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs="12" md="6"></Col>
-                        <Col xs="12" md="6"></Col>
+                        <Col xs="12" md="8">
+                            <Row>
+                                <Col>
+                                    <FormGroup>
+                                        <Label><T>Location</T></Label>
+                                        <Input type="text" name="location" placeholder={t.__('Enter here')}
+                                               value={this.getInputValue('location')}
+                                               onChange={this.handleInputChange}/>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <FormGroup>
+                                        <Label><T>Description</T></Label>
+                                        <Input type="textarea" name="description"
+                                               value={this.getInputValue('description')}
+                                               onChange={this.handleInputChange}/>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col></Col>
+                            </Row>
+                        </Col>
+                        <Col xs="12" md="4">
+                            <FormGroup>
+                                <Label><T>Invites</T></Label>
+                                <Select2Helper name="invites" placeholder={t.__('Choose...')}
+                                               async={true} loadOptions={this.loadInviteUsers}/>
+                            </FormGroup>
+                        </Col>
                     </Row>
                 </CardBody>
                 <CardFooter>

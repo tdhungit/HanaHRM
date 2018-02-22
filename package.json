@@ -24,6 +24,7 @@
     "react-komposer": "^2.0.0",
     "react-moment": "^0.7.0",
     "react-router-dom": "^4.2.2",
+    "react-select": "^1.2.1",
     "react-sortable-tree": "^2.0.1",
     "reactstrap": "^5.0.0-alpha.4",
     "simpl-schema": "^1.4.2"
