@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
-import container from '../../layouts/Container';
+import container from '/imports/common/Container';
 import {T, t, PT} from '/imports/common/Translation';
 import UserGroups from '/imports/collections/UserGroups/UserGroups';
 

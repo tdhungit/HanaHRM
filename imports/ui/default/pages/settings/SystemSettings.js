@@ -16,7 +16,7 @@ import {
 import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t, PT} from '/imports/common/Translation';
-import container from '../../layouts/Container';
+import container from '/imports/common/Container';
 import Settings from '/imports/collections/Settings/Settings';
 
 class SystemSettings extends Component {

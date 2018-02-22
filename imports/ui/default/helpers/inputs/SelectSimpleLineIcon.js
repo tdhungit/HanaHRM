@@ -754,4 +754,6 @@ class SelectSimpleLineIcon extends Component {
     }
 }
 
-export default SelectSimpleLineIcon;
+export {
+    SelectSimpleLineIcon
+};

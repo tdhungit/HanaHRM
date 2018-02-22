@@ -24,8 +24,8 @@ import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t} from '/imports/common/Translation';
 import routes from '../../components/Router/routes';
-import SelectHelper from '../../helpers/inputs/SelectHelper';
-import SelectSimpleLineIcon from '../../helpers/inputs/SelectSimpleLineIcon';
+import {SelectHelper} from '../../helpers/inputs/SelectHelper';
+import {SelectSimpleLineIcon} from '../../helpers/inputs/SelectSimpleLineIcon';
 
 class FormMainMenu extends Component {
     constructor(props) {

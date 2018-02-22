@@ -6,7 +6,7 @@ import {
     Col
 } from 'reactstrap';
 
-import container from '../../layouts/Container';
+import container from '/imports/common/Container';
 import {T, t, PT} from '/imports/common/Translation';
 import FormMainMenu from './FormMainMenu';
 import MainMenus from '/imports/collections/MainMenus/MainMenus';

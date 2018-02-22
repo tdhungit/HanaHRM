@@ -6,7 +6,7 @@ import {
     Col
 } from 'reactstrap';
 
-import container from '../../layouts/Container';
+import container from '/imports/common/Container';
 import {T, t, PT} from '/imports/common/Translation';
 import FormUserGroup from './FormUserGroup';
 import UserGroups from '/imports/collections/UserGroups/UserGroups';

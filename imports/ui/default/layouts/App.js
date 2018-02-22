@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-import container from './Container';
+import container from '/imports/common/Container';
 import ManagerLayout from "./ManagerLayout";
 import HomeLayout from "./HomeLayout";
 

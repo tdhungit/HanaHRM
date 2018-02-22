@@ -9,7 +9,7 @@ import {
 import BootstrapPaginator from 'react-bootstrap-pagination';
 
 import {T} from '/imports/common/Translation';
-import container from '../../layouts/Container';
+import container from '/imports/common/Container';
 import Loading from '../../components/Loading/Loading';
 
 class ViewUsersTable extends Component {

@@ -2,7 +2,8 @@ const collections = [
     'Users',
     'UserGroups',
     'Permissions',
-    'MainMenus'
+    'MainMenus',
+    'Activities'
 ];
 
 export default collections;

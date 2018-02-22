@@ -19,8 +19,8 @@ import collections from '/imports/collections/collections';
 import {permissionsAclTypes} from '/imports/collections/Permissions/config';
 import Permissions from '/imports/collections/Permissions/Permissions';
 import {T, t, PT} from '/imports/common/Translation';
-import SelectHelper from '../../helpers/inputs/SelectHelper';
-import container from '../../layouts/Container';
+import {SelectHelper} from '../../helpers/inputs/SelectHelper';
+import container from '/imports/common/Container';
 import {Bert} from 'meteor/themeteorchef:bert';
 
 class ViewPermissions extends Component {

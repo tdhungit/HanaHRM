@@ -64,4 +64,6 @@ class SelectHelper extends Component {
     }
 }
 
-export default SelectHelper;
+export {
+    SelectHelper
+};

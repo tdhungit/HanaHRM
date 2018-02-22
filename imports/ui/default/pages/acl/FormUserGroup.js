@@ -17,7 +17,7 @@ import {Roles} from 'meteor/alanning:roles';
 import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t} from '/imports/common/Translation';
-import SelectHelper from '../../helpers/inputs/SelectHelper';
+import {SelectHelper} from '../../helpers/inputs/SelectHelper';
 
 class FormUserGroup extends Component {
     constructor(props) {

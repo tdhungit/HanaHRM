@@ -79,7 +79,7 @@ class Header extends Component {
                         <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
                     </NavItem>
                     <NavItem className="d-md-down-none">
-                        <Link to="/manager/calendar" className="nav-link">
+                        <Link to="/manager/activities/calendar" className="nav-link">
                             <i className="icon-list"></i>
                         </Link>
                     </NavItem>

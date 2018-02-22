@@ -31,6 +31,7 @@ import EditMainMenu from '../pages/main_menus/EditMainMenu';
 import SystemSettings from '../pages/settings/SystemSettings';
 
 import ViewCalendar from '../pages/activities/ViewCalendar';
+import CreateActivity from '../pages/activities/CreateActivity';
 
 class ManagerLayout extends Component {
     constructor(props) {
@@ -70,7 +71,8 @@ class ManagerLayout extends Component {
 
                             <Authenticate exact path="/manager/settings" component={SystemSettings} {...appProps}/>
 
-                            <Authenticate exact path="/manager/calendar" component={ViewCalendar} {...appProps}/>
+                            <Authenticate exact path="/manager/activities/calendar" component={ViewCalendar} {...appProps}/>
+                            <Authenticate exact path="/manager/activities/create" component={CreateActivity} {...appProps}/>
                         </Container>
                     </main>
                 </div>

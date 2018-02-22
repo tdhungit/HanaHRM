@@ -5,13 +5,13 @@ import {Helmet} from 'react-helmet';
 import {Meteor} from 'meteor/meteor';
 import {_} from 'meteor/underscore';
 
-import container from '/imports/ui/default/layouts/Container';
+import container from '/imports/common/Container';
 import Settings from '/imports/collections/Settings/Settings';
 
 // Translation
 i18n.setLocale('en-US');
-export const T = i18n.createComponent();
-export const t = i18n;
+const T = i18n.createComponent();
+const t = i18n;
 
 // SEO
 const seoURL = path => Meteor.absoluteUrl(path);
@@ -113,8 +113,8 @@ SEO.propTypes = {
     settings: PropTypes.object
 };
 
-export const PT = container((props, onData) => {
-    const subscription = Meteor.subscribe('settings.getSetting');
+const PT = container((props, onData) => {
+    const subscription = Meteor.subscribe('settings.getSetting', 'Systems', 'title');
     if (subscription && subscription.ready()) {
         const SystemSettings = Settings.find({category: 'Systems', name: 'title'}).fetch();
 
@@ -130,3 +130,9 @@ export const PT = container((props, onData) => {
         });
     }
 }, SEO);
+
+export {
+    T,
+    t,
+    PT
+}

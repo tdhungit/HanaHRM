@@ -8,6 +8,9 @@ const routes = {
     '/manager/user-groups/create': 'Create User Group',
     '/manager/main-menus': 'Main Menu',
     '/manager/main-menus/create': 'Create Menu',
-    '/manager/settings': 'System Settings'
+    '/manager/settings': 'System Settings',
+    '/manager/activities': 'View Activities',
+    '/manager/activities/calendar': 'View Calendar',
+    '/manager/activities/create': 'Create Activity'
 };
 export default routes;
