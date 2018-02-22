@@ -114,8 +114,8 @@ class Select2Helper extends Component {
         } = this.props;
 
         const event = {
+            selectedOption: selectedOption,
             target: {
-                selectedOption: selectedOption,
                 name: name,
                 type: 'select',
                 value: selectedOption.value

@@ -12,7 +12,9 @@ import {
     Button,
     FormGroup,
     Label,
-    Input
+    Input,
+    ListGroup,
+    ListGroupItem
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -27,7 +29,9 @@ class FormActivity extends Component {
         super(props);
 
         this.state = {
-            activity: {}
+            activity: {},
+            inviting: '',
+            invites: {}
         };
 
         this.loadInviteUsers = this.loadInviteUsers.bind(this);
@@ -67,8 +71,48 @@ class FormActivity extends Component {
         return (this.state.activity[name] ? this.state.activity[name] : '');
     }
 
+    inviteUser(event) {
+        let invites = this.state.invites;
+        invites[event.selectedOption.value] = {
+            _id: event.selectedOption.value,
+            username: event.selectedOption.label
+        };
+        this.setState({
+            inviting: event.selectedOption.value,
+            invites: invites
+        });
+    }
+
+    removeInviteUser(userId) {
+        let invites = this.state.invites;
+        if (invites[userId]) {
+            delete invites[userId];
+        }
+        this.setState({
+            inviting: '',
+            invites: invites
+        });
+    }
+
     handleSubmit() {
 
+    }
+
+    renderInviteUsers() {
+        let indents = [];
+        for (let userId in this.state.invites) {
+            let invite = this.state.invites[userId]
+            indents.push((
+                <ListGroupItem key={userId} className="justify-content-between">
+                    {invite.username}
+                    <Button type="button" size="sm" className="pull-right" color="default"
+                            onClick={this.removeInviteUser.bind(this, userId)}>
+                        <i className="fa fa-remove"/>
+                    </Button>
+                </ListGroupItem>
+            ))
+        }
+        return indents;
     }
 
     render() {
@@ -152,9 +196,13 @@ class FormActivity extends Component {
                         <Col xs="12" md="4">
                             <FormGroup>
                                 <Label><T>Invites</T></Label>
-                                <Select2Helper name="invites" placeholder={t.__('Choose...')}
-                                               async={true} loadOptions={this.loadInviteUsers}/>
+                                <Select2Helper name="invites" placeholder={t.__('Choose...')} value={this.state.inviting}
+                                               async={true} loadOptions={this.loadInviteUsers}
+                                               onChange={this.inviteUser.bind(this)}/>
                             </FormGroup>
+                            <ListGroup>
+                                {this.renderInviteUsers()}
+                            </ListGroup>
                         </Col>
                     </Row>
                 </CardBody>
