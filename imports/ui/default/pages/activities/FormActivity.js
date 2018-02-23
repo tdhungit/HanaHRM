@@ -14,7 +14,8 @@ import {
     Label,
     Input,
     ListGroup,
-    ListGroupItem
+    ListGroupItem,
+    Badge
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -38,24 +39,6 @@ class FormActivity extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    loadInviteUsers(input, callback) {
-        Meteor.call('users.searchKeyword', input, 5, (error, response) => {
-            let options = [];
-            if (!error) {
-                for (let idx in response) {
-                    let user = response[idx];
-                    options.push({
-                        value: user._id,
-                        label: user.username
-                    });
-                }
-            }
-            callback(null, {
-                options: options
-            });
-        });
-    }
-
     handleInputChange(event) {
         const target = event.target;
         const value = (target.type && target.type === 'checkbox') ? target.checked : target.value;
@@ -71,11 +54,32 @@ class FormActivity extends Component {
         return (this.state.activity[name] ? this.state.activity[name] : '');
     }
 
+    loadInviteUsers(input, callback) {
+        Meteor.call('users.searchKeyword', input, 5, (error, response) => {
+            let options = [];
+            if (!error) {
+                for (let idx in response) {
+                    let user = response[idx];
+                    options.push({
+                        value: user._id,
+                        label: user.username,
+                        user: user
+                    });
+                }
+            }
+            callback(null, {
+                options: options
+            });
+        });
+    }
+
     inviteUser(event) {
         let invites = this.state.invites;
+        let user = event.selectedOption.user;
         invites[event.selectedOption.value] = {
-            _id: event.selectedOption.value,
-            username: event.selectedOption.label
+            userId: event.selectedOption.value,
+            username: event.selectedOption.label,
+            userEmail: user.emails && user.emails[0].address
         };
         this.setState({
             inviting: event.selectedOption.value,
@@ -105,10 +109,10 @@ class FormActivity extends Component {
             indents.push((
                 <ListGroupItem key={userId} className="justify-content-between">
                     {invite.username}
-                    <Button type="button" size="sm" className="pull-right" color="default"
+                    <Badge href="javascript:void(0)" className="pull-right" color="default"
                             onClick={this.removeInviteUser.bind(this, userId)}>
                         <i className="fa fa-remove"/>
-                    </Button>
+                    </Badge>
                 </ListGroupItem>
             ))
         }
