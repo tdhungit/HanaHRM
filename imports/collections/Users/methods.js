@@ -33,7 +33,8 @@ Meteor.methods({
             }],
             profile: {
                 first_name: user.first_name,
-                last_name: user.last_name
+                last_name: user.last_name,
+                avatar: user.profile && user.profile.avatar ? user.profile.avatar : ''
             }
         };
         try {
