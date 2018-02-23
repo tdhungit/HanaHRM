@@ -14,6 +14,8 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
+import {ImageTag} from '../../helpers/tags/MediaImage';
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -89,7 +91,8 @@ class Header extends Component {
                     <NavItem>
                         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle className="nav-link dropdown-toggle">
-                                <img src={Meteor.absoluteUrl('img/avatars/6.jpg')} className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
+                                <ImageTag media={(currentUser.profile.avatar ? currentUser.profile.avatar: '')}
+                                          className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
                                 <span className="d-md-down-none">{currentUser && currentUser.username}</span>
                             </DropdownToggle>
                             <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>

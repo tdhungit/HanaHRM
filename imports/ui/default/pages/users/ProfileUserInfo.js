@@ -31,9 +31,9 @@ class ProfileUserInfo extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const currentUser = Meteor.user();
-        let user = {};
+        let user = this.state.user;
         user.username = currentUser.username;
         user.email = currentUser.emails && currentUser.emails[0].address;
         if (currentUser.profile && currentUser.profile.first_name) {

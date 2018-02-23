@@ -20,9 +20,9 @@ import classnames from 'classnames';
 import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t, PT} from '/imports/common/Translation';
-import container from '/imports/common/Container';
-import ProfileUserInfo from './ProfileUserInfo';
 import Media from '/imports/collections/Media/Media';
+import ProfileUserInfo from './ProfileUserInfo';
+import {ImageTag} from '../../helpers/tags/MediaImage';
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -100,9 +100,6 @@ class ViewProfile extends Component {
 
     render() {
         const currentUser = Meteor.user();
-        const {
-            avatarLink
-        } = this.props;
 
         return (
             <div className="users-ViewProfile animated fadeIn">
@@ -112,8 +109,8 @@ class ViewProfile extends Component {
                         <Card>
                             <CardBody>
                                 <div className="profileAvatar">
-                                    <img src={avatarLink}
-                                         className="rounded img-profile" alt={currentUser.username}/>
+                                    <ImageTag media={currentUser.profile.avatar ? currentUser.profile.avatar : ''}
+                                              className="rounded img-profile" alt={currentUser.username}/>
                                     <div className="upload">
                                         <Button type="button" size="sm">
                                             {this.state.avatarUploading ? <i className="fa fa-spin fa-spinner"/> : null}&nbsp;
@@ -173,7 +170,8 @@ class ViewProfile extends Component {
                             <TabPane tabId="activities">
                                 <div className="post">
                                     <div className="user-block">
-                                        <img src={Meteor.absoluteUrl('img/avatars/6.jpg')} className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
+                                        <ImageTag media={currentUser.profile.avatar ? currentUser.profile.avatar : ''}
+                                                  className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
                                         <span className="username">{currentUser.username}</span>
                                         <span className="description">description</span>
                                         <div className="post-detail">Activity</div>
@@ -281,23 +279,4 @@ class ViewProfile extends Component {
     }
 }
 
-ViewProfile.defaultProps = {
-    avatarLink: Meteor.absoluteUrl('img/avatars/6.jpg')
-};
-
-export default container((props, onData) => {
-    const user = Meteor.user();
-    if (user.profile && user.profile.avatar) {
-        const subscription = Meteor.subscribe('media.detail', user.profile.avatar);
-        if (subscription && subscription.ready()) {
-            let avatarLink = Meteor.absoluteUrl('img/avatars/6.jpg');
-            const media = Media.findOne(user.profile.avatar);
-            if (media) {
-                avatarLink = media.link()
-            }
-            onData(null, {
-                avatarLink: avatarLink
-            });
-        }
-    }
-}, ViewProfile);
+export default ViewProfile;
