@@ -6,30 +6,22 @@ import Media from '/imports/collections/Media/Media';
 
 class ImageTagClass extends Component {
     render() {
-        const {
-            id,
-            src,
-            alt,
-            className
-        } = this.props;
-
-        let mediaLink = src;
+        let mediaLink = this.props.src;
         if (!mediaLink) {
-            mediaLink = Meteor.absoluteUrl('img/avatars/6.jpg')
+            mediaLink = Meteor.absoluteUrl('img/avatars/6.jpg');
+        }
+
+        let className = 'rounded';
+        if (this.props.className) {
+            className = this.props.className;
         }
 
         return (
-            <img src={mediaLink} id={id} className={className} alt={alt}/>
+            <img src={mediaLink} id={this.props.id} className={className} alt={this.props.alt} style={this.props.style}/>
         );
     }
 }
-ImageTagClass.defaultProps = {
-    id: '',
-    media: '',
-    src: '',
-    alt: '',
-    className: 'rounded'
-};
+
 const ImageTag = container((props, onData) => {
     const mediaId = props.media;
     let mediaLink = '';

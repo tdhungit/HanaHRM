@@ -24,6 +24,7 @@ import {T, t} from '/imports/common/Translation';
 import {AppListStrings} from '/imports/common/AppListStrings';
 import {SelectHelper, Select2Helper} from '../../helpers/inputs/SelectHelper';
 import {DateInput} from '../../helpers/inputs/DateHelper';
+import {ImageTag} from '../../helpers/tags/MediaImage';
 
 class FormActivity extends Component {
     constructor(props) {
@@ -63,6 +64,7 @@ class FormActivity extends Component {
                     options.push({
                         value: user._id,
                         label: user.username,
+                        media: user.profile && user.profile.avatar ? user.profile.avatar : '',
                         user: user
                     });
                 }
@@ -79,7 +81,8 @@ class FormActivity extends Component {
         invites[event.selectedOption.value] = {
             userId: event.selectedOption.value,
             username: event.selectedOption.label,
-            userEmail: user.emails && user.emails[0].address
+            userEmail: user.emails && user.emails[0].address,
+            media: user.profile && user.profile.avatar ? user.profile.avatar : ''
         };
         this.setState({
             inviting: event.selectedOption.value,
@@ -98,25 +101,25 @@ class FormActivity extends Component {
         });
     }
 
-    handleSubmit() {
-
-    }
-
     renderInviteUsers() {
         let indents = [];
         for (let userId in this.state.invites) {
             let invite = this.state.invites[userId]
             indents.push((
                 <ListGroupItem key={userId} className="justify-content-between">
-                    {invite.username}
+                    <ImageTag media={invite.media ? invite.media : ''} style={{width: 24, height: 24}}/> {invite.username}
                     <Badge href="javascript:void(0)" className="pull-right" color="default"
-                            onClick={this.removeInviteUser.bind(this, userId)}>
+                           onClick={this.removeInviteUser.bind(this, userId)}>
                         <i className="fa fa-remove"/>
                     </Badge>
                 </ListGroupItem>
             ))
         }
         return indents;
+    }
+
+    handleSubmit() {
+
     }
 
     render() {
@@ -201,7 +204,7 @@ class FormActivity extends Component {
                             <FormGroup>
                                 <Label><T>Invites</T></Label>
                                 <Select2Helper name="invites" placeholder={t.__('Choose...')} value={this.state.inviting}
-                                               async={true} loadOptions={this.loadInviteUsers}
+                                               async={true} loadOptions={this.loadInviteUsers} imgOption={true}
                                                onChange={this.inviteUser.bind(this)}/>
                             </FormGroup>
                             <ListGroup>

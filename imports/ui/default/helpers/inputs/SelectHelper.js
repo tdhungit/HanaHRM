@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {
-    Input
-} from 'reactstrap';
+import {Meteor} from 'meteor/meteor';
+import {Input} from 'reactstrap';
 import Select, {Async} from 'react-select';
+import {ImageTag} from '../tags/MediaImage';
 
 import 'react-select/dist/react-select.css';
 
@@ -45,33 +45,15 @@ class SelectHelper extends Component {
     }
 
     render() {
-        const {
-            id,
-            name,
-            placeholder,
-            options,
-            value,
-            required,
-            onChange
-        } = this.props;
-
         return (
-            <Input type="select" name={name} id={id} onChange={onChange} required={required} value={value}>
-                <option value="">{placeholder}</option>
-                {this.renderOptions(options)}
+            <Input type="select" name={this.props.name} id={this.props.id} onChange={this.props.onChange}
+                   required={this.props.required} value={this.props.value}>
+                <option value="">{this.props.placeholder}</option>
+                {this.renderOptions(this.props.options)}
             </Input>
         );
     }
 }
-SelectHelper.defaultProps = {
-    id: '',
-    name: '',
-    placeholder: '',
-    options: [],
-    value: '',
-    required: false,
-    onChange: function () {}
-};
 
 class Select2Helper extends Component {
     getOptions(options) {
@@ -108,56 +90,54 @@ class Select2Helper extends Component {
     }
 
     handleChange(selectedOption) {
-        const {
-            name,
-            onChange
-        } = this.props;
-
         const event = {
             selectedOption: selectedOption,
             target: {
-                name: name,
+                name: this.props.name,
                 type: 'select',
                 value: selectedOption.value
             }
         };
-        onChange(event);
+        this.props.onChange(event);
+    }
+
+    renderOptionsImg(option) {
+        let img = <img src={Meteor.absoluteUrl('img/avatars/1.jpg')} className="rounded" style={{width: 24, height: 24}}/>;
+        if (option.media) {
+            img = <ImageTag media={option.media} style={{width: 24, height: 24}}/>
+        }
+        return (
+            <div title={option.label}>
+                {img}&nbsp;
+                <span>{option.label}</span>
+            </div>
+        );
     }
 
     render() {
-        const {
-            name,
-            placeholder,
-            value,
-            options,
-            async,
-            loadOptions
-        } = this.props;
-
-        if (async) {
+        let optionRenderer = this.props.optionRenderer;
+        let valueRenderer = this.props.valueRenderer;
+        if (this.props.imgOption) {
+            optionRenderer = this.renderOptionsImg;
+            valueRenderer = this.renderOptionsImg;
+        }
+        if (this.props.async) {
             return (
-                <Async name={name} placeholder={placeholder} value={value}
+                <Async name={this.props.name} placeholder={this.props.placeholder} value={this.props.value}
                        onChange={this.handleChange.bind(this)}
-                       loadOptions={loadOptions}/>
+                       loadOptions={this.props.loadOptions}
+                       optionRenderer={optionRenderer} valueRenderer={valueRenderer}/>
             );
         } else {
             return (
-                <Select name={name} placeholder={placeholder} value={value}
-                    onChange={this.handleChange.bind(this)}
-                    options={this.getOptions(options)}/>
+                <Select name={this.props.name} placeholder={this.props.placeholder} value={this.props.value}
+                        onChange={this.handleChange.bind(this)}
+                        options={this.getOptions(this.props.options)}
+                        optionRenderer={optionRenderer} valueRenderer={valueRenderer}/>
             );
         }
     }
 }
-Select2Helper.defaultProps = {
-    name: '',
-    placeholder: '',
-    value: '',
-    options: [],
-    onChange: function () {},
-    async: false,
-    loadOptions: function () {}
-};
 
 export {
     SelectHelper,
