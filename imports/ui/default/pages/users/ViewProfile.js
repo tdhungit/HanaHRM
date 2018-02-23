@@ -109,7 +109,7 @@ class ViewProfile extends Component {
                         <Card>
                             <CardBody>
                                 <div className="profileAvatar">
-                                    <ImageTag media={currentUser.profile.avatar ? currentUser.profile.avatar : ''}
+                                    <ImageTag media={currentUser.profile && currentUser.profile.avatar ? currentUser.profile.avatar : ''}
                                               className="rounded img-profile" alt={currentUser.username}/>
                                     <div className="upload">
                                         <Button type="button" size="sm">
@@ -170,7 +170,7 @@ class ViewProfile extends Component {
                             <TabPane tabId="activities">
                                 <div className="post">
                                     <div className="user-block">
-                                        <ImageTag media={currentUser.profile.avatar ? currentUser.profile.avatar : ''}
+                                        <ImageTag media={currentUser.profile && currentUser.profile.avatar ? currentUser.profile.avatar : ''}
                                                   className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
                                         <span className="username">{currentUser.username}</span>
                                         <span className="description">description</span>

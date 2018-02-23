@@ -91,7 +91,7 @@ class Header extends Component {
                     <NavItem>
                         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle className="nav-link dropdown-toggle">
-                                <ImageTag media={(currentUser.profile.avatar ? currentUser.profile.avatar: '')}
+                                <ImageTag media={currentUser.profile && currentUser.profile.avatar ? currentUser.profile.avatar: ''}
                                           className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
                                 <span className="d-md-down-none">{currentUser && currentUser.username}</span>
                             </DropdownToggle>

@@ -13,31 +13,38 @@ class ImageTagClass extends Component {
             className
         } = this.props;
 
+        let mediaLink = src;
+        if (!mediaLink) {
+            mediaLink = Meteor.absoluteUrl('img/avatars/6.jpg')
+        }
+
         return (
-            <img src={src} id={id} className={className} alt={alt}/>
+            <img src={mediaLink} id={id} className={className} alt={alt}/>
         );
     }
 }
 ImageTagClass.defaultProps = {
     id: '',
     media: '',
-    src: Meteor.absoluteUrl('img/avatars/6.jpg'),
+    src: '',
     alt: '',
     className: 'rounded'
 };
 const ImageTag = container((props, onData) => {
     const mediaId = props.media;
+    let mediaLink = '';
     if (mediaId) {
         const subscription = Meteor.subscribe('media.detail', mediaId);
         if (subscription && subscription.ready()) {
             const media = Media.findOne(mediaId);
             if (media) {
-                onData(null, {
-                    src: media.link()
-                });
+                mediaLink = media.link();
             }
         }
     }
+    onData(null, {
+        src: mediaLink
+    });
 }, ImageTagClass);
 
 export {
