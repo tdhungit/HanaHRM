@@ -23,6 +23,7 @@ import {T, t, PT} from '/imports/common/Translation';
 import Media from '/imports/collections/Media/Media';
 import ProfileUserInfo from './ProfileUserInfo';
 import {ImageTag} from '../../helpers/tags/MediaImage';
+import {utilsHelper} from '../../helpers/utils/utils';
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -50,10 +51,7 @@ class ViewProfile extends Component {
 
     getProfile(field) {
         const currentUser = Meteor.user();
-        if (currentUser.profile && currentUser.profile[field]) {
-            return currentUser.profile[field];
-        }
-        return '--';
+        return utilsHelper.getField(currentUser, field, '--');
     }
 
     handleInputChange(event) {
@@ -109,7 +107,7 @@ class ViewProfile extends Component {
                         <Card>
                             <CardBody>
                                 <div className="profileAvatar">
-                                    <ImageTag media={currentUser.profile && currentUser.profile.avatar ? currentUser.profile.avatar : ''}
+                                    <ImageTag media={this.getProfile('profile.avatar')}
                                               className="rounded img-profile" alt={currentUser.username}/>
                                     <div className="upload">
                                         <Button type="button" size="sm">
@@ -121,7 +119,7 @@ class ViewProfile extends Component {
                                     </div>
                                 </div>
                                 <h3 className="text-center">
-                                    {this.getProfile('first_name')} {this.getProfile('last_name')}
+                                    {this.getProfile('profile.firstName')} {this.getProfile('profile.lastName')}
                                 </h3>
                                 <p className="text-center">{currentUser.emails[0].address}</p>
                             </CardBody>

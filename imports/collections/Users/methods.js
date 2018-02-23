@@ -14,29 +14,15 @@ Meteor.methods({
     },
     'users.insert': (user) => {
         check(user, Object);
-        return Accounts.createUser({
-            username: user.username,
-            email: user.email,
-            password: user.password,
-            profile: {
-                first_name: user.first_name,
-                last_name: user.last_name
-            }
-        });
+        return Accounts.createUser(user);
     },
     'users.update': (user) => {
         check(user, Object);
-        const userClean = {
-            emails: [{
-                address: user.email,
-                verified: false
-            }],
-            profile: {
-                first_name: user.first_name,
-                last_name: user.last_name,
-                avatar: user.profile && user.profile.avatar ? user.profile.avatar : ''
-            }
-        };
+        let userClean = user;
+        userClean.emails = [{
+            address: user.email,
+            verified: false
+        }];
         try {
             const userId = user._id;
             Users.update(userId, {$set: userClean});

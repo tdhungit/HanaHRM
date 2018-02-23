@@ -13,6 +13,7 @@ import {Bert} from 'meteor/themeteorchef:bert';
 import classnames from 'classnames';
 
 import {T, t} from '/imports/common/Translation';
+import {utilsHelper} from '../../helpers/utils/utils';
 
 class ProfileUserInfo extends Component {
     constructor(props) {
@@ -20,12 +21,7 @@ class ProfileUserInfo extends Component {
 
         this.state = {
             showEdit: false,
-            user: {
-                username: '',
-                email: '',
-                first_name: '',
-                last_name: ''
-            }
+            user: {}
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -33,17 +29,15 @@ class ProfileUserInfo extends Component {
 
     componentWillMount() {
         const currentUser = Meteor.user();
-        let user = this.state.user;
+        let user = currentUser;
         user.username = currentUser.username;
         user.email = currentUser.emails && currentUser.emails[0].address;
-        if (currentUser.profile && currentUser.profile.first_name) {
-            user.first_name = currentUser.profile.first_name;
-        }
-        if (currentUser.profile && currentUser.profile.last_name) {
-            user.last_name = currentUser.profile.last_name;
-        }
 
         this.state.user = user;
+    }
+
+    getUserField(field) {
+        return utilsHelper.getField(this.state.user, field);
     }
 
     handleInputChange(event) {
@@ -74,19 +68,19 @@ class ProfileUserInfo extends Component {
                 <div className={classnames({'detail': true, hide: this.state.showEdit ? true : false})}>
                     <dl className="row">
                         <dt className="col-sm-2"><T>Username</T></dt>
-                        <dd className="col-sm-4">{this.state.user.username}</dd>
+                        <dd className="col-sm-4">{this.getUserField('username')}</dd>
                     </dl>
                     <dl className="row">
                         <dt className="col-sm-2"><T>Email</T></dt>
-                        <dd className="col-sm-4">{this.state.user.email}</dd>
+                        <dd className="col-sm-4">{this.getUserField('email')}</dd>
                     </dl>
                     <dl className="row">
                         <dt className="col-sm-2"><T>First name</T></dt>
-                        <dd className="col-sm-4">{this.state.user.first_name}</dd>
+                        <dd className="col-sm-4">{this.getUserField('profile.firstName')}</dd>
                     </dl>
                     <dl className="row">
                         <dt className="col-sm-2"><T>Last name</T></dt>
-                        <dd className="col-sm-4">{this.state.user.last_name}</dd>
+                        <dd className="col-sm-4">{this.getUserField('profile.lastName')}</dd>
                     </dl>
                     <dl className="row">
                         <dt className="col-sm-2"></dt>
@@ -104,7 +98,7 @@ class ProfileUserInfo extends Component {
                                     <Label><T>Username</T></Label>
                                 </Col>
                                 <Col md="9">
-                                    <Input type="text" name="username" value={this.state.user.username} onChange={this.handleInputChange}/>
+                                    <Input type="text" name="username" value={this.getUserField('username')} onChange={this.handleInputChange}/>
                                 </Col>
                             </FormGroup>
                         </Col>
@@ -116,7 +110,7 @@ class ProfileUserInfo extends Component {
                                     <Label><T>Email</T></Label>
                                 </Col>
                                 <Col md="9">
-                                    <Input type="text" name="email" value={this.state.user.email} onChange={this.handleInputChange}/>
+                                    <Input type="text" name="email" value={this.getUserField('email')} onChange={this.handleInputChange}/>
                                 </Col>
                             </FormGroup>
                         </Col>
@@ -128,7 +122,7 @@ class ProfileUserInfo extends Component {
                                     <Label><T>First name</T></Label>
                                 </Col>
                                 <Col md="9">
-                                    <Input type="text" name="first_name" value={this.state.user.first_name} onChange={this.handleInputChange}/>
+                                    <Input type="text" name="first_name" value={this.getUserField('profile.firstName')} onChange={this.handleInputChange}/>
                                 </Col>
                             </FormGroup>
                         </Col>
@@ -140,7 +134,7 @@ class ProfileUserInfo extends Component {
                                     <Label><T>Last name</T></Label>
                                 </Col>
                                 <Col md="9">
-                                    <Input type="text" name="last_name" value={this.state.user.last_name} onChange={this.handleInputChange}/>
+                                    <Input type="text" name="last_name" value={this.getUserField('profile.lastName')} onChange={this.handleInputChange}/>
                                 </Col>
                             </FormGroup>
                         </Col>

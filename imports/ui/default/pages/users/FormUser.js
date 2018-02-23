@@ -18,6 +18,7 @@ import {
 import {Link} from 'react-router-dom';
 
 import {T, t} from '/imports/common/Translation';
+import {utilsHelper} from '../../helpers/utils/utils';
 
 class FormUser extends Component {
     constructor(props) {
@@ -25,13 +26,7 @@ class FormUser extends Component {
 
         this.state = {
             error: '',
-            user: {
-                username: '',
-                email: '',
-                password: '',
-                first_name: '',
-                last_name: ''
-            }
+            user: {}
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -45,27 +40,16 @@ class FormUser extends Component {
 
         if (user && user._id) {
             user.email = user && user.emails && user.emails[0].address;
-            user.first_name = user && user.profile && user.profile.first_name;
-            user.last_name = user && user.profile && user.profile.last_name;
             this.state.user = user;
         }
     }
 
     getUserField(field) {
-        if (this.state.user && this.state.user[field]) {
-            return this.state.user[field];
-        }
-        return '';
+        return utilsHelper.getField(this.state, field);
     }
 
     handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        let user = this.state.user;
-        user[name] = value;
-
+        let user = utilsHelper.inputChange(event, this.state.user);
         this.setState({user: user});
     }
 
@@ -77,7 +61,7 @@ class FormUser extends Component {
                 if (error) {
                     this.setState({error: error.reason});
                 } else {
-                    this.props.history.push('/manager/users');
+                    this.props.history.push('/manager/users/' + userId + '/detail');
                 }
             });
         } else {
@@ -86,17 +70,12 @@ class FormUser extends Component {
     }
 
     render() {
-        const {
-            title,
-            slogan
-        } = this.props;
-
         const existingUser = this.props.user && this.props.user._id;
 
         return (
             <Card>
                 <CardHeader>
-                    <strong>{title}</strong> {slogan}
+                    <strong>{this.props.title}</strong> {this.props.slogan}
                 </CardHeader>
                 <CardBody>
                     {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : null}
@@ -104,13 +83,13 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Username</T></Label>
-                                <Input type="text" name="username" value={this.state.user.username} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="username" value={this.getUserField('user.username')} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Email</T></Label>
-                                <Input type="text" name="email" value={this.state.user.email} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
+                                <Input type="text" name="email" value={this.getUserField('user.email')} placeholder={t.__("Enter here")} onChange={this.handleInputChange} required/>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -129,13 +108,13 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>First name</T></Label>
-                                <Input type="text" name="first_name" value={this.getUserField('first_name')} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="profile.firstName" value={this.getUserField('user.profile.firstName')} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Last name</T></Label>
-                                <Input type="text" name="last_name" value={this.getUserField('last_name')} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="profile.lastName" value={this.getUserField('user.profile.lastName')} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                     </Row>

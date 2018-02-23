@@ -11,6 +11,7 @@ import BootstrapPaginator from 'react-bootstrap-pagination';
 import {T} from '/imports/common/Translation';
 import container from '/imports/common/Container';
 import Loading from '../../components/Loading/Loading';
+import {utilsHelper} from '../../helpers/utils/utils';
 
 class ViewUsersTable extends Component {
     constructor(props) {
@@ -18,11 +19,7 @@ class ViewUsersTable extends Component {
     }
 
     renderUsers() {
-        const {
-            users
-        } = this.props;
-
-        return users.map((user) => {
+        return this.props.users.map((user) => {
             return (
                 <tr key={user._id}>
                     <td>
@@ -31,21 +28,15 @@ class ViewUsersTable extends Component {
                         </Link>
                     </td>
                     <td>{user.emails[0].address}</td>
-                    <td>{user.hasOwnProperty('profile') ? user.profile.first_name : ''}</td>
-                    <td>{user.hasOwnProperty('profile') ? user.profile.last_name : ''}</td>
+                    <td>{utilsHelper.getField(user, 'profile.firstName')}</td>
+                    <td>{utilsHelper.getField(user, 'profile.lastName')}</td>
                 </tr>
             );
         });
     }
 
     render() {
-        const {
-            users,
-            pagination,
-            limit
-        } = this.props;
-
-        return users.length > 0 ? (
+        return this.props.users.length > 0 ? (
             <div>
                 <Table responsive hover>
                     <thead>
@@ -60,7 +51,7 @@ class ViewUsersTable extends Component {
                     {this.renderUsers()}
                     </tbody>
                 </Table>
-                <BootstrapPaginator pagination={pagination} limit={limit} containerClass="text-right"/>
+                <BootstrapPaginator pagination={this.props.pagination} limit={this.props.limit} containerClass="text-right"/>
             </div>
         ) : <Alert color="warning"><T>No users yet.</T></Alert>
     }

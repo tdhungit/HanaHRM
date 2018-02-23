@@ -13,6 +13,7 @@ import {Link} from 'react-router-dom';
 import container from '/imports/common/Container';
 import {T, t, PT} from '/imports/common/Translation';
 import Users from '/imports/collections/Users/Users';
+import {utilsHelper} from '../../helpers/utils/utils';
 
 class ViewUser extends Component {
     render() {
@@ -31,7 +32,7 @@ class ViewUser extends Component {
                                 <strong><T>View user</T></strong> {user.username}
                                 <div className="card-actions">
                                     <Link to={'/manager/users/' + user._id + '/edit'}>
-                                        <small className="text-muted"><T>Edit</T></small>
+                                        <i className="fa fa-edit"/>
                                     </Link>
                                 </div>
                             </CardHeader>
@@ -44,9 +45,9 @@ class ViewUser extends Component {
                                 </dl>
                                 <dl className="row">
                                     <dt className="col-sm-2"><T>First name</T></dt>
-                                    <dd className="col-sm-4">{user.profile && user.profile.first_name}</dd>
+                                    <dd className="col-sm-4">{utilsHelper.getField(user, 'profile.firstName')}</dd>
                                     <dt className="col-sm-2"><T>Last name</T></dt>
-                                    <dd className="col-sm-4">{user.profile && user.profile.last_name}</dd>
+                                    <dd className="col-sm-4">{utilsHelper.getField(user, 'profile.lastName')}</dd>
                                 </dl>
                             </CardBody>
                         </Card>
