@@ -36,9 +36,14 @@ class ProfileUserInfo extends Component {
         let user = {};
         user.username = currentUser.username;
         user.email = currentUser.emails && currentUser.emails[0].address;
-        user.first_name = currentUser.profile && currentUser.profile.first_name;
-        user.last_name = currentUser.profile && currentUser.profile.last_name;
-        this.setState({user: user});
+        if (currentUser.profile && currentUser.profile.first_name) {
+            user.first_name = currentUser.profile.first_name;
+        }
+        if (currentUser.profile && currentUser.profile.last_name) {
+            user.last_name = currentUser.profile.last_name;
+        }
+
+        this.state.user = user;
     }
 
     handleInputChange(event) {

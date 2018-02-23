@@ -17,9 +17,12 @@ import {
     Button
 } from 'reactstrap';
 import classnames from 'classnames';
+import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t, PT} from '/imports/common/Translation';
+import container from '/imports/common/Container';
 import ProfileUserInfo from './ProfileUserInfo';
+import Media from '/imports/collections/Media/Media';
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -27,11 +30,14 @@ class ViewProfile extends Component {
 
         this.state = {
             activeTab: 'activities',
+            avatar: '',
+            avatarUploading: false,
             user: {}
         };
 
         this.toggle = this.toggle.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
     }
 
     toggle(tab) {
@@ -40,6 +46,14 @@ class ViewProfile extends Component {
                 activeTab: tab
             });
         }
+    }
+
+    getProfile(field) {
+        const currentUser = Meteor.user();
+        if (currentUser.profile && currentUser.profile[field]) {
+            return currentUser.profile[field];
+        }
+        return '--';
     }
 
     handleInputChange(event) {
@@ -53,8 +67,42 @@ class ViewProfile extends Component {
         this.setState({user: user});
     }
 
+    handleChangeAvatar(event) {
+        const target = event.target;
+        const file = target.files && target.files[0];
+        if (file) {
+            const uploadInstance = Media.insert({
+                file: file,
+                streams: 'dynamic',
+                chunkSize: 'dynamic'
+            }, false);
+            uploadInstance.on('start', () => {
+                this.setState({avatarUploading: true});
+            });
+            uploadInstance.on('end', (error, fileObj) => {
+                if (error) {
+                    Bert.alert(error.reason, 'danger');
+                } else {
+                    const userId = Meteor.userId();
+                    Meteor.call('users.updateAvatar', userId, fileObj._id, (error) => {
+                        if (error) {
+                            Bert.alert(error.reason, 'danger');
+                        } else {
+                            Bert.alert(t.__('Successful!'), 'success');
+                        }
+                    });
+                }
+                this.setState({avatarUploading: false});
+            });
+            uploadInstance.start();
+        }
+    }
+
     render() {
         const currentUser = Meteor.user();
+        const {
+            avatarLink
+        } = this.props;
 
         return (
             <div className="users-ViewProfile animated fadeIn">
@@ -63,9 +111,20 @@ class ViewProfile extends Component {
                     <Col xs="12" md="3" className="mb-3">
                         <Card>
                             <CardBody>
-                                <img src={Meteor.absoluteUrl('img/avatars/6.jpg')} className="rounded img-profile" alt={currentUser.username}/>
+                                <div className="profileAvatar">
+                                    <img src={avatarLink}
+                                         className="rounded img-profile" alt={currentUser.username}/>
+                                    <div className="upload">
+                                        <Button type="button" size="sm">
+                                            {this.state.avatarUploading ? <i className="fa fa-spin fa-spinner"/> : null}&nbsp;
+                                            <i className="fa fa-upload"/> <T>Edit</T>
+                                        </Button>
+                                        <Input type="file" name="avatar" className="file"
+                                               onChange={this.handleChangeAvatar}/>
+                                    </div>
+                                </div>
                                 <h3 className="text-center">
-                                    {currentUser.profile && currentUser.profile.first_name} {currentUser.profile && currentUser.profile.last_name}
+                                    {this.getProfile('first_name')} {this.getProfile('last_name')}
                                 </h3>
                                 <p className="text-center">{currentUser.emails[0].address}</p>
                             </CardBody>
@@ -222,4 +281,23 @@ class ViewProfile extends Component {
     }
 }
 
-export default ViewProfile;
+ViewProfile.defaultProps = {
+    avatarLink: Meteor.absoluteUrl('img/avatars/6.jpg')
+};
+
+export default container((props, onData) => {
+    const user = Meteor.user();
+    if (user.profile && user.profile.avatar) {
+        const subscription = Meteor.subscribe('media.detail', user.profile.avatar);
+        if (subscription && subscription.ready()) {
+            let avatarLink = Meteor.absoluteUrl('img/avatars/6.jpg');
+            const media = Media.findOne(user.profile.avatar);
+            if (media) {
+                avatarLink = media.link()
+            }
+            onData(null, {
+                avatarLink: avatarLink
+            });
+        }
+    }
+}, ViewProfile);

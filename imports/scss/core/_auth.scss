@@ -5,6 +5,24 @@
   margin-top: 0px;
 }
 
+.profileAvatar {
+  position: relative;
+
+  .upload {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .file {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
 .post {
   border-bottom: 1px solid #d2d6de;
   margin-bottom: 15px;

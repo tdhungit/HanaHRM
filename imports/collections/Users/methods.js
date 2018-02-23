@@ -4,7 +4,7 @@ import {Accounts} from 'meteor/accounts-base';
 import Users from '/imports/collections/Users/Users';
 
 Meteor.methods({
-    'users.searchKeyword': function (keyword, limit = 10) {
+    'users.searchKeyword': (keyword, limit = 10) => {
         check(keyword, String);
         return Users.find({
                 username: {$regex: ".*" + keyword + ".*"}
@@ -12,7 +12,7 @@ Meteor.methods({
                 limit: limit
             }).fetch();
     },
-    'users.insert': function (user) {
+    'users.insert': (user) => {
         check(user, Object);
         return Accounts.createUser({
             username: user.username,
@@ -24,7 +24,7 @@ Meteor.methods({
             }
         });
     },
-    'users.update': function (user) {
+    'users.update': (user) => {
         check(user, Object);
         const userClean = {
             emails: [{
@@ -39,6 +39,19 @@ Meteor.methods({
         try {
             const userId = user._id;
             Users.update(userId, {$set: userClean});
+            return userId;
+        } catch (exception) {
+            throw new Meteor.Error('500', exception);
+        }
+    },
+    'users.updateAvatar': (userId, mediaId) => {
+        const userData = {
+            profile: {
+                avatar: mediaId
+            }
+        };
+        try {
+            Users.update(userId, {$set: userData});
             return userId;
         } catch (exception) {
             throw new Meteor.Error('500', exception);

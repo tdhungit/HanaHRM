@@ -12,5 +12,8 @@ import '/imports/collections/MainMenus/methods';
 import '/imports/collections/Settings/publications';
 import '/imports/collections/Settings/methods';
 
+import '/imports/collections/Media/publications';
+import '/imports/collections/Media/methods';
+
 import '/imports/collections/Activities/publications';
 import '/imports/collections/Activities/methods';
