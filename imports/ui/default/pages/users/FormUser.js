@@ -47,8 +47,15 @@ class FormUser extends Component {
             user.email = user && user.emails && user.emails[0].address;
             user.first_name = user && user.profile && user.profile.first_name;
             user.last_name = user && user.profile && user.profile.last_name;
-            this.setState({user: user});
+            this.state.user = user;
         }
+    }
+
+    getUserField(field) {
+        if (this.state.user && this.state.user[field]) {
+            return this.state.user[field];
+        }
+        return '';
     }
 
     handleInputChange(event) {
@@ -122,13 +129,13 @@ class FormUser extends Component {
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>First name</T></Label>
-                                <Input type="text" name="first_name" value={this.state.user.first_name} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="first_name" value={this.getUserField('first_name')} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" lg="6">
                             <FormGroup>
                                 <Label><T>Last name</T></Label>
-                                <Input type="text" name="last_name" value={this.state.user.last_name} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
+                                <Input type="text" name="last_name" value={this.getUserField('last_name')} placeholder={t.__("Enter here")} onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                     </Row>
