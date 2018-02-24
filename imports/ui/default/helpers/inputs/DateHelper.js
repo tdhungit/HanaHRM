@@ -3,10 +3,11 @@ import {Meteor} from 'meteor/meteor';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Settings from '/imports/collections/Settings/Settings';
+import container from '/imports/common/Container';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-class DateInput extends Component {
+class DateInputClass extends Component {
     constructor(props) {
         super(props);
         this.dateFormat = 'YYYY-MM-DD';
@@ -15,9 +16,9 @@ class DateInput extends Component {
     }
 
     componentWillMount() {
-        const currentUser = Meteor.user();
+        const currentUser = this.props.currentUser;
         const userSettings = currentUser.settings || false;
-        const systemSettings = Settings.getSystemSettings();
+        const systemSettings = this.props.systemSettings;
 
         if (userSettings && userSettings.dateFormat) {
             this.dateFormat = userSettings.dateFormat;
@@ -76,6 +77,18 @@ class DateInput extends Component {
         );
     }
 }
+
+const DateInput = container((props, onData) => {
+    const userSubscription = Meteor.subscribe('users.user');
+    const settingSubscription = Meteor.subscribe('settings.systemSettings');
+    if (settingSubscription && settingSubscription.ready()
+        && userSubscription && userSubscription.ready()) {
+        onData(null, {
+            currentUser: Meteor.user(),
+            systemSettings: Settings.getSystemSettings()
+        });
+    }
+}, DateInputClass);
 
 export {
     DateInput
