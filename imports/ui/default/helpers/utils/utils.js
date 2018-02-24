@@ -1,3 +1,6 @@
+// import {Meteor} from 'meteor/meteor';
+// import Settings from '/imports/collections/Settings/Settings';
+
 class UtilsHelper {
     getField(object, field, defaultValue = '') {
         let fieldKey = field;

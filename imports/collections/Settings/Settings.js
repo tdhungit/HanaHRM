@@ -3,7 +3,13 @@ import SimpleSchema from 'simpl-schema';
 
 class SettingsCollection extends CollectionBase {
     getSystemSettings() {
-        return this.find({category: 'Systems'}).fetch();
+        const settings = this.find({category: 'Systems'}).fetch();
+        let systemSettings = {};
+        for (let idx in settings) {
+            let setting = settings[idx];
+            systemSettings[setting.name] = setting;
+        }
+        return systemSettings;
     }
 
     getSettings(category = '', name = '') {

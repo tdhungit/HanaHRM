@@ -123,19 +123,14 @@ class FormActivity extends Component {
     }
 
     render() {
-        const {
-            title,
-            slogan
-        } = this.props;
-
         const existing = this.props.activity && this.props.activity._id;
 
         return (
             <Card>
                 <CardHeader>
                     <i className="fa fa-tasks"/>
-                    <strong>{title}</strong>&nbsp;
-                    {slogan}
+                    <strong>{this.props.title}</strong>&nbsp;
+                    {this.props.slogan}
                 </CardHeader>
                 <CardBody>
                     <Row>
