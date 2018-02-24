@@ -68,6 +68,29 @@ Schema.UserProfile = new SimpleSchema({
     }
 });
 
+Schema.Settings = new SimpleSchema({
+    fullName: {
+        type: String,
+        optional: true
+    },
+    dateFormat: {
+        type: String,
+        optional: true
+    },
+    dateTimeFormat: {
+        type: String,
+        optional: true
+    },
+    timezone: {
+        type: String,
+        optional: true
+    },
+    decimal: {
+        type: String,
+        optional: true
+    }
+});
+
 Schema.User = new SimpleSchema({
     username: {
         type: String,
@@ -134,6 +157,10 @@ Schema.User = new SimpleSchema({
     // In order to avoid an 'Exception in setInterval callback' from Meteor
     heartbeat: {
         type: Date,
+        optional: true
+    },
+    settings: {
+        type: Schema.Settings,
         optional: true
     }
 });

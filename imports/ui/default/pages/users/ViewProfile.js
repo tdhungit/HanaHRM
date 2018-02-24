@@ -21,9 +21,12 @@ import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t, PT} from '/imports/common/Translation';
 import Media from '/imports/collections/Media/Media';
-import ProfileUserInfo from './ProfileUserInfo';
 import {ImageTag} from '../../helpers/tags/MediaImage';
 import {utilsHelper} from '../../helpers/utils/utils';
+import UserActivities from './UserActivities';
+import UserTimeline from './UserTimeline';
+import ProfileUserInfo from './ProfileUserInfo';
+import UserSettings from './UserSettings';
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -166,108 +169,16 @@ class ViewProfile extends Component {
                         </Nav>
                         <TabContent activeTab={this.state.activeTab}>
                             <TabPane tabId="activities">
-                                <div className="post">
-                                    <div className="user-block">
-                                        <ImageTag media={currentUser.profile && currentUser.profile.avatar ? currentUser.profile.avatar : ''}
-                                                  className="img-avatar" alt={currentUser && currentUser.emails[0].address}/>
-                                        <span className="username">{currentUser.username}</span>
-                                        <span className="description">description</span>
-                                        <div className="post-detail">Activity</div>
-                                        <ul className="list-inline">
-                                            <li>
-                                                <a href="#" className="link-black text-sm">
-                                                    <i className="fa fa-share margin-r-5"></i> Share
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" className="link-black text-sm">
-                                                    <i className="fa fa-thumbs-o-up margin-r-5"></i> Like
-                                                </a>
-                                            </li>
-                                            <li className="pull-right">
-                                                <a href="#" className="link-black text-sm">
-                                                    <i className="fa fa-comments-o margin-r-5"></i> Comments (5)
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <Input bsSize="sm" type="text" placeholder="Type a comment"/>
-                                    </div>
-                                </div>
+                                <UserActivities/>
                             </TabPane>
                             <TabPane tabId="timeline">
-                                <ul className="timeline timeline-inverse">
-                                    <li className="time-label">
-                                        <span className="bg-red">
-                                          10 Feb. 2014
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-envelope bg-blue"></i>
-
-                                        <div className="timeline-item">
-                                            <span className="time"><i className="fa fa-clock-o"></i> 12:05</span>
-
-                                            <h3 className="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                                            <div className="timeline-body">
-                                                accepted your friend request
-                                            </div>
-                                            <div className="timeline-footer">
-                                                <a className="btn btn-primary btn-sm">Read more</a>
-                                                <a className="btn btn-danger btn-sm">Delete</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-user bg-cyan"></i>
-
-                                        <div className="timeline-item">
-                                            <span className="time"><i className="fa fa-clock-o"></i> 5 mins ago</span>
-
-                                            <h3 className="timeline-header no-border">
-                                                <a href="#">Sarah Young</a> accepted your friend request
-                                            </h3>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <UserTimeline/>
                             </TabPane>
                             <TabPane tabId="userinfo">
                                 <ProfileUserInfo/>
                             </TabPane>
                             <TabPane tabId="settings">
-                                <Card>
-                                    <CardBody>
-                                        <Row>
-                                            <Col>
-                                                <FormGroup row>
-                                                    <Col md="3">
-                                                        <Label><T>Username</T></Label>
-                                                    </Col>
-                                                    <Col md="9">
-                                                        <Input type="text" name="username" value={currentUser.username} onChange={this.handleInputChange}/>
-                                                    </Col>
-                                                </FormGroup>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col>
-                                                <FormGroup row>
-                                                    <Col md="3">
-                                                        <Label><T>Email</T></Label>
-                                                    </Col>
-                                                    <Col md="9">
-                                                        <Input type="text" name="username" value={currentUser.emails[0].address} onChange={this.handleInputChange}/>
-                                                    </Col>
-                                                </FormGroup>
-                                            </Col>
-                                        </Row>
-                                    </CardBody>
-                                    <CardFooter>
-                                        <Button type="button" size="sm" color="primary">
-                                            <i className="fa fa-dot-circle-o"></i> <T>Save</T>
-                                        </Button>
-                                    </CardFooter>
-                                </Card>
+                                <UserSettings/>
                             </TabPane>
                         </TabContent>
                     </Col>
