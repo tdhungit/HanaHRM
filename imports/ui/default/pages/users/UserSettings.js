@@ -18,7 +18,6 @@ import {T, t} from '/imports/common/Translation';
 import {utilsHelper} from '../../helpers/utils/utils';
 import {SelectHelper} from '../../helpers/inputs/SelectHelper';
 import {AppListStrings} from '/imports/common/AppListStrings';
-import container from '/imports/common/Container';
 
 class UserSettings extends Component {
     constructor(props) {
@@ -32,7 +31,7 @@ class UserSettings extends Component {
     }
 
     componentWillMount() {
-        const currentUser = this.props.currentUser;
+        const currentUser = Meteor.user();
         this.state.settings = currentUser.settings || {};
     }
 
@@ -59,7 +58,7 @@ class UserSettings extends Component {
     }
 
     render() {
-        // const currentUser = this.props.currentUser;
+        // const currentUser = Meteor.user();
 
         return (
             <Card>
@@ -110,11 +109,4 @@ class UserSettings extends Component {
     }
 }
 
-export default container((props, onData) => {
-    const userSubscription = Meteor.subscribe('users.user');
-    if (userSubscription && userSubscription.ready()) {
-        onData(null, {
-            currentUser: Meteor.user()
-        });
-    }
-}, withRouter(UserSettings));
+export default withRouter(UserSettings);

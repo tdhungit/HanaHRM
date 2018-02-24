@@ -42,12 +42,18 @@ App.propTypes = {
 };
 
 export default container((props, onData) => {
-    const loggingIn = Meteor.loggingIn();
-    const user = Meteor.user();
-    const userId = Meteor.userId();
+    const userSubscription = Meteor.subscribe('users.user');
+    const settingSubscription = Meteor.subscribe('settings.systemSettings');
 
-    onData(null, {
-        loggingIn,
-        authenticated: !loggingIn && !!userId
-    });
+    if (settingSubscription && settingSubscription.ready()
+        && userSubscription && userSubscription.ready()) {
+        const loggingIn = Meteor.loggingIn();
+        const user = Meteor.user();
+        const userId = Meteor.userId();
+
+        onData(null, {
+            loggingIn,
+            authenticated: !loggingIn && !!userId
+        });
+    }
 }, App);
