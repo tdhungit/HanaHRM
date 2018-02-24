@@ -2,6 +2,10 @@ import CollectionBase from '/imports/common/CollectionBase';
 import SimpleSchema from 'simpl-schema';
 
 class SettingsCollection extends CollectionBase {
+    getSystemSettings() {
+        return this.find({category: 'Systems'}).fetch();
+    }
+
     getSettings(category = '', name = '') {
         let params = {};
         if (category) {

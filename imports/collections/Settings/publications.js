@@ -1,6 +1,10 @@
 import {Meteor} from 'meteor/meteor';
 import Settings from './Settings';
 
+Meteor.publish('settings.systemSettings', () => {
+    return Settings.find({category: 'Systems'});
+});
+
 Meteor.publish('settings.getCategory', (category) => {
     let params = {};
     if (category) {
