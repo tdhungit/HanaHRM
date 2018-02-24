@@ -19,10 +19,12 @@ Meteor.methods({
     'users.update': (user) => {
         check(user, Object);
         let userClean = user;
-        userClean.emails = [{
-            address: user.email,
-            verified: false
-        }];
+        if (user.email) {
+            userClean.emails = [{
+                address: user.email,
+                verified: false
+            }];
+        }
         try {
             const userId = user._id;
             Users.update(userId, {$set: userClean});

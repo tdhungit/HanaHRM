@@ -12,65 +12,97 @@ import {
     Input,
     Button
 } from 'reactstrap';
+import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t} from '/imports/common/Translation';
 import {utilsHelper} from '../../helpers/utils/utils';
+import {SelectHelper} from '../../helpers/inputs/SelectHelper';
+import {AppListStrings} from '/imports/common/AppListStrings';
 
 class UserSettings extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            setting: {}
+            settings: {}
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
+    componentWillMount() {
+        const currentUser = Meteor.user();
+        this.state.settings = currentUser.settings || {};
+    }
+
     getValue(key) {
-        return this.state.setting[key] || '';
+        return this.state.settings[key] || '';
     }
 
     handleInputChange(event) {
-        const setting = utilsHelper.inputChange(event, this.state.setting);
-        this.setState({setting: setting});
+        const settings = utilsHelper.inputChange(event, this.state.settings);
+        this.setState({settings: settings});
+    }
+
+    handleSubmit() {
+        const currentUser = Meteor.user();
+        const user = {_id: currentUser._id, settings: this.state.settings};
+        console.log(user);
+        Meteor.call('users.update', user, (error, userId) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            } else {
+                Bert.alert(t.__('Successful!'), 'success');
+            }
+        });
     }
 
     render() {
-        const currentUser = Meteor.user();
+        // const currentUser = Meteor.user();
 
         return (
             <Card>
                 <CardBody>
-                    <Row>
-                        <Col>
-                            <FormGroup row>
-                                <Col md="3">
-                                    <Label><T>Full Name</T></Label>
-                                </Col>
-                                <Col md="9">
-                                    <Input type="text" name="fullName" value={this.getValue('fullName')} onChange={this.handleInputChange}/>
-                                </Col>
-                            </FormGroup>
+                    <FormGroup row>
+                        <Col md="3">
+                            <Label><T>Full Name</T></Label>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <FormGroup row>
-                                <Col md="3">
-                                    <Label><T>Email</T></Label>
-                                </Col>
-                                <Col md="9">
-                                    <Input type="text" name="username" value={currentUser.emails[0].address} onChange={this.handleInputChange}/>
-                                </Col>
-                            </FormGroup>
+                        <Col md="9">
+                            <Input type="select" name="fullName" value={this.getValue('fullName')} onChange={this.handleInputChange}>
+                                <option value=""></option>
+                                <option value="FL">First name - last name</option>
+                                <option value="LF">Last name - first name</option>
+                            </Input>
                         </Col>
-                    </Row>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Col md="3">
+                            <Label><T>Date Format</T></Label>
+                        </Col>
+                        <Col md="9">
+                            <SelectHelper options={AppListStrings.DateFormatList} name="dateFormat" value={this.getValue('dateFormat')}
+                                          onChange={this.handleInputChange}/>
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Col md="3">
+                            <Label><T>DateTime Format</T></Label>
+                        </Col>
+                        <Col md="9">
+                            <SelectHelper options={AppListStrings.DateTimeFormatList} name="dateTimeFormat" value={this.getValue('dateTimeFormat')}
+                                          onChange={this.handleInputChange}/>
+                        </Col>
+                    </FormGroup>
                 </CardBody>
                 <CardFooter>
-                    <Button type="button" size="sm" color="primary">
-                        <i className="fa fa-dot-circle-o"></i> <T>Save</T>
-                    </Button>
+                    <Row>
+                        <Col md="3"></Col>
+                        <Col md="9">
+                            <Button type="button" size="sm" color="primary" onClick={this.handleSubmit.bind(this)}>
+                                <i className="fa fa-dot-circle-o"></i> <T>Save</T>
+                            </Button>
+                        </Col>
+                    </Row>
                 </CardFooter>
             </Card>
         );

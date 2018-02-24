@@ -178,7 +178,7 @@ class ViewProfile extends Component {
                                 <ProfileUserInfo/>
                             </TabPane>
                             <TabPane tabId="settings">
-                                <UserSettings/>
+                                <UserSettings {...this.props}/>
                             </TabPane>
                         </TabContent>
                     </Col>

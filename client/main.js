@@ -11,6 +11,8 @@ import App from '../imports/ui/default/layouts/App';
 
 Meteor.startup(() => {
     Tracker.autorun((c) => {
+        Meteor.subscribe('users.user');
+
         if (Meteor.loggingIn() || !Roles.subscription.ready()) {
             return;
         }
