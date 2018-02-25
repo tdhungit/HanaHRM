@@ -15,7 +15,13 @@ import {
     Input,
     ListGroup,
     ListGroupItem,
-    Badge
+    Badge,
+    InputGroup,
+    InputGroupAddon,
+    ButtonDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -25,15 +31,20 @@ import {AppListStrings} from '/imports/common/AppListStrings';
 import {SelectHelper, Select2Helper} from '../../helpers/inputs/SelectHelper';
 import {DateInput} from '../../helpers/inputs/DateHelper';
 import {ImageTag} from '../../helpers/tags/MediaImage';
+import TextEditor from '../../helpers/inputs/TextEditor';
+import {utilsHelper} from '../../helpers/utils/utils';
 
 class FormActivity extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activity: {},
+            activity: {
+                invites: {}
+            },
             inviting: '',
-            invites: {}
+            conferencing: false,
+            notification: false
         };
 
         this.loadInviteUsers = this.loadInviteUsers.bind(this);
@@ -41,13 +52,7 @@ class FormActivity extends Component {
     }
 
     handleInputChange(event) {
-        const target = event.target;
-        const value = (target.type && target.type === 'checkbox') ? target.checked : target.value;
-        const name = target.name;
-
-        let activity = this.state.activity;
-        activity[name] = value;
-
+        const activity = utilsHelper.inputChange(event, this.state.activity);
         this.setState({activity: activity});
     }
 
@@ -76,7 +81,8 @@ class FormActivity extends Component {
     }
 
     inviteUser(event) {
-        let invites = this.state.invites;
+        let activity = this.state.activity;
+        let invites = activity.invites;
         let user = event.selectedOption.user;
         invites[event.selectedOption.value] = {
             userId: event.selectedOption.value,
@@ -84,9 +90,10 @@ class FormActivity extends Component {
             userEmail: user.emails && user.emails[0].address,
             media: user.profile && user.profile.avatar ? user.profile.avatar : ''
         };
+        activity.invites = invites;
         this.setState({
             inviting: event.selectedOption.value,
-            invites: invites
+            activity: activity
         });
     }
 
@@ -103,15 +110,32 @@ class FormActivity extends Component {
 
     renderInviteUsers() {
         let indents = [];
-        for (let userId in this.state.invites) {
-            let invite = this.state.invites[userId]
+        for (let userId in this.state.activity.invites) {
+            let invite = this.state.activity.invites[userId];
             indents.push((
-                <ListGroupItem key={userId} className="justify-content-between">
+                <ListGroupItem key={userId} className="justify-content-between inviteUser">
                     <ImageTag media={invite.media ? invite.media : ''} style={{width: 24, height: 24}}/> {invite.username}
                     <Badge href="javascript:void(0)" className="pull-right" color="default"
                            onClick={this.removeInviteUser.bind(this, userId)}>
                         <i className="fa fa-remove"/>
                     </Badge>
+                    <div className="inviteOption">
+                        <FormGroup check>
+                            <Input className="form-check-input" type="checkbox" checked={this.state.activity.invites[userId].canEdit || false}
+                                   id={'canEdit' + userId} name={'invites.' + userId + '.canEdit'} onChange={this.handleInputChange}/>
+                            <Label className="form-check-label" htmlFor={'canEdit.' + userId}><T>Can edit event</T></Label>
+                        </FormGroup>
+                        <FormGroup check>
+                            <Input className="form-check-input" type="checkbox" checked={this.state.activity.invites[userId].canInvite || false}
+                                   id={'canInvite' + userId} name={'invites.' + userId + '.canInvite'} onChange={this.handleInputChange}/>
+                            <Label className="form-check-label" htmlFor={'canInvite.' + userId}><T>Can invite more users</T></Label>
+                        </FormGroup>
+                        <FormGroup check>
+                            <Input className="form-check-input" type="checkbox" checked={this.state.activity.invites[userId].canSeeAll || false}
+                                   id={'canSeeAll' + userId} name={'invites.' + userId + '.canSeeAll'} onChange={this.handleInputChange}/>
+                            <Label className="form-check-label" htmlFor={'canSeeAll.' + userId}><T>Can see all invite users</T></Label>
+                        </FormGroup>
+                    </div>
                 </ListGroupItem>
             ))
         }
@@ -171,29 +195,56 @@ class FormActivity extends Component {
                     </Row>
                     <Row>
                         <Col xs="12" md="8">
-                            <Row>
-                                <Col>
-                                    <FormGroup>
-                                        <Label><T>Location</T></Label>
-                                        <Input type="text" name="location" placeholder={t.__('Enter here')}
-                                               value={this.getInputValue('location')}
-                                               onChange={this.handleInputChange}/>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <FormGroup>
-                                        <Label><T>Description</T></Label>
-                                        <Input type="textarea" name="description"
-                                               value={this.getInputValue('description')}
-                                               onChange={this.handleInputChange}/>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col></Col>
-                            </Row>
+                            <FormGroup>
+                                <Label><T>Location</T></Label>
+                                <Input type="text" name="location" placeholder={t.__('Enter here')}
+                                       value={this.getInputValue('location')}
+                                       onChange={this.handleInputChange}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label><T>Conferencing</T></Label>
+                                <InputGroup>
+                                    <InputGroupAddon addonType="prepend">
+                                        <ButtonDropdown isOpen={this.state.conferencing}
+                                                        toggle={() => {
+                                                            this.setState({conferencing: !this.state.conferencing});
+                                                        }}>
+                                            <DropdownToggle caret color="gray-200"><T>Add Conferencing</T></DropdownToggle>
+                                            <DropdownMenu className={this.state.conferencing ? "show" : ""}>
+                                                <DropdownItem>Action</DropdownItem>
+                                                <DropdownItem>Another Action</DropdownItem>
+                                                <DropdownItem>Something else here</DropdownItem>
+                                                <DropdownItem>Separated link</DropdownItem>
+                                            </DropdownMenu>
+                                        </ButtonDropdown>
+                                    </InputGroupAddon>
+                                    <Input type="text" name="conferencing" placeholder="Conferencing"/>
+                                </InputGroup>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label><T>Notifications</T></Label>
+                                <InputGroup>
+                                    <InputGroupAddon addonType="prepend">
+                                        <ButtonDropdown isOpen={this.state.notification}
+                                                        toggle={() => {
+                                                            this.setState({notification: !this.state.notification});
+                                                        }}>
+                                            <DropdownToggle caret color="gray-200"><T>Add Notification</T></DropdownToggle>
+                                            <DropdownMenu className={this.state.conferencing ? "show" : ""}>
+                                                <DropdownItem>Action</DropdownItem>
+                                                <DropdownItem>Another Action</DropdownItem>
+                                                <DropdownItem>Something else here</DropdownItem>
+                                                <DropdownItem>Separated link</DropdownItem>
+                                            </DropdownMenu>
+                                        </ButtonDropdown>
+                                    </InputGroupAddon>
+                                    <Input type="text" name="notification" placeholder="Notifications"/>
+                                </InputGroup>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label><T>Description</T></Label>
+                                <TextEditor/>
+                            </FormGroup>
                         </Col>
                         <Col xs="12" md="4">
                             <FormGroup>
@@ -202,7 +253,7 @@ class FormActivity extends Component {
                                                async={true} loadOptions={this.loadInviteUsers} imgOption={true}
                                                onChange={this.inviteUser.bind(this)}/>
                             </FormGroup>
-                            <ListGroup>
+                            <ListGroup className="inviteUsers">
                                 {this.renderInviteUsers()}
                             </ListGroup>
                         </Col>

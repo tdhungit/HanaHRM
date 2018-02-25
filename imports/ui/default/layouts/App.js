@@ -48,7 +48,6 @@ export default container((props, onData) => {
     if (settingSubscription && settingSubscription.ready()
         && userSubscription && userSubscription.ready()) {
         const loggingIn = Meteor.loggingIn();
-        const user = Meteor.user();
         const userId = Meteor.userId();
 
         onData(null, {

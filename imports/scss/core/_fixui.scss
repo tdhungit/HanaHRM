@@ -41,3 +41,20 @@ header {
 .react-datepicker__time-list-item {
   padding: 5px !important;
 }
+
+.inviteUsers {
+  .inviteUser {
+    padding: 5px;
+
+    .badge {
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .inviteOption {
+      margin-top: 5px;
+      padding-top: 3px;
+      border-top: 1px solid #eeeeee;
+    }
+  }
+}
