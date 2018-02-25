@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
-import {Input} from 'reactstrap';
+import {
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    ButtonDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
 import Select, {Async} from 'react-select';
 import {ImageTag} from '../tags/MediaImage';
 
@@ -139,7 +147,42 @@ class Select2Helper extends Component {
     }
 }
 
+class SelectGroupHelper extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isOpen: false
+        }
+    }
+
+    render() {
+        return (
+            <InputGroup>
+                {this.props.first ? <Input type="text" name={this.props.name} placeholder={this.props.placeholder}/> : null}
+                <InputGroupAddon addonType="prepend">
+                    <ButtonDropdown isOpen={this.state.isOpen}
+                                    toggle={() => {
+                                        this.setState({isOpen: !this.state.isOpen});
+                                    }}>
+                        <DropdownToggle caret color="gray-200">{this.props.label}</DropdownToggle>
+                        <DropdownMenu className={this.state.isOpen ? "show" : ""}>
+                            {this.props.items.map((item) => {
+                                return (
+                                    <DropdownItem key={item.value}>{item.label}</DropdownItem>
+                                );
+                            })}
+                        </DropdownMenu>
+                    </ButtonDropdown>
+                </InputGroupAddon>
+                {!this.props.first ? <Input type="text" name={this.props.name} placeholder={this.props.placeholder}/> : null}
+            </InputGroup>
+        );
+    }
+}
+
 export {
     SelectHelper,
-    Select2Helper
+    Select2Helper,
+    SelectGroupHelper
 };

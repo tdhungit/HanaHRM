@@ -28,7 +28,7 @@ import {Bert} from 'meteor/themeteorchef:bert';
 
 import {T, t} from '/imports/common/Translation';
 import {AppListStrings} from '/imports/common/AppListStrings';
-import {SelectHelper, Select2Helper} from '../../helpers/inputs/SelectHelper';
+import {SelectHelper, Select2Helper, SelectGroupHelper} from '../../helpers/inputs/SelectHelper';
 import {DateInput} from '../../helpers/inputs/DateHelper';
 import {ImageTag} from '../../helpers/tags/MediaImage';
 import TextEditor from '../../helpers/inputs/TextEditor';
@@ -203,23 +203,8 @@ class FormActivity extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label><T>Conferencing</T></Label>
-                                <InputGroup>
-                                    <InputGroupAddon addonType="prepend">
-                                        <ButtonDropdown isOpen={this.state.conferencing}
-                                                        toggle={() => {
-                                                            this.setState({conferencing: !this.state.conferencing});
-                                                        }}>
-                                            <DropdownToggle caret color="gray-200"><T>Add Conferencing</T></DropdownToggle>
-                                            <DropdownMenu className={this.state.conferencing ? "show" : ""}>
-                                                <DropdownItem>Action</DropdownItem>
-                                                <DropdownItem>Another Action</DropdownItem>
-                                                <DropdownItem>Something else here</DropdownItem>
-                                                <DropdownItem>Separated link</DropdownItem>
-                                            </DropdownMenu>
-                                        </ButtonDropdown>
-                                    </InputGroupAddon>
-                                    <Input type="text" name="conferencing" placeholder="Conferencing"/>
-                                </InputGroup>
+                                <SelectGroupHelper name="conferencing" label={t.__('Add Conferencing')} placeholder={t.__('Conferencing')}
+                                                   items={[{label: 'Jacky', value: 'Jacky'}]}/>
                             </FormGroup>
                             <FormGroup>
                                 <Label><T>Notifications</T></Label>
