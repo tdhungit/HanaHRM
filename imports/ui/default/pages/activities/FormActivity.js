@@ -243,7 +243,9 @@ class FormActivity extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label><T>Description</T></Label>
-                                <TextEditor/>
+                                <TextEditor name="description" placeholder={t.__('Enter here')}
+                                            value={this.getInputValue('description')}
+                                            onChange={this.handleInputChange}/>
                             </FormGroup>
                         </Col>
                         <Col xs="12" md="4">

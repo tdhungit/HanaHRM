@@ -1,10 +1,116 @@
 import React, {Component} from 'react';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import {Editor, EditorState, RichUtils, convertToRaw, convertFromHTML, ContentState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import {stateToHTML} from 'draft-js-export-html';
 
-import {t} from '/imports/common/Translation';
+class TextEditor extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editorState: EditorState.createEmpty()
+        };
 
-class StyleButton extends React.Component {
+        this.focus = () => this.editor.focus();
+        // this.onChange = (editorState) => this.setState({editorState});
+        this.onChange = this._onChange.bind(this);
+        this.handleKeyCommand = (command) => this._handleKeyCommand(command);
+        this.onTab = (e) => this._onTab(e);
+        this.toggleBlockType = (type) => this._toggleBlockType(type);
+        this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
+    }
+
+    componentWillMount() {
+        if (this.props.value) {
+            const blocksFromHTML = convertFromHTML(this.props.value);
+            const state = ContentState.createFromBlockArray(
+                blocksFromHTML.contentBlocks,
+                blocksFromHTML.entityMap
+            );
+
+            this.state.editorState = EditorState.createWithContent(state);
+        }
+    }
+
+    _onChange(editorState) {
+        this.setState({editorState});
+        const contentState = editorState.getCurrentContent();
+        const contentRaw = convertToRaw(contentState);
+        const contentHTML = stateToHTML(contentState);
+        const event = {
+            editorState: editorState,
+            contentRaw: contentRaw,
+            contentHTML: contentHTML,
+            target: {
+                name: this.props.name,
+                type: 'texteditor',
+                value: contentHTML
+            }
+        };
+        this.props.onChange(event);
+    }
+
+    _handleKeyCommand(command) {
+        const {editorState} = this.state;
+        const newState = RichUtils.handleKeyCommand(editorState, command);
+        if (newState) {
+            this.onChange(newState);
+            return true;
+        }
+        return false;
+    }
+
+    _onTab(e) {
+        const maxDepth = 4;
+        this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+    }
+
+    _toggleBlockType(blockType) {
+        this.onChange(
+            RichUtils.toggleBlockType(
+                this.state.editorState,
+                blockType
+            )
+        );
+    }
+
+    _toggleInlineStyle(inlineStyle) {
+        this.onChange(
+            RichUtils.toggleInlineStyle(
+                this.state.editorState,
+                inlineStyle
+            )
+        );
+    }
+
+    render() {
+        return (
+            <div className={'TextEditor ' + (this.props.className || '')}>
+                <BlockStyleControls
+                    editorState={this.state.editorState}
+                    onToggle={this.toggleBlockType}
+                />
+                <InlineStyleControls
+                    editorState={this.state.editorState}
+                    onToggle={this.toggleInlineStyle}
+                />
+                <div className="TextEditorContainer">
+                    <Editor editorState={this.state.editorState} placeholder={this.props.placeholder}
+                            blockStyleFn={getBlockStyle}
+                            customStyleMap={styleMap}
+                            handleKeyCommand={this.handleKeyCommand}
+                            onChange={this.onChange}
+                            onTab={this.onTab}
+                            ref={(ref) => this.editor = ref}
+                            spellCheck={true}/>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default TextEditor;
+
+class StyleButton extends Component {
     constructor() {
         super();
         this.onToggle = (e) => {
@@ -69,7 +175,7 @@ let INLINE_STYLES = [
 ];
 
 const InlineStyleControls = (props) => {
-    var currentStyle = props.editorState.getCurrentInlineStyle();
+    let currentStyle = props.editorState.getCurrentInlineStyle();
     return (
         <div className="TextEditor-controls">
             {INLINE_STYLES.map(type =>
@@ -94,77 +200,6 @@ const styleMap = {
     },
 };
 
-class TextEditor extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {editorState: EditorState.createEmpty()};
-        this.focus = () => this.editor.focus();
-        this.onChange = (editorState) => this.setState({editorState});
-        this.handleKeyCommand = (command) => this._handleKeyCommand(command);
-        this.onTab = (e) => this._onTab(e);
-        this.toggleBlockType = (type) => this._toggleBlockType(type);
-        this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
-    }
-
-    _handleKeyCommand(command) {
-        const {editorState} = this.state;
-        const newState = RichUtils.handleKeyCommand(editorState, command);
-        if (newState) {
-            this.onChange(newState);
-            return true;
-        }
-        return false;
-    }
-
-    _onTab(e) {
-        const maxDepth = 4;
-        this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
-    }
-
-    _toggleBlockType(blockType) {
-        this.onChange(
-            RichUtils.toggleBlockType(
-                this.state.editorState,
-                blockType
-            )
-        );
-    }
-
-    _toggleInlineStyle(inlineStyle) {
-        this.onChange(
-            RichUtils.toggleInlineStyle(
-                this.state.editorState,
-                inlineStyle
-            )
-        );
-    }
-
-    render() {
-        return (
-            <div className={'TextEditor ' + (this.props.className || '')}>
-                <BlockStyleControls
-                    editorState={this.state.editorState}
-                    onToggle={this.toggleBlockType}
-                />
-                <InlineStyleControls
-                    editorState={this.state.editorState}
-                    onToggle={this.toggleInlineStyle}
-                />
-                <div className="TextEditorContainer">
-                    <Editor editorState={this.state.editorState} placeholder={t.__('Enter here')}
-                            blockStyleFn={getBlockStyle}
-                            customStyleMap={styleMap}
-                            handleKeyCommand={this.handleKeyCommand}
-                            onChange={this.onChange}
-                            onTab={this.onTab}
-                            ref={(ref) => this.editor = ref}
-                            spellCheck={true}/>
-                </div>
-            </div>
-        );
-    }
-}
-
 function getBlockStyle(block) {
     switch (block.getType()) {
         case 'blockquote':
@@ -173,5 +208,3 @@ function getBlockStyle(block) {
             return null;
     }
 }
-
-export default TextEditor;
