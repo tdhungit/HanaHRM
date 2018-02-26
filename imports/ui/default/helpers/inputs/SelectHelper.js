@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {
+    Button,
     Input,
     InputGroup,
     InputGroupAddon,
@@ -152,30 +153,80 @@ class SelectGroupHelper extends Component {
         super(props);
 
         this.state = {
-            isOpen: false
+            isOpen: false,
+            label: '',
+            inputValue: '',
+            active: {}
+        }
+    }
+
+    componentWillMount() {
+        this.state.label = this.props.label;
+        if (this.props.active) {
+            this.state.active = this.props.active;
+            this.state.label = this.props.active.label;
+        }
+    }
+
+    onItemChange(item) {
+        if (item.label) {
+            this.setState({
+                active: item,
+                label: item.label
+            });
+        }
+        if (this.props.onItemChange) {
+            this.props.onItemChange(item);
+        }
+    }
+
+    onItemDefault() {
+        this.setState({
+            label: this.props.label,
+            inputValue: ''
+        });
+        if (this.props.onRemove) {
+            this.props.onRemove();
+        }
+    }
+
+    onInputChange(event) {
+        if (this.props.onChange) {
+            event.target.type = 'selectgroup';
+            event.target.selectedItem = this.state.active;
+            this.props.onChange(event);
         }
     }
 
     render() {
         return (
             <InputGroup>
-                {this.props.first ? <Input type="text" name={this.props.name} placeholder={this.props.placeholder}/> : null}
+                {this.props.first ? <Input type="text" name={this.props.name}
+                                           placeholder={this.props.placeholder} value={this.state.inputValue}
+                                           onChange={this.onInputChange.bind(this)}/> : null}
                 <InputGroupAddon addonType="prepend">
                     <ButtonDropdown isOpen={this.state.isOpen}
                                     toggle={() => {
                                         this.setState({isOpen: !this.state.isOpen});
                                     }}>
-                        <DropdownToggle caret color="gray-200">{this.props.label}</DropdownToggle>
+                        <DropdownToggle caret color="gray-200">{this.state.label}</DropdownToggle>
                         <DropdownMenu className={this.state.isOpen ? "show" : ""}>
                             {this.props.items.map((item) => {
                                 return (
-                                    <DropdownItem key={item.value}>{item.label}</DropdownItem>
+                                    <DropdownItem key={item.value} onClick={this.onItemChange.bind(this, item)}>
+                                        {item.icon ? <i className={item.icon}/> : null}
+                                        {item.label}
+                                    </DropdownItem>
                                 );
                             })}
                         </DropdownMenu>
                     </ButtonDropdown>
                 </InputGroupAddon>
-                {!this.props.first ? <Input type="text" name={this.props.name} placeholder={this.props.placeholder}/> : null}
+                {!this.props.first ? <Input type="text" name={this.props.name}
+                                            placeholder={this.props.placeholder} value={this.state.inputValue}
+                                            onChange={this.onInputChange.bind(this)}/> : null}
+                <Button type="button" color="warning"
+                        onClick={this.onItemDefault.bind(this)}><i className="fa fa-remove"/></Button>
             </InputGroup>
         );
     }

@@ -43,12 +43,23 @@ class FormActivity extends Component {
                 invites: {}
             },
             inviting: '',
+            conferencingList: [],
             conferencing: false,
             notification: false
         };
 
         this.loadInviteUsers = this.loadInviteUsers.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    componentWillMount() {
+        for (let idx in AppListStrings.ConferencingList) {
+            let conferencing = AppListStrings.ConferencingList[idx];
+            this.state.conferencingList.push({
+                label: conferencing,
+                value: conferencing
+            });
+        }
     }
 
     handleInputChange(event) {
@@ -204,7 +215,7 @@ class FormActivity extends Component {
                             <FormGroup>
                                 <Label><T>Conferencing</T></Label>
                                 <SelectGroupHelper name="conferencing" label={t.__('Add Conferencing')} placeholder={t.__('Conferencing')}
-                                                   items={[{label: 'Jacky', value: 'Jacky'}]}/>
+                                                   items={this.state.conferencingList}/>
                             </FormGroup>
                             <FormGroup>
                                 <Label><T>Notifications</T></Label>
