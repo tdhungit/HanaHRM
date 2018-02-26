@@ -55,15 +55,16 @@ class FormActivity extends Component {
     componentWillMount() {
         for (let idx in AppListStrings.ConferencingList) {
             let conferencing = AppListStrings.ConferencingList[idx];
-            this.state.conferencingList.push({
+            this.state.conferencingList[conferencing] = {
                 label: conferencing,
                 value: conferencing
-            });
+            };
         }
     }
 
     handleInputChange(event) {
         const activity = utilsHelper.inputChange(event, this.state.activity);
+        console.log(activity);
         this.setState({activity: activity});
     }
 
@@ -214,28 +215,15 @@ class FormActivity extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label><T>Conferencing</T></Label>
-                                <SelectGroupHelper name="conferencing" label={t.__('Add Conferencing')} placeholder={t.__('Conferencing')}
-                                                   items={this.state.conferencingList}/>
+                                <SelectGroupHelper name="conferencing"
+                                                   label={t.__('Add Conferencing')}
+                                                   placeholder={t.__('Conferencing')}
+                                                   items={this.state.conferencingList}
+                                                   value={this.getInputValue('conferencing')}
+                                                   onChange={this.handleInputChange}/>
                             </FormGroup>
                             <FormGroup>
-                                <Label><T>Notifications</T></Label>
-                                <InputGroup>
-                                    <InputGroupAddon addonType="prepend">
-                                        <ButtonDropdown isOpen={this.state.notification}
-                                                        toggle={() => {
-                                                            this.setState({notification: !this.state.notification});
-                                                        }}>
-                                            <DropdownToggle caret color="gray-200"><T>Add Notification</T></DropdownToggle>
-                                            <DropdownMenu className={this.state.conferencing ? "show" : ""}>
-                                                <DropdownItem>Action</DropdownItem>
-                                                <DropdownItem>Another Action</DropdownItem>
-                                                <DropdownItem>Something else here</DropdownItem>
-                                                <DropdownItem>Separated link</DropdownItem>
-                                            </DropdownMenu>
-                                        </ButtonDropdown>
-                                    </InputGroupAddon>
-                                    <Input type="text" name="notification" placeholder="Notifications"/>
-                                </InputGroup>
+                                <Button type="button" color="gray-200"><T>Add Notification</T></Button>
                             </FormGroup>
                             <FormGroup>
                                 <Label><T>Description</T></Label>

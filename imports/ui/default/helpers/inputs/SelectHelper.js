@@ -154,27 +154,32 @@ class SelectGroupHelper extends Component {
 
         this.state = {
             isOpen: false,
-            label: '',
-            inputValue: '',
-            active: {}
+            active: {
+                label: '',
+                selected: ''
+            },
+            text: ''
         }
     }
 
     componentWillMount() {
-        this.state.label = this.props.label;
-        if (this.props.active) {
-            this.state.active = this.props.active;
-            this.state.label = this.props.active.label;
+        this.state.active.label = this.props.label;
+        if (this.props.value) {
+            this.state.active = {
+                label: this.props.items[this.props.value.selected].label || this.props.value.selected,
+                selected: this.props.value.selected
+            };
+            this.state.text = this.props.value.text
         }
     }
 
     onItemChange(item) {
-        if (item.label) {
-            this.setState({
-                active: item,
-                label: item.label
-            });
-        }
+        let active = {
+            label: item.label || item.value,
+            selected: item.value
+        };
+        this.setState({active: active});
+
         if (this.props.onItemChange) {
             this.props.onItemChange(item);
         }
@@ -182,48 +187,70 @@ class SelectGroupHelper extends Component {
 
     onItemDefault() {
         this.setState({
-            label: this.props.label,
-            inputValue: ''
+            active: {
+                label: this.props.label,
+                selected: ''
+            },
+            text: ''
         });
+
         if (this.props.onRemove) {
             this.props.onRemove();
         }
     }
 
     onInputChange(event) {
+        this.setState({text: event.target.value});
+
         if (this.props.onChange) {
-            event.target.type = 'selectgroup';
-            event.target.selectedItem = this.state.active;
-            this.props.onChange(event);
+            const eventChange = {
+                selectedItem: this.state.active,
+                target: {
+                    name: this.props.name,
+                    type: 'selectgroup',
+                    value: {
+                        selected: this.state.active.selected,
+                        text: event.target.value
+                    }
+                }
+            };
+
+            this.props.onChange(eventChange);
         }
+    }
+
+    renderDropdownItem() {
+        let dropdownItem = [];
+        for (let selected in this.props.items) {
+            let item = this.props.items[selected];
+            dropdownItem.push(
+                <DropdownItem key={selected} onClick={this.onItemChange.bind(this, item)}>
+                    {item.icon ? <i className={item.icon}/> : null}
+                    {item.label}
+                </DropdownItem>
+            );
+        }
+
+        return dropdownItem;
     }
 
     render() {
         return (
             <InputGroup>
-                {this.props.first ? <Input type="text" name={this.props.name}
-                                           placeholder={this.props.placeholder} value={this.state.inputValue}
+                {this.props.first ? <Input type="text" name={this.props.name} disabled={this.state.active.selected ? false : true}
+                                           placeholder={this.props.placeholder} value={this.state.text}
                                            onChange={this.onInputChange.bind(this)}/> : null}
                 <InputGroupAddon addonType="prepend">
                     <ButtonDropdown isOpen={this.state.isOpen}
                                     toggle={() => {
                                         this.setState({isOpen: !this.state.isOpen});
                                     }}>
-                        <DropdownToggle caret color="gray-200">{this.state.label}</DropdownToggle>
-                        <DropdownMenu className={this.state.isOpen ? "show" : ""}>
-                            {this.props.items.map((item) => {
-                                return (
-                                    <DropdownItem key={item.value} onClick={this.onItemChange.bind(this, item)}>
-                                        {item.icon ? <i className={item.icon}/> : null}
-                                        {item.label}
-                                    </DropdownItem>
-                                );
-                            })}
-                        </DropdownMenu>
+                        <DropdownToggle caret color="gray-200">{this.state.active.label}</DropdownToggle>
+                        <DropdownMenu className={this.state.isOpen ? "show" : ""}>{this.renderDropdownItem()}</DropdownMenu>
                     </ButtonDropdown>
                 </InputGroupAddon>
-                {!this.props.first ? <Input type="text" name={this.props.name}
-                                            placeholder={this.props.placeholder} value={this.state.inputValue}
+                {!this.props.first ? <Input type="text" name={this.props.name} disabled={this.state.active.selected ? false : true}
+                                            placeholder={this.props.placeholder} value={this.state.text}
                                             onChange={this.onInputChange.bind(this)}/> : null}
                 <Button type="button" color="warning"
                         onClick={this.onItemDefault.bind(this)}><i className="fa fa-remove"/></Button>
