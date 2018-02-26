@@ -43,9 +43,7 @@ class FormActivity extends Component {
                 invites: {}
             },
             inviting: '',
-            conferencingList: [],
-            conferencing: false,
-            notification: false
+            conferencingList: []
         };
 
         this.loadInviteUsers = this.loadInviteUsers.bind(this);
@@ -64,7 +62,6 @@ class FormActivity extends Component {
 
     handleInputChange(event) {
         const activity = utilsHelper.inputChange(event, this.state.activity);
-        console.log(activity);
         this.setState({activity: activity});
     }
 
@@ -154,6 +151,66 @@ class FormActivity extends Component {
         return indents;
     }
 
+    addNotification() {
+        let activity = this.state.activity || [];
+        if (!activity.notifications) {
+            activity.notifications = [];
+        }
+
+        const notification = {
+            type: 'Email',
+            duration: 30,
+            unit: 'minutes'
+        };
+
+        activity.notifications.push(notification);
+        this.setState({activity: activity});
+    }
+
+    changeNotification() {
+
+    }
+
+    renderNotifications() {
+        let notifications = [];
+        for (let idx in this.state.activity.notifications) {
+            let notification = this.state.activity.notifications[idx];
+            notifications.push(
+                <InputGroup key={idx} className="notificationItem">
+                    <InputGroupAddon addonType="prepend">
+                        <ButtonDropdown isOpen={this.state['notifyType' + idx]}
+                                        toggle={() => {
+                                            this.setState({['notifyType' + idx]: !this.state['notifyType' + idx]});
+                                        }}>
+                            <DropdownToggle caret color="gray-200">{notification.type}</DropdownToggle>
+                            <DropdownMenu className={this.state['notifyType' + idx] ? "show" : ""}>
+                                <DropdownItem>Email</DropdownItem>
+                                <DropdownItem>Notification</DropdownItem>
+                            </DropdownMenu>
+                        </ButtonDropdown>
+                    </InputGroupAddon>
+                    <Input type="text" name="duration" value={notification.duration} onChange={this.changeNotification.bind(this)}/>
+                    <InputGroupAddon addonType="prepend">
+                        <ButtonDropdown isOpen={this.state['notifyUnit' + idx]}
+                                        toggle={() => {
+                                            this.setState({['notifyUnit' + idx]: !this.state['notifyUnit' + idx]});
+                                        }}>
+                            <DropdownToggle caret color="gray-200">{notification.unit}</DropdownToggle>
+                            <DropdownMenu className={this.state['notifyUnit' + idx] ? "show" : ""}>
+                                <DropdownItem>minutes</DropdownItem>
+                                <DropdownItem>hours</DropdownItem>
+                                <DropdownItem>days</DropdownItem>
+                                <DropdownItem>weeks</DropdownItem>
+                            </DropdownMenu>
+                        </ButtonDropdown>
+                    </InputGroupAddon>
+                </InputGroup>
+            );
+        }
+
+        return notifications;
+    }
+
     handleSubmit() {
 
     }
@@ -223,7 +280,10 @@ class FormActivity extends Component {
                                                    onChange={this.handleInputChange}/>
                             </FormGroup>
                             <FormGroup>
-                                <Button type="button" color="gray-200"><T>Add Notification</T></Button>
+                                <Button type="button" color="gray-200" onClick={this.addNotification.bind(this)}><T>Add Notification</T></Button>
+                                <div className="activityNotifications">
+                                    {this.renderNotifications()}
+                                </div>
                             </FormGroup>
                             <FormGroup>
                                 <Label><T>Description</T></Label>

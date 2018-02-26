@@ -23,3 +23,29 @@
     padding-top: 5px;
   }
 }
+
+.DateInputHelper {
+  input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    color: #3e515b;
+    background-color: #fff;
+    border: 1px solid #c2cfd6;
+    border-radius: 0;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+}
+
+.activityNotifications {
+  .notificationItem {
+    padding-top: 5px;
+
+    .form-control {
+      width: 65px;
+      flex: none;
+    }
+  }
+}
