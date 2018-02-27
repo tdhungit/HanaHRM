@@ -40,7 +40,8 @@ class FormActivity extends Component {
 
         this.state = {
             activity: {
-                invites: {}
+                invites: {},
+                notifications: []
             },
             inviting: '',
             conferencingList: []
@@ -152,11 +153,7 @@ class FormActivity extends Component {
     }
 
     addNotification() {
-        let activity = this.state.activity || [];
-        if (!activity.notifications) {
-            activity.notifications = [];
-        }
-
+        let activity = this.state.activity;
         const notification = {
             type: 'Email',
             duration: 30,
@@ -167,8 +164,25 @@ class FormActivity extends Component {
         this.setState({activity: activity});
     }
 
-    changeNotification() {
+    changeNotification(event) {
+        const target = event.target;
+        const nameArray = target.name.split('.');
+        const name = nameArray[0];
+        const idx = parseInt(nameArray[1]);
+        const value = target.value;
+        let activity = this.state.activity;
+        if (!activity.notifications[idx]) {
+            activity.notifications[idx] = {};
+        }
 
+        activity.notifications[idx][name] = value;
+        this.setState({activity: activity});
+    }
+
+    removeNotification(idx) {
+        let activity = this.state.activity;
+        delete activity.notifications[idx];
+        this.setState({activity: activity});
     }
 
     renderNotifications() {
@@ -184,12 +198,12 @@ class FormActivity extends Component {
                                         }}>
                             <DropdownToggle caret color="gray-200">{notification.type}</DropdownToggle>
                             <DropdownMenu className={this.state['notifyType' + idx] ? "show" : ""}>
-                                <DropdownItem>Email</DropdownItem>
-                                <DropdownItem>Notification</DropdownItem>
+                                <DropdownItem name={'type.' + idx} value="Email" onClick={this.changeNotification.bind(this)}>Email</DropdownItem>
+                                <DropdownItem name={'type.' + idx} value="Notification" onClick={this.changeNotification.bind(this)}>Notification</DropdownItem>
                             </DropdownMenu>
                         </ButtonDropdown>
                     </InputGroupAddon>
-                    <Input type="text" name="duration" value={notification.duration} onChange={this.changeNotification.bind(this)}/>
+                    <Input type="text" name={'duration.' + idx} value={notification.duration} idx={idx} onChange={this.changeNotification.bind(this)}/>
                     <InputGroupAddon addonType="prepend">
                         <ButtonDropdown isOpen={this.state['notifyUnit' + idx]}
                                         toggle={() => {
@@ -197,13 +211,14 @@ class FormActivity extends Component {
                                         }}>
                             <DropdownToggle caret color="gray-200">{notification.unit}</DropdownToggle>
                             <DropdownMenu className={this.state['notifyUnit' + idx] ? "show" : ""}>
-                                <DropdownItem>minutes</DropdownItem>
-                                <DropdownItem>hours</DropdownItem>
-                                <DropdownItem>days</DropdownItem>
-                                <DropdownItem>weeks</DropdownItem>
+                                <DropdownItem name={'unit.' + idx} value="minutes" onClick={this.changeNotification.bind(this)}>minutes</DropdownItem>
+                                <DropdownItem name={'unit.' + idx} value="hours" onClick={this.changeNotification.bind(this)}>hours</DropdownItem>
+                                <DropdownItem name={'unit.' + idx} value="days" onClick={this.changeNotification.bind(this)}>days</DropdownItem>
+                                <DropdownItem name={'unit.' + idx} value="weeks" onClick={this.changeNotification.bind(this)}>weeks</DropdownItem>
                             </DropdownMenu>
                         </ButtonDropdown>
                     </InputGroupAddon>
+                    <Button type="button" color="default" onClick={this.removeNotification.bind(this, idx)}><i className="fa fa-remove"/></Button>
                 </InputGroup>
             );
         }
@@ -212,7 +227,7 @@ class FormActivity extends Component {
     }
 
     handleSubmit() {
-
+        console.log(this.state.activity);
     }
 
     render() {
