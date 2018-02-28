@@ -55,7 +55,7 @@ class SEO extends Component {
             settings
         } = this.props;
 
-        let pageTitle = settings && settings['Systems:title'].value;
+        let pageTitle = settings && ((settings['Systems:title'] && settings['Systems:title'].value) || 'Penguin Platform');
 
         if (title) {
             pageTitle = title + ' | ' + pageTitle;

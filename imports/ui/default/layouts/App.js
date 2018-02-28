@@ -20,7 +20,7 @@ class App extends Component {
         const appProps = this.props;
         return (
             <Router>
-                <div className="PenguinHRM">
+                <div className="PenguinPlatform">
                     <Switch>
                         <Public exact path="/signup" component={Signup} {...appProps} />
                         <Public exact path="/login" component={Login} {...appProps} />

@@ -16,6 +16,6 @@ Meteor.startup(() => {
         }
 
         c.stop();
-        Meteor.defer(() => render(<App/>, document.getElementById('PenguinHRMApp')));
+        Meteor.defer(() => render(<App/>, document.getElementById('PenguinPlatformContainer')));
     });
 });

@@ -1,8 +1,8 @@
-# Penguin HRM
+# Penguin HRM built on Penguin Platform
 
-## Refer
-* Core UI template
+![alt text](./public/img/app/screenshot.png?raw=true "Penguin HRM")
 
+## Feature
 
 ## Install
 
@@ -18,3 +18,6 @@
 
 ### Run
 * meteor
+* http://localhost:3000/login
+* Click Register to create a user
+* http://localhost:3000/manager

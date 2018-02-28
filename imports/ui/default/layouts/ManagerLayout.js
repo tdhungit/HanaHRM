@@ -42,7 +42,7 @@ class ManagerLayout extends Component {
     render() {
         const appProps = this.props;
         return (
-            <div className="PenguinHRMManager app">
+            <div className="PenguinPlatformManager app">
                 <Header {...appProps}/>
                 <div className="app-body">
                     <AppNavigation {...appProps}/>
