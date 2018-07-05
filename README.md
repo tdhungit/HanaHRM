@@ -1,5 +1,7 @@
 # Penguin HRM built on Penguin Platform
 
+# I moved this project to: https://github.com/avoca-platform/Platform
+
 ![alt text](./public/img/app/screenshot.png?raw=true "Penguin HRM")
 
 ## Feature
